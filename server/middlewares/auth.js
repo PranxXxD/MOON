@@ -23,7 +23,6 @@ exports.adminCheck = async (req, res, next) => {
 
   const adminUser = await User.findOne({ email }).exec();
 
-  //check if admin or not ...
   if (adminUser.role !== "admin") {
     res.status(403).json({
       err: "Admin resource, Access denied",

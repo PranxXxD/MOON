@@ -9,7 +9,7 @@ const Register = ({ history }) => {
 
   useEffect(() => {
     if (user && user.token) history.push("/");
-  }, [user]);
+  }, [user, history]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +30,6 @@ const Register = ({ history }) => {
     setEmail("");
   };
 
-
   const registerForm = () => (
     <form onSubmit={handleSubmit}>
       <input
@@ -47,7 +46,6 @@ const Register = ({ history }) => {
       </button>
     </form>
   );
-
 
   return (
     <div className="container p-5">
