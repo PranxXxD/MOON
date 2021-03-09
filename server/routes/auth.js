@@ -9,7 +9,7 @@ const { createOrUpdateUser, currentUser } = require("../controllers/auth");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
 router.post("/current-user", authCheck, currentUser); //for user
-router.post("/current-admin", authCheck, adminCheck, currentUser); //for admin
+router.post("/current-admin", authCheck, adminCheck, currentUser); //for admin only
 
 
 module.exports = router;
