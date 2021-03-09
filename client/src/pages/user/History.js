@@ -9,6 +9,6 @@ const History = () => (
     </div>
   </div>
 );
-//history
+
 export default History;
 
