@@ -13,17 +13,35 @@ exports.create = async (req, res) => {
 };
 
 exports.list = async (req, res) => {
-  //
+  res.json(await Category.find({}).sort({ createdAt: -1 }).exec()); //method type 1
 };
 
 exports.read = async (req, res) => {
-  //
+  let category = await Category.findOne({ slug: req.params.slug }).exec(); // we can also give that
+  res.json(category);
 };
 
 exports.update = async (req, res) => {
-  //
+  const { name } = req.body;
+  try {
+    let category = await Category.findOneAndUpdate(
+      { slug: req.params.slug },
+      { name, slug: slugify(name) },
+      {new:true}
+    );
+    res.json(category);
+  } catch (err) {
+    res.status(404).send("Category update error");
+    console.log(err);
+  }
 };
 
 exports.remove = async (req, res) => {
-  //
+  try {
+    const deleted = await Category.findOneAndDelete({ slug: req.params.slug });
+    res.json(deleted);
+  } catch (err) {
+    res.status(404).send("Category delete error");
+    console.log(err);
+  }
 };
