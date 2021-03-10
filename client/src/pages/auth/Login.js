@@ -14,13 +14,13 @@ const Login = ({ history }) => {
   let dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  const roleBasedRedirect = (res) => {
-    if (res.data.role === "admin") {
-      history.push("/admin/dashboard");
-    } else {
-      history.push("/user/history");
-    }
-  };
+  // const roleBasedRedirect = (res) => {
+  //   if (res.data.role === "admin") {
+  //     history.push("/admin/dashboard");
+  //   } else {
+  //     history.push("/user/history");
+  //   }
+  // };
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -49,7 +49,7 @@ const Login = ({ history }) => {
               _id: res.data._id,
             },
           });
-          roleBasedRedirect(res);
+          // roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
 
@@ -80,7 +80,7 @@ const Login = ({ history }) => {
                 _id: res.data._id,
               },
             });
-            roleBasedRedirect(res);
+            // roleBasedRedirect(res);
           })
           .catch((err) => console.log(err));
         // history.push("/");
