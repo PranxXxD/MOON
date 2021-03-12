@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
+import LocalSearch from "../../../components/forms/LocalSearch"
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -18,7 +19,6 @@ const CategoryCreate = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
 
-  //step 1 of search
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
@@ -67,13 +67,8 @@ const CategoryCreate = () => {
     }
   };
 
-  //step 3
-  const handleSearchChange = (e) => {
-    e.preventDefault();
-    setKeyword(e.target.value.toLowerCase());
-  };
+  
 
-//step 4
 const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
@@ -93,17 +88,8 @@ const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
             name={name}
             setName={setName}
           />
-          <hr />
-          {/* step 2 of search */}
-          <input
-            type="search"
-            placeholder="Search"
-            onChange={handleSearchChange}
-            value={keyword}
-            className="form-control mb-4"
-          />
-          <hr />
-          {/* step 5 */}
+          <hr />          
+          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
           {categories.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
               {c.name}
