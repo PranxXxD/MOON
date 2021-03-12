@@ -24,12 +24,12 @@ exports.read = async (req, res) => {
 exports.update = async (req, res) => {
   const { name } = req.body;
   try {
-    let category = await Category.findOneAndUpdate(
+    let updated = await Category.findOneAndUpdate(
       { slug: req.params.slug },
       { name, slug: slugify(name) },
       {new:true}
     );
-    res.json(category);
+    res.json(updated);
   } catch (err) {
     res.status(404).send("Category update error");
     console.log(err);
