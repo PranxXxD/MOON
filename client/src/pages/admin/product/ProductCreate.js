@@ -22,6 +22,7 @@ const initialState = {
 
 const ProductCreate = () => {
   const [values, setValues] = useState(initialState);
+  const { user } = useSelector((state) => ({ ...state }));
 
   // destructure
   const {
@@ -42,11 +43,19 @@ const ProductCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //
+    createProduct(values, user.token)
+      .then((res) => {
+        console.log(res);
+        toast.success("Product Created Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 400) toast.error(err.response.data);
+      });
   };
 
   const handleChange = (e) => {
-    //
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   return (
