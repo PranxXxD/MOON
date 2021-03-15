@@ -76,6 +76,7 @@ const ProductCreate = () => {
 
           <ProductCreateForm
             handleSubmit={handleSubmit}
+            setValues={setValues}
             handleChange={handleChange}
             values={values}
             handleCategoryChange={handleCategoryChange}
