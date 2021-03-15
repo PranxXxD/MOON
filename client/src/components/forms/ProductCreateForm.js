@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductCreateForm = ({ handleSubmit, handleChange, values , handleCategoryChange}) => {
+const ProductCreateForm = ({ handleSubmit, handleChange, values , handleCategoryChange, subOptions,showSub}) => {
   // destructure
   const {
     title,
