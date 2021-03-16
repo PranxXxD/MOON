@@ -6,6 +6,8 @@ import { createProduct } from "../../../functions/product";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
+import { LoadingOutlined } from "@ant-design/icons";
+
 const initialState = {
   title: "",
   descriptioin: "",
@@ -77,7 +79,8 @@ const ProductCreate = () => {
           <h4>Product create</h4>
           <hr />
 
-          {JSON.stringify(values.images)}
+          {/* {JSON.stringify(values.images)} */}
+          {loading ? <LoadingOutlined className="text-danger h2" /> : ""}
 
           <div className="p-3">
             <FileUpload
