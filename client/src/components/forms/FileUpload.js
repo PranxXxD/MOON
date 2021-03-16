@@ -3,13 +3,16 @@ import Resizer from "react-image-file-resizer";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const FileUpload = () => {
+const FileUpload = ({ values, setValues, setLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
   const fileUploadAndResize = (e) => {
     // console.log(e.target.files);
     //resize
     let files = e.target.files;
+    let allUploadedFiles = values.images;
+
     if (files) {
+      setLoading(true);
       for (let i = 0; i < files.length; i++) {
         Resizer.imageFileResizer(
           files[i],
@@ -19,7 +22,30 @@ const FileUpload = () => {
           100,
           0,
           (url) => {
-            console.log(url);
+            // console.log(url);
+            axios
+              .post(
+                `${process.env.REACT_APP_API}/uploadimages`,
+                {
+                  image: url,
+                },
+                {
+                  headers: {
+                    authtoken: user ? user.token : "",
+                  },
+                }
+              )
+              .then((res) => {
+                console.log("IMAGE UPLOAD RES DATA", res);
+                setLoading(true);
+                allUploadedFiles.push(res.data);
+
+                setValues({ ...values, images: allUploadedFiles });
+              })
+              .catch((err) => {
+                setLoading(false);
+                console.log("CLOUDINARY UPLOAD ERR", err);
+              });
           },
           "base64"
         );
