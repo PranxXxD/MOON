@@ -110,6 +110,7 @@ const ProductCreateForm = ({
           ))}
         </select>
       </div>
+      
       <div className="form-group">
         <label>Category</label>
         <select
