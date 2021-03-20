@@ -28,6 +28,8 @@ const ProductUpdate = ({ match }) => {
   const [values, setValues] = useState(initialState);
   const [categories, setCategories] = useState([]);
   const [subOptions, setSubOptions] = useState([]);
+  const [arrayOfSubs, setArrayOfSubs] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const { user } = useSelector((state) => ({ ...state }));
   // router
@@ -40,8 +42,22 @@ const ProductUpdate = ({ match }) => {
 
   const loadProduct = () => {
     getProduct(slug).then((p) => {
-      // console.log("single product", p);
+      console.log("single product", p);
+      // 1 load single proudct
       setValues({ ...values, ...p.data });
+      // 2 load single product category subs
+      getCategorySubs(p.data.category._id).then((res) => {
+        console.log("cate data", res.data);
+        setSubOptions(res.data); // on first load, show default subs
+      });
+      // .catch((err) => console.log(err));
+      // 3 prepare array of sub ids to show as default sub values in antd Select
+      let arr = [];
+      p.data.subs.map((s) => {
+        arr.push(s._id);
+      });
+      console.log("ARR", arr);
+      setArrayOfSubs((prev) => arr); // required for ant design select to work
     });
   };
 
@@ -64,11 +80,22 @@ const ProductUpdate = ({ match }) => {
   const handleCategoryChange = (e) => {
     e.preventDefault();
     console.log("CLICKED CATEGORY", e.target.value);
-    setValues({ ...values, subs: [], category: e.target.value });
+    setValues({ ...values, subs: [] });
+
+    setSelectedCategory(e.target.value);
     getCategorySubs(e.target.value).then((res) => {
       console.log("SUB OPTIONS ON CATGORY CLICK", res);
       setSubOptions(res.data);
     });
+
+    //if user clicks back to the same category
+    //show its sub categories in default
+    if (values.category._id === e.target.value) {
+      loadProduct();
+    }
+
+    //clear old sub categories
+    setArrayOfSubs([]);
   };
 
   return (
@@ -90,6 +117,10 @@ const ProductUpdate = ({ match }) => {
             handleCategoryChange={handleCategoryChange}
             categories={categories}
             subOptions={subOptions}
+            setSubOptions={setSubOptions}
+            arrayOfSubs={arrayOfSubs}
+            setArrayOfSubs={setArrayOfSubs}
+            selectedCategory={selectedCategory}
           />
           <hr />
         </div>
