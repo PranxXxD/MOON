@@ -47,7 +47,7 @@ const ProductUpdate = ({ match }) => {
 
   const loadCategories = () =>
     getCategories().then((c) => {
-      setValues({ ...values, categories: c.data });
+      console.log("GET CATEGORIES IN UPDATE PRODUCT", c.data);
       setCategories(c.data);
     });
 
@@ -63,10 +63,10 @@ const ProductUpdate = ({ match }) => {
 
   const handleCategoryChange = (e) => {
     e.preventDefault();
-    console.log("Clicked Category", e.target.value);
+    console.log("CLICKED CATEGORY", e.target.value);
     setValues({ ...values, subs: [], category: e.target.value });
     getCategorySubs(e.target.value).then((res) => {
-      console.log("SUB OPTIONS ON CATEGORY CLICK", res);
+      console.log("SUB OPTIONS ON CATGORY CLICK", res);
       setSubOptions(res.data);
     });
   };

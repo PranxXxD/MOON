@@ -71,7 +71,6 @@ const ProductUpdateForm = ({
           className="form-control"
           onChange={handleChange}
         >
-          <option>Please select</option>
           <option value="No">No</option>
           <option value="Yes">Yes</option>
         </select>
@@ -91,7 +90,7 @@ const ProductUpdateForm = ({
       <div className="form-group">
         <label>Color</label>
         <select
-          value={values.color}
+          value={color}
           name="color"
           className="form-control"
           onChange={handleChange}
@@ -107,7 +106,7 @@ const ProductUpdateForm = ({
       <div className="form-group">
         <label>Brand</label>
         <select
-          value={values.brand}
+          value={brand}
           name="brand"
           className="form-control"
           onChange={handleChange}
