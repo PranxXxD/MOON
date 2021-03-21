@@ -1,5 +1,5 @@
 import React from "react";
-import Jumbotron from "typewriter-effect";
+import TypeWriter from "typewriter-effect";
 
 const Jumbotron = ({ text }) => (
   <TypeWriter

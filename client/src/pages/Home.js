@@ -23,7 +23,7 @@ const Home = () => {
   };
   return (
     <>
-      <div className="jumbotron text-center">
+      <div className="jumbotron text-danger h1 font-weight-bold text-center">
         <Jumbotron text={["Latest Arrivals","New Arrivals","Best Sellers"]}/>
       </div>
 
