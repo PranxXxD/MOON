@@ -23,9 +23,7 @@ const ProductCard = ({ product }) => {
           <EyeOutlined className="text-warning" /> <br /> View Produt
         </Link>,
         <>
-          <ShoppingCartOutlined
-            className="text-danger"
-          />
+          <ShoppingCartOutlined className="text-danger" />
           <br /> Add to Cart
         </>,
       ]}
