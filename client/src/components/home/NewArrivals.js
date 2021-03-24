@@ -42,6 +42,7 @@ const NewArrivals = () => {
           </div>
         )}
       </div>
+      
       <div className="row">
         <nav className="col-md-4 offset-md-4 text-center pt-5 p-2">
           <Pagination
