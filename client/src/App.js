@@ -88,7 +88,7 @@ const App = () => {
           path="/admin/products/:slug"
           component={ProductUpdate}
         />
-        <AdminRoute exact path="/product/:slug" component={Product} />
+        <Route exact path="/product/:slug" component={Product} />
       </Switch>
     </>
   );
