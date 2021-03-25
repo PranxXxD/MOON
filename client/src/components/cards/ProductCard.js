@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
-  const { title, description, images, slug } = product;
-
+  // destructure
+  const { images, title, description, slug } = product;
   return (
     <Card
       cover={
@@ -20,11 +20,10 @@ const ProductCard = ({ product }) => {
       }
       actions={[
         <Link to={`/product/${slug}`}>
-          <EyeOutlined className="text-warning" /> <br /> View Produt
+          <EyeOutlined className="text-warning" /> <br /> View Product
         </Link>,
         <>
-          <ShoppingCartOutlined className="text-danger" />
-          <br /> Add to Cart
+          <ShoppingCartOutlined className="text-danger" /> <br /> Add to Cart
         </>,
       ]}
     >
@@ -35,4 +34,5 @@ const ProductCard = ({ product }) => {
     </Card>
   );
 };
+
 export default ProductCard;
