@@ -31,7 +31,7 @@ const Product = ({ match }) => {
     // console.table(newRating, name);
     productStar(name, newRating, user.token).then((res) => {
       console.log("Rating clicked", res.data);
-      // loadSingleProduct();
+      loadSingleProduct();
     });
   };
 
