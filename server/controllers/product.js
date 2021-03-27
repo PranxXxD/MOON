@@ -167,5 +167,5 @@ exports.listRelated = async (req, res) => {
     .populate("postedBy")
     .exec();
 
-  res.josn(related);
+  res.json(related);
 };
