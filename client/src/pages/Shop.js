@@ -58,7 +58,6 @@ const Shop = () => {
   }, [ok]);
 
   const handleSlider = (value) => {
-    setCategoryIds([]);
     setPrice(value);
     setTimeout(() => {
       setOk(!ok);
