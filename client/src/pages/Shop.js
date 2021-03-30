@@ -4,6 +4,7 @@ import {
   fetchProductsByFilter,
 } from "../functions/product";
 import { getCategories } from "../functions/category";
+import { getSubs } from "../functions/sub";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
 import { Menu, Slider, Checkbox } from "antd";
@@ -24,6 +25,8 @@ const Shop = () => {
   const [categories, setCategories] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
   const [star, setStar] = useState([]);
+  const [subs, setSubs] = useState([]);
+  const [sub, setSub] = useState([]);
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -33,6 +36,8 @@ const Shop = () => {
     loadAllProducts();
     // fetch categories
     getCategories().then((res) => setCategories(res.data));
+    // fetch sub categories
+    getSubs().then((res) => setSubs(res.data));
   }, []);
 
   const fetchProducts = (arg) => {
@@ -125,6 +130,25 @@ const Shop = () => {
     </div>
   );
 
+  //6. load products based on sub categories
+  const handleSub = (sub) => {
+    // console.log("sub", sub);
+    setSub(sub);
+    fetchProducts({ sub });
+  };
+
+  const showSubs = () =>
+    subs.map((s) => (
+      <div
+        key={s._id}
+        onClick={() => handleSub(s)}
+        className="p-1 m-1 badge badge-secondary"
+        style={{ cursor: "pointer" }}
+      >
+        {s.name}
+      </div>
+    ));
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -132,7 +156,7 @@ const Shop = () => {
           <h4>Search/Filter</h4>
           <hr />
 
-          <Menu defaultOpenKeys={["1", "2", "3"]} mode="inline">
+          <Menu defaultOpenKeys={["1", "2", "3", "4"]} mode="inline">
             {/* price */}
             <SubMenu
               key="1"
@@ -176,6 +200,20 @@ const Shop = () => {
               }
             >
               <div style={{ marginTop: "-10px" }}>{showStars()}</div>
+            </SubMenu>
+
+            {/* sub category */}
+            <SubMenu
+              key="4"
+              title={
+                <span className="h6">
+                  <DownSquareOutlined /> Sub Categories
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-10px" }} className="pl-4 pr-4">
+                {showSubs()}
+              </div>
             </SubMenu>
           </Menu>
         </div>
