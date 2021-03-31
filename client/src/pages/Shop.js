@@ -203,6 +203,8 @@ const Shop = () => {
     fetchProducts({ color: e.target.value });
   };
 
+  //9. show products based on shipping but i am not doing it
+
   return (
     <div className="container-fluid">
       <div className="row">
