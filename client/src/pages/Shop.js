@@ -35,6 +35,14 @@ const Shop = () => {
     "ASUS",
   ]);
   const [brand, setBrand] = useState("");
+  const [colors, setColors] = useState([
+    "Black",
+    "Brown",
+    "Silver",
+    "White",
+    "Blue",
+  ]);
+  const [color, setColor] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -157,7 +165,7 @@ const Shop = () => {
       </div>
     ));
 
-  //show products based on Brands
+  //7. show products based on Brands
   const showBrands = () =>
     brands.map((b) => (
       <Radio
@@ -176,6 +184,25 @@ const Shop = () => {
     fetchProducts({ brand: e.target.value });
   };
 
+  //8. Show products based on Colors
+  const showColors = () =>
+    colors.map((c) => (
+      <Radio
+        value={c}
+        name={c}
+        checked={c === color}
+        onChange={handleColor}
+        className="pb-1 pl-4 pr-4"
+      >
+        {c}
+      </Radio>
+    ));
+
+  const handleColor = (e) => {
+    setColor(e.target.value);
+    fetchProducts({ color: e.target.value });
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -183,7 +210,7 @@ const Shop = () => {
           <h4>Search/Filter</h4>
           <hr />
 
-          <Menu defaultOpenKeys={["1", "2", "3", "4", "5"]} mode="inline">
+          <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline">
             {/* price */}
             <SubMenu
               key="1"
@@ -254,6 +281,20 @@ const Shop = () => {
             >
               <div style={{ marginTop: "-10px" }} className="pr-5">
                 {showBrands()}
+              </div>
+            </SubMenu>
+
+            {/* Colors */}
+            <SubMenu
+              key="6"
+              title={
+                <span className="h6">
+                  <DownSquareOutlined /> Colors
+                </span>
+              }
+            >
+              <div style={{ marginTop: "-10px" }} className="pr-5">
+                {showColors()}
               </div>
             </SubMenu>
           </Menu>
