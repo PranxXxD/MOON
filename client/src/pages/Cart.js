@@ -28,6 +28,7 @@ const Cart = () => {
           <th scope="col">Color</th>
           <th scope="col">Count</th>
           <th scope="col">Shipping</th>
+          <th scope="col">Remove</th>
         </tr>
       </thead>
       {cart.map((p) => (
