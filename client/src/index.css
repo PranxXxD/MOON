@@ -1,4 +1,9 @@
-.slide img, .card-image{
+.slide img,
+.card-image {
   height: 500px;
   object-fit: cover;
+}
+
+.pointer {
+  cursor: pointer;
 }

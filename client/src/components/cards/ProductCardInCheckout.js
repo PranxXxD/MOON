@@ -2,7 +2,12 @@ import React from "react";
 import ModalImage from "react-modal-image";
 import laptop from "../../images/laptop.jpg";
 import { useDispatch } from "react-redux";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 
 const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
@@ -36,6 +41,7 @@ const ProductCardInCheckout = ({ p }) => {
       toast.error(`Maximum Available quantity : ${p.quantity}`);
       return;
     }
+
     let cart = [];
     if (typeof window !== "undefined") {
       if (localStorage.getItem("cart")) {
@@ -55,6 +61,29 @@ const ProductCardInCheckout = ({ p }) => {
       });
     }
   };
+
+  const handleRemove = () => {
+    // console.log(p._id, "to remove");
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+            cart.splice(i,1);
+        }
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      //dispatch
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
 
   return (
     <tbody>
@@ -97,8 +126,19 @@ const ProductCardInCheckout = ({ p }) => {
             onChange={handleQuantityChange}
           ></input>
         </td>
-        <td>Shipping</td>
-        <td>Delete Icon</td>
+        <td className="text-center">
+          {p.shipping === "Yes" ? (
+            <CheckCircleOutlined className="text-success" />
+          ) : (
+            <CloseCircleOutlined className="text-danger" />
+          )}
+        </td>
+        <td className="text-center">
+          <CloseOutlined
+            className="text-danger pointer"
+            onClick={() => handleRemove(p._id)}
+          />
+        </td>
       </tr>
     </tbody>
   );
