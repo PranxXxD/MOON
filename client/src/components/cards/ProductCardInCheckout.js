@@ -2,6 +2,7 @@ import React from "react";
 import ModalImage from "react-modal-image";
 import laptop from "../../images/laptop.jpg";
 import { useDispatch } from "react-redux";
+import {toast} from "react-toastify";
 
 const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
@@ -16,6 +17,33 @@ const ProductCardInCheckout = ({ p }) => {
       cart.map((product, i) => {
         if (product._id === p._id) {
           cart[i].color = e.target.value;
+        }
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      //dispatch
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
+  const handleQuantityChange = (e) => {
+    let count = e.target.value < 1 ? 1 : e.target.value;
+
+    if (count > p.quantity) {
+      toast.error(`Maximum Available quantity : ${p.quantity}`);
+      return;
+    }
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+          cart[i].count = count;
         }
       });
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -61,7 +89,14 @@ const ProductCardInCheckout = ({ p }) => {
               ))}
           </select>
         </td>
-        <td>{p.count}</td>
+        <td>
+          <input
+            type="number"
+            className="form-control"
+            value={p.count}
+            onChange={handleQuantityChange}
+          ></input>
+        </td>
         <td>Shipping</td>
         <td>Delete Icon</td>
       </tr>
