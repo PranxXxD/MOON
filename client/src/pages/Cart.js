@@ -69,13 +69,13 @@ const Cart = () => {
           {user ? (
             <button
               onClick={saveOrderToDb}
-              className="btn btn-sm btn-primary mt-2"
+              className="btn btn-sm btn-primary btn-raised mt-2"
               disabled={!cart.length}
             >
               Proceed to Checkout
             </button>
           ) : (
-            <button className="btn btn-sm btn-primary mt-2">
+            <button className="btn btn-sm btn-primary btn-raised mt-2">
               <Link
                 to={{
                   pathname: "/login",
