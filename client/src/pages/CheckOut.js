@@ -76,13 +76,13 @@ const Checkout = () => {
           <div key={i}>
             <p>
               {p.product.title} ({p.color}) x {p.count} ={" "}
-              {p.product.price * p.count}
+              ₹{p.product.price * p.count}
             </p>
           </div>
         ))}
         <p>List of products</p>
         <hr />
-        <p>Cart Total: {total}</p>
+        <p>Cart Total: ₹{total}</p>
 
         <div className="row">
           <div className="col-md-6">
