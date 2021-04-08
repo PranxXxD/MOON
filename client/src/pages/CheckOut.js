@@ -112,12 +112,13 @@ const Checkout = ({ history }) => {
         className="form-control"
         type="text"
         value={coupon}
+        placeholder="ENTER COUPON"
         onChange={(e) => {
           setCoupon(e.target.value);
           setDiscountError("");
         }}
       />
-      <button onClick={applyDiscountCoupon} className="btn btn-primary mt-2">
+      <button onClick={applyDiscountCoupon} className="btn btn-primary btn-raised mt-2">
         Apply
       </button>
     </>
@@ -131,11 +132,6 @@ const Checkout = ({ history }) => {
         <br />
         {showAddress()}
         <hr />
-        <h4>Got Coupon?</h4>
-        <br />
-        {showApplyCoupon()}
-        <br />
-        {discountError && <p className="text-danger p-2">{discountError}</p>}
       </div>
 
       <div className="col-md-6">
@@ -147,6 +143,12 @@ const Checkout = ({ history }) => {
         <p>List of products</p>
         <hr />
         <p>Cart Total: ₹{total}</p>
+        <div>
+          {showApplyCoupon()}
+          <br />
+          {discountError && <p className="text-danger p-2">{discountError}</p>}
+          <br/>
+        </div>
 
         {totalAfterDiscount > 0 && (
           <>
