@@ -118,7 +118,10 @@ const Checkout = ({ history }) => {
           setDiscountError("");
         }}
       />
-      <button onClick={applyDiscountCoupon} className="btn btn-primary btn-raised mt-2">
+      <button
+        onClick={applyDiscountCoupon}
+        className="btn btn-primary btn-raised mt-2"
+      >
         Apply
       </button>
     </>
@@ -147,13 +150,14 @@ const Checkout = ({ history }) => {
           {showApplyCoupon()}
           <br />
           {discountError && <p className="text-danger p-2">{discountError}</p>}
-          <br/>
+          <br />
         </div>
 
         {totalAfterDiscount > 0 && (
           <>
             <p className="bg-success p-2">
-              Discount Applied: Total Payable: ₹{totalAfterDiscount}
+              <strong>Discount Applied:</strong> <br />
+              Total Payable: ₹{totalAfterDiscount}
             </p>
           </>
         )}
