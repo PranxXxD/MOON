@@ -8,6 +8,7 @@ const SideDrawer = ({ children }) => {
   const dispatch = useDispatch();
   const { drawer, cart } = useSelector((state) => ({ ...state }));
 
+  //this is imagestyle
   const imageStyle = {
     width: "100%",
     height: "50px",
