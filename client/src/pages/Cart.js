@@ -31,7 +31,7 @@ const Cart = ({ history }) => {
           <th scope="col">Price</th>
           <th scope="col">Brand</th>
           <th scope="col">Color</th>
-          <th scope="col">Count</th>
+          <th scope="col">Quantity</th>
           <th scope="col">Shipping</th>
           <th scope="col">Remove</th>
         </tr>
