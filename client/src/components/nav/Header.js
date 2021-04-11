@@ -29,6 +29,8 @@ const Header = () => {
     setCurrent(e.key);
   };
 
+  //this is sixth day of wasting time, i dont enjoy this
+
   const logout = () => {
     firebase.auth().signOut();
     dispatch({

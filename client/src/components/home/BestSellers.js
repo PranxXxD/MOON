@@ -14,6 +14,7 @@ const BestSellers = () => {
     loadAllProducts();
   }, [page]);
 
+
   useEffect(() => {
     getProductsCount().then((res) => setProductsCount(res.data));
   }, []);
