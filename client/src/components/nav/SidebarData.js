@@ -1,19 +1,22 @@
 import React from 'react';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
+import * as RiIcons from 'react-icons/ri';
+import * as ImIcons from 'react-icons/im';
+import * as MdIcons from 'react-icons/md';
+import * as SiIcons from "react-icons/si";
+import * as FiIcons from "react-icons/fi";
 
 export const SidebarData = [
   {
     title: 'Dashboard',
     path: '/admin/dashboard',
-    icon: <AiIcons.AiFillHome />,
+    icon: <MdIcons.MdDashboard />,
     cName: 'nav-text'
   },
   {
     title: 'Product',
     path: '/admin/product',
-    icon: <IoIcons.IoIosPaper />,
+    icon: <FaIcons.FaProductHunt />,
     cName: 'nav-text'
   },
   {
@@ -25,25 +28,25 @@ export const SidebarData = [
   {
     title: 'Category',
     path: '/admin/category',
-    icon: <IoIcons.IoMdPeople />,
+    icon: <FiIcons.FiImage />,
     cName: 'nav-text'
   },
   {
     title: 'Sub Category',
     path: '/admin/sub',
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <ImIcons.ImImages />,
     cName: 'nav-text'
   },
   {
     title: 'Coupon',
     path: '/admin/coupon',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <RiIcons.RiCoupon3Line />,
     cName: 'nav-text'
   },
   {
     title: 'Password',
     path: '/user/password',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <SiIcons.Si1Password  />,
     cName: 'nav-text'
   }
 ];
