@@ -1,20 +1,37 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { UserData } from "./UserData";
+import "./Nav.css";
+import { IconContext } from "react-icons";
 
-const UserNav = () => (
-        <nav>
-            <ul className="nav flex-column">
-                <li className="nav-item">
-                    <Link to="/user/history" className="nav-link">History</Link>
+function Navbar() {
+  const [sidebar, setSidebar] = useState(false);
+
+  const showSidebar = () => setSidebar(!sidebar);
+
+  return (
+    <>
+      <IconContext.Provider value={{ color: "#fff" }}>
+        {/* <div className="navbar">
+          
+        </div> */}
+        <nav className="nav-menu active">
+          <ul className="nav-menu-items">
+            {UserData.map((item, index) => {
+              return (
+                <li key={index} className={item.cName}>
+                  <Link to={item.path}>
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </Link>
                 </li>
-                <li className="nav-item">
-                    <Link to="/user/password" className="nav-link">Password</Link>
-                </li>
-                <li className="nav-item">
-                    <Link to="/user/wishlist" className="nav-link">Wishlist</Link>
-                </li>
-            </ul>
+              );
+            })}
+          </ul>
         </nav>
-    )
+      </IconContext.Provider>
+    </>
+  );
+}
 
-export default UserNav
+export default Navbar;
