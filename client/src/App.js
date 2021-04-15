@@ -8,6 +8,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Header from "./components/nav/Header";
 import SideDrawer from "./components/drawer/SideDrawer";
+import Footer from "./components/footer";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
@@ -18,7 +19,7 @@ import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
 import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
-import SubCreate from "./pages/admin/sub/SubCreate"; 
+import SubCreate from "./pages/admin/sub/SubCreate";
 import SubUpdate from "./pages/admin/sub/SubUpdate";
 import ProductCreate from "./pages/admin/product/ProductCreate";
 import AllProducts from "./pages/admin/product/AllProducts";
@@ -72,6 +73,7 @@ const App = () => {
       <Header />
       <SideDrawer />
       <ToastContainer />
+
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
@@ -106,6 +108,7 @@ const App = () => {
         <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
         <UserRoute exact path="/payment" component={Payment} />
       </Switch>
+      <Footer />
     </>
   );
 };
