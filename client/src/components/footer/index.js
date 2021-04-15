@@ -52,11 +52,11 @@ const Footer = () => {
         <SocialMedia>
           <SocialMediaWrap>
             <SocialLogo to="/" onClick={toggleHome}>
-              dolla
+            MoonlightCraftStore
             </SocialLogo>
             <WebsiteRights>
               {" "}
-              dolla © {new Date().getFullYear()} All rights reserveed
+              MoonlightCraftStore © {new Date().getFullYear()} All rights reserveed
             </WebsiteRights>
             <SocialIcons>
               <SocialIconLink href="https://www.instagram.com/snobharath/" target="_blank" aria-label="Instagram">
