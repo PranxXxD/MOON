@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { createSub, getSubs, removeSub, getSub } from "../../../functions/sub";
+import { createSub, getSubs, removeSub } from "../../../functions/sub";
 import { getCategories } from "../../../functions/category";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -16,7 +16,7 @@ const SubCreate = () => {
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
-  const [subs,setSubs]=useState([]);
+  const [subs, setSubs] = useState([]);
 
   const [keyword, setKeyword] = useState("");
 
