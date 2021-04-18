@@ -15,7 +15,7 @@ import {
 } from "@ant-design/icons";
 import Star from "../components/forms/Star";
 
-const { SubMenu, ItemGroup } = Menu;
+const { SubMenu } = Menu;
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -54,7 +54,7 @@ const Shop = () => {
     getCategories().then((res) => setCategories(res.data));
     // fetch sub categories
     getSubs().then((res) => setSubs(res.data));
-  }, []);
+  },[]);
 
   const fetchProducts = (arg) => {
     fetchProductsByFilter(arg).then((res) => {
@@ -232,7 +232,7 @@ const Shop = () => {
                   range
                   value={price}
                   onChange={handleSlider}
-                  max="99999"
+                  max="999"
                 />
               </div>
             </SubMenu>

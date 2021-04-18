@@ -33,7 +33,7 @@ const ProductCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
   useEffect(() => {
     loadCategories();
-  }, []);
+  });
 
   const loadCategories = () =>
     getCategories().then((c) => setValues({ ...values, categories: c.data }));

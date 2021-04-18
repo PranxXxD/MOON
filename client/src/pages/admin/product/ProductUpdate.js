@@ -39,7 +39,7 @@ const ProductUpdate = ({ match, history }) => {
   useEffect(() => {
     loadProduct();
     loadCategories();
-  }, []);
+  });
 
   const loadProduct = () => {
     getProduct(slug).then((p) => {
