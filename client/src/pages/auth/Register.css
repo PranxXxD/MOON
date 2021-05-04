@@ -1,0 +1,13 @@
+.btn {
+    display: flex;
+    background-color:#004c3f;   
+    transition: 0.3s;
+    color: white;
+}
+
+.link{
+    color: whitesmoke;
+}
+.btn:hover{
+    background-color: green;
+}

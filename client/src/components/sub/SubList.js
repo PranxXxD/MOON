@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getSubs } from "../../functions/sub";
+import "./Sublist.css";
 
 const SubList = () => {
   const [subs, setSubs] = useState([]);
@@ -17,10 +18,10 @@ const SubList = () => {
   const showSubs = () =>
     subs.map((s) => (
       <div
-        className=" col btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
+        className="col btn btn-outlined-primary btn-lg btn-block btn-raised m-3"
         key={s._id}
       >
-        <Link to={`/sub/${s.slug}`}> {s.name}</Link>
+        <Link className="sublist__Category" to={`/sub/${s.slug}`}> {s.name}</Link>
       </div>
     ));
 

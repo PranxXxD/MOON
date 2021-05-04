@@ -5,17 +5,19 @@ export const FooterContainer = styled.div`
   background-color: #101522;
 `;
 export const FooterWrap = styled.div`
-  padding: 48px 24px;
+  padding: 80px 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 1000px;
+  margin: 2px auto;
+  height : 270px;
 `;
 export const FooterLinksContainer = styled.div`
   display: flex;
   justify-content: center;
+
 
   @media screen and (max-width: 820px) {
     padding-top: 32px;
@@ -74,7 +76,7 @@ export const SocialMediaWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 40px auto 0 auto;
 
   @media screen and (max-width: 820px) {

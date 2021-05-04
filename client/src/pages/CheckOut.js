@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "../Style/Checkout.css";
 
 const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
@@ -68,18 +69,15 @@ const Checkout = ({ history }) => {
       console.log("RES ON COUPON APPLIED", res.data);
       if (res.data) {
         setTotalAfterDiscount(res.data);
-
         // update redux coupon applied true/false
         dispatch({
           type: "COUPON_APPLIED",
           payload: true,
         });
       }
-
       // error
       if (res.data.err) {
         setDiscountError(res.data.err);
-
         // update redux coupon applied true/false
         dispatch({
           type: "COUPON_APPLIED",
@@ -151,7 +149,7 @@ const Checkout = ({ history }) => {
         <p>Cart Total: ₹{total}</p>
         <div>
           {showApplyCoupon()}
-          <br /> 
+          <br />
           {discountError && <p className="text-danger p-2">{discountError}</p>}
           <br />
         </div>
@@ -164,7 +162,7 @@ const Checkout = ({ history }) => {
             </p>
           </>
         )}
-``
+
         <div className="row">
           <div className="col-md-6">
             <button

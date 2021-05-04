@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import "./Register.css";
 
 const Register = ({ history }) => {
   const [email, setEmail] = useState("");

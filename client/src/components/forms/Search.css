@@ -1,0 +1,8 @@
+.form-control{
+    display: flex;
+    background-color: whitesmoke;
+    outline: none;
+    align-items: center;
+    border-radius: 5px;
+    flex: 0.7;
+}

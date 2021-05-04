@@ -67,7 +67,10 @@ const CategoryCreate = () => {
     }
   };
 
-  
+  const mystyle={
+    height: "400px",
+    width:"900px"
+  }
 
 const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
@@ -77,7 +80,7 @@ const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
         <div className="col-md-2">
           <AdminNav />
         </div>
-        <div className="col">
+        <div className="col_1" style={mystyle}>
           {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
@@ -95,12 +98,11 @@ const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
               {c.name}
               <span
                 onClick={() => handleRemove(c.slug)}
-                className="btn btn-sm float-right"
-              >
+                className="btn btn-sm mt-0 float-right">
                 <DeleteOutlined className="text-danger" />
               </span>
               <Link to={`/admin/category/${c.slug}`}>
-                <span className="btn btn-sm float-right">
+                <span className="btn btn-sm mt-0 float-right">
                   <EditOutlined className="text-warning" />
                 </span>
               </Link>

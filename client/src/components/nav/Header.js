@@ -14,7 +14,7 @@ import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Search from "../forms/Search";
-
+import "./Header.css";
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
@@ -39,8 +39,9 @@ const Header = () => {
     history.push("/login");
   };
 
+
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+    <Menu className="ant-menu-dark" onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       <Item key="home" icon={<AppstoreOutlined />}>
         <Link to="/">Home</Link>
       </Item>
@@ -52,7 +53,7 @@ const Header = () => {
       <Item key="cart" icon={<ShoppingCartOutlined />}>
         <Link to="/cart">
           <Badge count={cart.length} offset={[9, 0]}>
-            Cart
+            <p className="cart">Cart</p>
           </Badge>
         </Link>
       </Item>

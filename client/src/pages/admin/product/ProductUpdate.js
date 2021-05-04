@@ -113,8 +113,8 @@ const ProductUpdate = ({ match, history }) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
+    <div className="container-fluid" >
+      <div className="row"  >
         <div className="col-md-2">
           <AdminNav />
         </div>

@@ -1,0 +1,17 @@
+sublist__Category {
+    display: flex;
+    background-color:#004c3f;   
+    transition: 0.3s;
+    margin-top: 0px;
+}
+
+.sublist__Category{
+    color: white;
+}
+sublist__Category:hover{
+    background-color: green;
+}
+.sublist__Category:hover{
+   text-decoration: none;
+   color:black;
+}

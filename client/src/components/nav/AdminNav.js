@@ -15,8 +15,8 @@ function Navbar() {
         {/* <div className="navbar">
           
         </div> */}
-        <nav className="nav-menu active">
-          <ul className="nav-menu-items">
+        <nav className="nav-menu active" >
+          <ul className="nav-menu-items" >
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
