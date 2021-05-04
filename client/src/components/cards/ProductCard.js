@@ -17,18 +17,22 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = () => {
     //create array
+
     let cart = [];
     if (typeof window !== "undefined") {
       //if cart is already in local storage
+
       if (localStorage.getItem("cart")) {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
       //push new product to Cart
+
       cart.push({
         ...product,
         count: 1,
       });
       //remove duplicates
+
       let unique = _.uniqWith(cart, _.isEqual);
       //save to local storage
       console.log("unique", unique);
