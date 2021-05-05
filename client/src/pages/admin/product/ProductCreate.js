@@ -67,15 +67,17 @@ const ProductCreate = () => {
     });
     setShowSub(true);
   };
-
+const mystyle={
+  backgroundColor: "whitesmoke",
+}
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-2" style={mystyle}>
           <AdminNav />
         </div>
 
-        <div className="col-md-10">
+        <div className="col-md-10" style={mystyle}>
           <h4>Product create</h4>
           <hr />
 
