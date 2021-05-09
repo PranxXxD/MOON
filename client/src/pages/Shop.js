@@ -14,7 +14,6 @@ import {
   StarOutlined,
 } from "@ant-design/icons";
 import Star from "../components/forms/Star";
-import "../Style/Shop.css";
 
 const { SubMenu } = Menu;
 

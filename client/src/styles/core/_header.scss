@@ -63,6 +63,7 @@
     background-color: $white !important;
     justify-content: flex-end;
     padding: 0;
+    box-shadow: none;
 
     @include media-breakpoint-down(sm) {
       padding-top: 0;

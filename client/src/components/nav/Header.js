@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Badge } from "antd";
-
 import Button from "../Button";
 import { Link, NavLink as ActiveLink } from "react-router-dom";
 import {
@@ -23,10 +21,7 @@ import CartIcon from "../CartIcon";
 import { BarsIcon } from "../Icon";
 
 // import Search from "../forms/Search";
-=======
 import Search from "../forms/Search";
-import "./Header.css";
-const { SubMenu, Item } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
@@ -47,7 +42,6 @@ const Header = () => {
     });
     history.push("/login");
   };
-
 
   return (
     <header className="header fixed-mobile-header">
@@ -176,43 +170,7 @@ const Header = () => {
         <div
           className={isMenuOpen ? 'mini-menu-open' : 'hidden-mini-menu'}
           aria-hidden={`${isMenuOpen ? false : true}`}
-    <Menu className="ant-menu-dark" onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-      <Item key="home" icon={<AppstoreOutlined />}>
-        <Link to="/">Home</Link>
-      </Item>
-
-      <Item key="shop" icon={<ShoppingOutlined />}>
-        <Link to="/shop">Shop</Link>
-      </Item>
-
-      <Item key="cart" icon={<ShoppingCartOutlined />}>
-        <Link to="/cart">
-          <Badge count={cart.length} offset={[9, 0]}>
-            <p className="cart">Cart</p>
-          </Badge>
-        </Link>
-      </Item>
-
-      {!user && (
-        <Item key="register" icon={<UserAddOutlined />} className="float-right">
-          <Link to="/register">Register</Link>
-        </Item>
-      )}
-
-      {!user && (
-        <Item key="login" icon={<UserOutlined />} className="float-right">
-          <Link to="/login">Login</Link>
-        </Item>
-      )}
-
-      {user && (
-        <SubMenu
-          icon={<SettingOutlined />}
-          title={user.email && user.email.split("@")[0]}
-          className="float-right"
-        >
-          <div className='mini-menu'>
-            <Menu />
+  
             Menu
           </div>
           <div

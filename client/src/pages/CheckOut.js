@@ -9,7 +9,6 @@ import {
 import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import "../Style/Checkout.css";
 
 const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
