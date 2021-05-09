@@ -1,0 +1,14 @@
+.cart{
+    color:rgb(189, 185, 185);
+}
+
+.cart:hover{
+    color: white;
+}
+
+.ant-menu{
+    background-color: cadetblue;
+    position: sticky;
+}
+
+ 

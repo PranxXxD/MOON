@@ -48,6 +48,7 @@ import Payment from "./pages/Payment";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
+ 
 
 const App = () => {
   const dispatch = useDispatch();

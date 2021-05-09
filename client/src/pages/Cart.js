@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
 import {userCart} from "../functions/user"
+import "../Style/Cart.css";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -44,21 +45,21 @@ const Cart = ({ history }) => {
 
   return (
     <div className="container-fluid pt-2">
-      <div className="row">
+      <div className="row" style={{height:"500px"}}>
         <div className="col-md-8">
-          <h4>Cart / {cart.length}</h4>
+          <h4 className="h_4">Cart / {cart.length}</h4>
           {!cart.length ? (
-            <p>
-              No products in cart. <Link to="/shop">Continue Shopping</Link>
+            <p className="h_4">
+              No products in cart. <Link  to="/shop">Continue Shopping</Link>
             </p>
           ) : (
             showCartItems()
           )}
         </div>
         <div className="col-md-4">
-          <h4>Order Summary</h4>
+          <h4 className="h_4">Order Summary</h4>
           <hr />
-          <p>Products</p>
+          <p className="h_4">Products</p>
           {cart.map((c, i) => (
             <div key={i}>
               <p>
@@ -74,19 +75,19 @@ const Cart = ({ history }) => {
           {user ? (
             <button
               onClick={saveOrderToDb}
-              className="btn btn-sm btn-primary btn-raised mt-2"
+              className="btn"
               disabled={!cart.length}
             >
               Proceed to Checkout
             </button>
           ) : (
-            <button className="btn btn-sm btn-primary btn-raised mt-2">
-              <Link
+            <button className="btn">
+              <Link className="link"
                 to={{
                   pathname: "/login",
                   state: { from: "cart" },
                 }}
-              >
+                >
                 Login to Checkout
               </Link>
             </button>
