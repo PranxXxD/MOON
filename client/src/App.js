@@ -3,6 +3,18 @@ import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// // Import application sass styles
+import "./styles/style.scss";
+
+// Import Font Awesome Icons Set
+import "font-awesome/css/font-awesome.min.css";
+
+// Import Simple Line Icons Set
+import "simple-line-icons/css/simple-line-icons.css";
+
+//react-bootstrap-table2 styles
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
