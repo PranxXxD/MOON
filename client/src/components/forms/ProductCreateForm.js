@@ -1,6 +1,5 @@
 import React from "react";
 import { Select } from "antd";
-import "./ProductCreateForm.css";
 const { Option } = Select;
 
 const ProductCreateForm = ({

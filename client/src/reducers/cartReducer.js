@@ -17,3 +17,5 @@ export const cartReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+//this is a reducer

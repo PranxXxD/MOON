@@ -1,9 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { SearchOutlined } from "@ant-design/icons";
-import "./Search.css";
-
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -25,7 +22,7 @@ const Search = () => {
   };
 
   return (
-    <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
+    <form className="form-inline ml-2 my-1 my-lg-0" onSubmit={handleSubmit}>
      
       <input
         onChange={handleChange}
@@ -34,7 +31,6 @@ const Search = () => {
         className="form-control"
         placeholder="Search"
       />
-      <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} />
     </form>
   );
 };

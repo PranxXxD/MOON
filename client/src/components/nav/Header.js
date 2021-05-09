@@ -20,7 +20,6 @@ import { useHistory } from "react-router-dom";
 import CartIcon from "../CartIcon";
 import { BarsIcon } from "../Icon";
 
-// import Search from "../forms/Search";
 import Search from "../forms/Search";
 
 const Header = () => {
@@ -106,6 +105,9 @@ const Header = () => {
           >
             <Navbar color="light" light expand="md" className="mt-1 mt-md-0">
               <CartIcon className="d-none d-md-block" />
+              <span className="float-right p-1 ml-1 mr-1">
+              <Search />
+            </span>
               <Nav navbar>
                 <NavItem>
                   <NavLink tag={ActiveLink} to="/shop" activeClassName="active">
