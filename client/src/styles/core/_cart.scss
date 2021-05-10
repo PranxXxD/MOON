@@ -18,6 +18,10 @@
   }
 }
 
+.draw {
+  width: 35%;
+}
+
 // show hidden cart popup
 .mini-cart-open {
   .mini-cart {
@@ -75,6 +79,7 @@
 
       p {
         margin-bottom: 0;
+        padding-left: 10px;
       }
     }
   }

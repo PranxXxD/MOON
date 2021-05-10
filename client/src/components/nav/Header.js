@@ -94,7 +94,10 @@ const Header = () => {
           >
             <div className="header-links">
               <Button ariaLabel="open the menu" icon={<BarsIcon />} />
-              <CartIcon />
+              <CartIcon
+                cartItems={cart.length}
+                // onClick={toggleCart}
+              />
             </div>
           </Col>
           <Col
@@ -104,10 +107,10 @@ const Header = () => {
             lg={{ size: 9, order: 3 }}
           >
             <Navbar color="light" light expand="md" className="mt-1 mt-md-0">
-              <CartIcon className="d-none d-md-block" />
+              <CartIcon className="d-none d-md-block" cartItems={cart.length} />
               <span className="float-right p-1 ml-1 mr-1">
-              <Search />
-            </span>
+                <Search />
+              </span>
               <Nav navbar>
                 <NavItem>
                   <NavLink tag={ActiveLink} to="/shop" activeClassName="active">
@@ -151,24 +154,24 @@ const Header = () => {
         </Row>
       </Container>
 
-      {/* //hidden cart drawer
-        <div
-          className={isCartOpen ? 'mini-cart-open' : 'hidden-mini-cart'}
-          aria-hidden={`${isCartOpen ? false : true}`}
-        >
-          <div className='mini-cart'>
-            <Cart />
-            Cart
-          </div>
-          <div
-            className={
-              isCartOpen ? 'drawer-backdrop dark-overflow' : 'drawer-backdrop'
-            }
-            onClick={toggleCart}
-          />
+      {/* hidden cart drawer */}
+      {/* <div
+        className={isCartOpen ? "mini-cart-open" : "hidden-mini-cart"}
+        aria-hidden={`${isCartOpen ? false : true}`}
+      >
+        <div className="mini-cart">
+          <SideDrawer />
+          Cart
         </div>
+        <div
+          className={
+            isCartOpen ? "drawer-backdrop dark-overflow" : "drawer-backdrop"
+          }
+          onClick={toggleCart}
+        />
+      </div> */}
 
-        //hidden menu drawer
+      {/* //hidden menu drawer
         <div
           className={isMenuOpen ? 'mini-menu-open' : 'hidden-mini-menu'}
           aria-hidden={`${isMenuOpen ? false : true}`}
@@ -181,7 +184,7 @@ const Header = () => {
             }
             onClick={toggleMenu}
           />
-        </div> */}
+        </div>  */}
     </header>
   );
 };
