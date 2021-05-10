@@ -16,9 +16,9 @@
   background-color: $white;
   border-bottom: $border-primary;
   position: fixed;
-  z-index: 1000;
-  top: 0px;
   width: 100%;
+  z-index: 999;
+  top: 0;
 
   .logo {
     font-size: $font-size-heading-medium !important;

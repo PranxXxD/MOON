@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState("saipranayalishetty@gmail.com");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("bharathchippa49@gmail.com");
+  const [password, setPassword] = useState("Bharath11");
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -104,7 +104,7 @@ const Login = ({ history }) => {
   };
 
   const LoginForm = () => (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <div>
         <input
           type="email"

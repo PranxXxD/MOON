@@ -3,8 +3,11 @@ import { Switch, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// // Import application sass styles
+// Import application sass styles
 import "./styles/style.scss";
+
+//import body styles
+import "./styles/App.css";
 
 // Import Font Awesome Icons Set
 import "font-awesome/css/font-awesome.min.css";
@@ -15,10 +18,10 @@ import "simple-line-icons/css/simple-line-icons.css";
 //react-bootstrap-table2 styles
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 
+import Header from "./components/nav/Header";
 import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import Header from "./components/nav/Header";
 import SideDrawer from "./components/drawer/SideDrawer";
 import Footer from "./components/footer";
 import RegisterComplete from "./pages/auth/RegisterComplete";
@@ -48,7 +51,6 @@ import Payment from "./pages/Payment";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./functions/auth";
- 
 
 const App = () => {
   const dispatch = useDispatch();
