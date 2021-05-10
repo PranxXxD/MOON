@@ -10,6 +10,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import AdminNav from "../../../components/nav/AdminNav";
+import Button from "../../../components/Button";
 
 const CreateCouponPage = () => {
   const [name, setName] = useState("");
@@ -105,7 +106,7 @@ const CreateCouponPage = () => {
               />
             </div>
 
-            <button className="btn btn-outline-primary">Save</button>
+            <Button variant="primary" className="btn" text="Save" />
           </form>
 
           <br />

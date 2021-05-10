@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch"
+import Button from "../../../components/Button"
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -67,11 +68,6 @@ const CategoryCreate = () => {
     }
   };
 
-  const mystyle={
-    height: "400px",
-    width:"900px"
-  }
-
 const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
@@ -80,7 +76,7 @@ const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
         <div className="col-md-2">
           <AdminNav />
         </div>
-        <div className="col_1" style={mystyle}>
+        <div className="col_1" >
           {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (

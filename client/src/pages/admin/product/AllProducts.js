@@ -44,18 +44,15 @@ const AllProducts = () => {
         });
     }
   };
-const mystyle={
-  height: "700px",
-  backgroundColor: "#eddbdb",
-}
+
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2" style={mystyle}>
+        <div className="col-md-2">
           <AdminNav />
         </div>
-        <div className="col" style={mystyle}>
-          <h4 style={{marginLeft: "550px"}}>All Products</h4>
+        <div className="col">
+          <h4 style={{ marginLeft: "550px" }}>All Products</h4>
           <div className="row">
             {products.map((product) => (
               <div className="col-md-4 pb-3" key={product._id}>

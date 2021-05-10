@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import "./Register.css";
+import Button from "../../components/Button";
 
 const Register = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -42,9 +42,7 @@ const Register = ({ history }) => {
         placeholder="enter your email"
       />
       <br></br>
-      <button type="submit" className="btn btn-raised">
-        Register
-      </button>
+      <Button type="submit" text="Register" variant="primary" className="btn" />
     </form>
   );
 

@@ -3,6 +3,7 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { Spin } from "antd";
+import Button from "../../components/Button";
 
 const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -55,9 +56,12 @@ const ForgotPassword = ({ history }) => {
           autoFocus
         ></input>
         <br></br>
-        <button className="btn btn-raised" disabled={!email}>
-          Submit
-        </button>
+        <Button
+          variant="primary"
+          className="btn"
+          disabled={!email}
+          text="Submit"
+        />
       </form>
     </div>
   );

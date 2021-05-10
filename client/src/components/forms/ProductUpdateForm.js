@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import Button from "../Button";
 
 const { Option } = Select;
 
@@ -14,7 +15,7 @@ const ProductUpdateForm = ({
   setSubOptions,
   setArrayOfSubs,
   arrayOfSubs,
-  selectedCategory
+  selectedCategory,
 }) => {
   // destructure
   const {
@@ -141,25 +142,25 @@ const ProductUpdateForm = ({
       </div>
 
       <div>
-          <label>Sub Categories</label>
-          <Select
-            mode="multiple"
-            style={{ width: "100%" }}
-            placeholder="Please select"
-            value={arrayOfSubs}
-            onChange={(value) => setArrayOfSubs(value)}
-          >
-            {subOptions.length &&
-              subOptions.map((s) => (
-                <Option key={s._id} value={s._id}>
-                  {s.name}
-                </Option>
-              ))}
-          </Select>
-        </div>
+        <label>Sub Categories</label>
+        <Select
+          mode="multiple"
+          style={{ width: "100%" }}
+          placeholder="Please select"
+          value={arrayOfSubs}
+          onChange={(value) => setArrayOfSubs(value)}
+        >
+          {subOptions.length &&
+            subOptions.map((s) => (
+              <Option key={s._id} value={s._id}>
+                {s.name}
+              </Option>
+            ))}
+        </Select>
+      </div>
 
       <br />
-      <button className="btn btn-outline-info">Save</button>
+      <Button variant="primary" className="btn" text="Save" />
     </form>
   );
 };

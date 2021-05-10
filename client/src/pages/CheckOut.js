@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Button from "../components/Button";
 
 const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
@@ -89,9 +90,12 @@ const Checkout = ({ history }) => {
   const showAddress = () => (
     <>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
-      <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
-        Save
-      </button>
+      <Button
+      variant="primary"
+        className="btn btn-primary mt-2"
+        onClick={saveAddressToDb}
+        text="Save Address"
+      />
     </>
   );
 
@@ -118,12 +122,12 @@ const Checkout = ({ history }) => {
           setDiscountError("");
         }}
       />
-      <button
+      <Button
+      variant="primary"
         onClick={applyDiscountCoupon}
-        className="btn btn-primary btn-raised mt-2"
-      >
-        Apply
-      </button>
+        className="btn mt-2"
+        text="Apply"
+      ></Button>
     </>
   );
 
@@ -164,23 +168,23 @@ const Checkout = ({ history }) => {
 
         <div className="row">
           <div className="col-md-6">
-            <button
-              className="btn btn-primary btn-raised"
+            <Button
+            variant="primary"
+              className="btn"
               disabled={!addressSaved || !products.length}
               onClick={() => history.push("/payment")}
-            >
-              Place Order
-            </button>
+              text="Place Order"
+            />
           </div>
 
           <div className="col-md-6">
-            <button
+            <Button
+            variant="primary"
               disabled={!products.length}
               onClick={emptyCart}
-              className="btn btn-primary btn-raised"
-            >
-              Empty Cart
-            </button>
+              className="btn"
+              text="Empty Cart"
+            />
           </div>
         </div>
       </div>

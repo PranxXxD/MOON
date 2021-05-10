@@ -2,7 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
-import {userCart} from "../functions/user"
+import { userCart } from "../functions/user";
+import Button from "../components/Button";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -16,10 +17,12 @@ const Cart = ({ history }) => {
 
   const saveOrderToDb = () => {
     // console.log("cart", JSON.stringify(cart, null, 4));
-    userCart(cart,user.token).then(res=>{
-      console.log("Cart post response",res);
-      if(res.data.ok) history.push('/checkout')
-    }).catch((err) => console.log("save data error",err));
+    userCart(cart, user.token)
+      .then((res) => {
+        console.log("Cart post response", res);
+        if (res.data.ok) history.push("/checkout");
+      })
+      .catch((err) => console.log("save data error", err));
   };
 
   const showCartItems = () => (
@@ -44,12 +47,12 @@ const Cart = ({ history }) => {
 
   return (
     <div className="container-fluid pt-2">
-      <div className="row" style={{height:"500px"}}>
+      <div className="row" style={{ height: "500px" }}>
         <div className="col-md-8">
           <h4 className="h_4">Cart / {cart.length}</h4>
           {!cart.length ? (
             <p className="h_4">
-              No products in cart. <Link  to="/shop">Continue Shopping</Link>
+              No products in cart. <Link to="/shop">Continue Shopping</Link>
             </p>
           ) : (
             showCartItems()
@@ -72,24 +75,26 @@ const Cart = ({ history }) => {
           </h6>
           <hr />
           {user ? (
-            <button
+            <Button
+              variant="primary"
               onClick={saveOrderToDb}
               className="btn"
+              text="Proceed to Checkout"
               disabled={!cart.length}
             >
-              Proceed to Checkout
-            </button>
+            </Button>
           ) : (
-            <button className="btn">
-              <Link className="link"
+            <Button className="btn">
+              <Link
+                className="link"
                 to={{
                   pathname: "/login",
                   state: { from: "cart" },
                 }}
-                >
+              >
                 Login to Checkout
               </Link>
-            </button>
+            </Button>
           )}
         </div>
       </div>

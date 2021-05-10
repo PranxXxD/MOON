@@ -1,7 +1,8 @@
-import React from 'react'
+import React from "react";
+import Button from "../Button";
 
-const CategoryForms = ({handleSubmit,name,setName}) => (
-    <form onSubmit={handleSubmit}>
+const CategoryForms = ({ handleSubmit, name, setName }) => (
+  <form onSubmit={handleSubmit}>
     <div className="form-group">
       <label>Name</label>
       <input
@@ -13,11 +14,9 @@ const CategoryForms = ({handleSubmit,name,setName}) => (
         required
       />
       <br />
-      <button className="btn btn-outline-primary">Save</button>
+      <Button variant="primary" className="btn" text="Save" />
     </div>
   </form>
 );
 
-
-export default CategoryForms
-
+export default CategoryForms;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Select } from "antd";
+import Button from "../Button";
 const { Option } = Select;
 
 const ProductCreateForm = ({
@@ -29,7 +30,7 @@ const ProductCreateForm = ({
   } = values;
 
   return (
-    <form onSubmit={handleSubmit} style={{width:"800px"}}>
+    <form onSubmit={handleSubmit} style={{ width: "800px" }}>
       <div className="form-group">
         <label>Title</label>
         <input
@@ -110,7 +111,7 @@ const ProductCreateForm = ({
           ))}
         </select>
       </div>
-      
+
       <div className="form-group">
         <label>Category</label>
         <select
@@ -148,7 +149,7 @@ const ProductCreateForm = ({
         </div>
       )}
       <br />
-      <button className="btn">Save</button>
+      <Button variant="primary" className="btn" text="Save" />
     </form>
   );
 };
