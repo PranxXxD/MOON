@@ -10,8 +10,8 @@ import {
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
-import LocalSearch from "../../../components/forms/LocalSearch"
-import Button from "../../../components/Button"
+import LocalSearch from "../../../components/forms/LocalSearch";
+import Button from "../../../components/Button";
 
 const CategoryCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -68,7 +68,12 @@ const CategoryCreate = () => {
     }
   };
 
-const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
+  const mystyle = {
+    height: "400px",
+    width: "900px",
+  };
+
+  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
     <div className="container-fluid">
@@ -76,7 +81,7 @@ const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
         <div className="col-md-2">
           <AdminNav />
         </div>
-        <div className="col_1" >
+        <div className="col_1" style={mystyle}>
           {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
@@ -87,14 +92,15 @@ const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
             name={name}
             setName={setName}
           />
-          <hr />          
+          <hr />
           <LocalSearch keyword={keyword} setKeyword={setKeyword} />
           {categories.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
               {c.name}
               <span
                 onClick={() => handleRemove(c.slug)}
-                className="btn btn-sm mt-0 float-right">
+                className="btn btn-sm mt-0 float-right"
+              >
                 <DeleteOutlined className="text-danger" />
               </span>
               <Link to={`/admin/category/${c.slug}`}>
