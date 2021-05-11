@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Card, Tooltip } from "antd";
-import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import {
+  EyeOutlined,
+  ShoppingCartOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
 import laptop from "../../images/laptop.jpg";
 import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const { Meta } = Card;
 
@@ -59,31 +63,34 @@ const ProductCard = ({ product }) => {
       ) : (
         <div className="text-center pt-1 pb-3"> No Ratings yet</div>
       )}
-      <Card
-        cover={
-          <img
-            src={images && images.length ? images[0].url : laptop}
-            style={{ height: "150px", objectFit: "cover" }}
-            className="p-1"
+      <Link to={`product/${slug}`}>
+        <Card
+          style={{ cursor: "pointer" }}
+          cover={
+            <img
+              src={images && images.length ? images[0].url : laptop}
+              style={{ height: "150px", objectFit: "cover" }}
+              className="p-1"
+            />
+          }
+          actions={[
+            <Link to={``}>
+              <HeartOutlined className="text-danger" /> <br /> Add to Wishlist
+            </Link>,
+            <Tooltip title={tooltip}>
+              <a onClick={handleAddToCart}>
+                <ShoppingCartOutlined className="text-warning" /> <br /> Add to
+                Cart
+              </a>
+            </Tooltip>,
+          ]}
+        >
+          <Meta
+            title={`${title} Rs.${price}`}
+            description={`${description && description.substring(0, 40)}...`}
           />
-        }
-        actions={[
-          <Link to={`/product/${slug}`}>
-            <EyeOutlined className="text-warning" /> <br /> View Product
-          </Link>,
-          <Tooltip title={tooltip}>
-            <a onClick={handleAddToCart}>
-              <ShoppingCartOutlined className="text-danger" /> <br /> Add to
-              Cart
-            </a>
-          </Tooltip>,
-        ]}
-      >
-        <Meta
-          title={`${title} Rs.${price}`}
-          description={`${description && description.substring(0, 40)}...`}
-        />
-      </Card>
+        </Card>
+      </Link>
     </>
   );
 };
