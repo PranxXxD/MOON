@@ -19,14 +19,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import CartIcon from "../CartIcon";
 import { BarsIcon } from "../Icon";
-
 import Search from "../forms/Search";
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
 
-  let dispatch = useDispatch();
-  let { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+  const { user, cart } = useSelector((state) => ({ ...state }));
   let history = useHistory();
 
   const handleClick = (e) => {
@@ -40,6 +39,14 @@ const Header = () => {
       payload: null,
     });
     history.push("/login");
+  };
+
+  const handleAddToCart = () => {
+    // show cart items in side drawer
+    dispatch({
+      type: "SET_VISIBLE",
+      payload: true,
+    });
   };
 
   return (
@@ -107,7 +114,11 @@ const Header = () => {
             lg={{ size: 9, order: 3 }}
           >
             <Navbar color="light" light expand="md" className="mt-1 mt-md-0">
-              <CartIcon className="d-none d-md-block" cartItems={cart.length} />
+              <CartIcon
+                className="d-none d-md-block"
+                cartItems={cart.length}
+                onClick={handleAddToCart}
+              />
               <span className="float-right p-1 ml-1 mr-1">
                 <Search />
               </span>
