@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
+import "./productcard.css";
 
 const { Meta } = Card;
 
@@ -85,8 +86,18 @@ const ProductCard = ({ product }) => {
             </Tooltip>,
           ]}
         >
+          <div>
+            <p className="price">₹{price}</p>
+          </div>
           <Meta
-            title={`${title} Rs.${price}`}
+            title={
+              <span
+                className="ant-card-meta-title"
+                style={{ color: "#2962FF" }}
+              >
+                {title}
+              </span>
+            }
             description={`${description && description.substring(0, 40)}...`}
           />
         </Card>
