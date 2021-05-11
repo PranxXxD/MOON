@@ -18,10 +18,6 @@
   }
 }
 
-.draw {
-  width: 35%;
-}
-
 // show hidden cart popup
 .mini-cart-open {
   .mini-cart {
@@ -69,6 +65,7 @@
       .item-image {
         width: 80px;
         border-radius: $border-radius-default;
+        margin-right: 8px;
       }
 
       .icon-trash {
@@ -79,7 +76,6 @@
 
       p {
         margin-bottom: 0;
-        padding-left: 10px;
       }
     }
   }

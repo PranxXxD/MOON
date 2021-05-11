@@ -12,7 +12,7 @@ const SideDrawer = ({ children }) => {
 
   return (
     <Drawer
-    width={window.innerWidth > 900 ? 500 : window.innerWidth - 100}
+      width={window.innerWidth > 900 ? 500 : window.innerWidth - 60}
       title={`Cart / ${cart.length} Product`}
       placement="right"
       onClose={() => {
@@ -47,13 +47,6 @@ const SideDrawer = ({ children }) => {
                             {p.title}
                           </h1>
                         </div>
-                      </Col>
-                      <Col xs="3" className="text-right">
-                        <Button
-                          ariaLabel={`remove ${p.title} from cart`}
-                          icon={<i className="icon-trash" aria-hidden="true" />}
-                          // onClick={() => handleRemoveFromCart(item)}
-                        />
                       </Col>
                     </Row>
                     <Row className="mb-2 align-items-center">
