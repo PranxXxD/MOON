@@ -103,7 +103,7 @@ const Header = () => {
               <Button ariaLabel="open the menu" icon={<BarsIcon />} />
               <CartIcon
                 cartItems={cart.length}
-                // onClick={toggleCart}
+                onClick={handleAddToCart}
               />
             </div>
           </Col>

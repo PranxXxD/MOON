@@ -10,16 +10,9 @@ const SideDrawer = ({ children }) => {
   const dispatch = useDispatch();
   const { drawer, cart } = useSelector((state) => ({ ...state }));
 
-  //this is imagestyle
-  const imageStyle = {
-    width: "100%",
-    height: "50px",
-    objectFit: "cover",
-  };
-
   return (
     <Drawer
-      width="35%"
+    width={window.innerWidth > 900 ? 500 : window.innerWidth - 100}
       title={`Cart / ${cart.length} Product`}
       placement="right"
       onClose={() => {
