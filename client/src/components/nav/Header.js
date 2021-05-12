@@ -20,6 +20,7 @@ import { useHistory } from "react-router-dom";
 import CartIcon from "../CartIcon";
 import { BarsIcon } from "../Icon";
 import Search from "../forms/Search";
+import Logo from "./Logo";
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
@@ -87,8 +88,10 @@ const Header = () => {
                 ariaLabel="open the menu"
                 icon={<BarsIcon />}
               />
+              
               <Link to="/">
-                <h1 className="logo">MN</h1>
+              <Logo/>
+                {/* <h1 className="logo">MN</h1> */}
               </Link>
             </div>
           </Col>
