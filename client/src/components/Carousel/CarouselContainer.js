@@ -1,9 +1,8 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-
-import slider from "./images/slider.jpg";
-import power from "./images/power.jpg";
-import slider1 from "./images/slider1.jpg";
+import slider from "./images/1.jpg";
+import power from "./images/2.jpg";
+import slider1 from "./images/3.jpg";
 
 const CarouselContainer = () => {
   return (
