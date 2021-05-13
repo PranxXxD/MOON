@@ -64,28 +64,28 @@ const ProductCard = ({ product }) => {
       ) : (
         <div className="text-center pt-1 pb-3"> No Ratings yet</div>
       )}
-      <Link to={`product/${slug}`}>
-        <Card
-          style={{ cursor: "pointer" }}
-          cover={
-            <img
-              src={images && images.length ? images[0].url : laptop}
-              style={{ height: "150px", objectFit: "cover" }}
-              className="p-1"
-            />
-          }
-          actions={[
-            <Link to={``}>
-              <HeartOutlined className="text-danger" /> <br /> Add to Wishlist
-            </Link>,
-            <Tooltip title={tooltip}>
-              <a onClick={handleAddToCart}>
-                <ShoppingCartOutlined className="text-warning" /> <br /> Add to
-                Cart
-              </a>
-            </Tooltip>,
-          ]}
-        >
+      <Card
+        style={{ cursor: "pointer" }}
+        cover={
+          <img
+            src={images && images.length ? images[0].url : laptop}
+            style={{ height: "150px", objectFit: "cover" }}
+            className="p-1"
+          />
+        }
+        actions={[
+          <Link to={``}>
+            <HeartOutlined className="text-danger" /> <br /> Add to Wishlist
+          </Link>,
+          <Tooltip title={tooltip}>
+            <a onClick={handleAddToCart}>
+              <ShoppingCartOutlined className="text-warning" /> <br /> Add to
+              Cart
+            </a>
+          </Tooltip>,
+        ]}
+      >
+        <Link to={`product/${slug}`}>
           <div>
             <p className="price">₹{price}</p>
           </div>
@@ -100,8 +100,8 @@ const ProductCard = ({ product }) => {
             }
             description={`${description && description.substring(0, 40)}...`}
           />
-        </Card>
-      </Link>
+        </Link>
+      </Card>
     </>
   );
 };
