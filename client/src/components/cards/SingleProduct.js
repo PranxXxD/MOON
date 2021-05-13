@@ -14,6 +14,7 @@ import Button from "../Button";
 import { BagIcon } from "../Icon";
 import Input from "../Input";
 import { Carousel } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const { TabPane } = Tabs;
 
@@ -27,6 +28,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
     quantity,
     price,
     category,
+    subs,
   } = product;
   const [tooltip, setTooltip] = useState("Click to add");
   const [cartStatus, setCartStatus] = useState(false);
@@ -155,28 +157,24 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                       </Link>
                     </p>
                   )}
+                  {subs && (
+                    <p className="by">
+                      sub category:{" "}
+                      {subs.map((s) => (
+                        <Link
+                          key={s._id}
+                          to={`/sub/${s.slug}`}
+                          className="default-link"
+                        >
+                          {s.name}
+                        </Link>
+                      ))}
+                    </p>
+                  )}
                   <p className="item-desc">{description}</p>
                   <p className="price">₹{price}</p>
                 </div>
-                <div className="item-customize">
-                  <Input
-                    type={"number"}
-                    // error={shopFormErrors["quantity"]}
-                    label={"Quantity"}
-                    name={"quantity"}
-                    decimals={false}
-                    min={1}
-                    // max={product.inventory}
-                    placeholder={"Product Quantity"}
-                    // disabled={
-                    //   product.inventory <= 0 && !shopFormErrors["quantity"]
-                    // }
-                    // value={productShopData.quantity}
-                    // onInputChange={(name, value) => {
-                    //   productShopChange(name, value);
-                    // }}
-                  />
-                </div>
+
                 <div className="item-actions">
                   {cartStatus ? (
                     <Button
@@ -197,7 +195,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                       onClick={handleAddToCart}
                     />
                   )}
-                  <div className="mt-2">
+                  <div className="mt-5">
                     <RatingModal>
                       <StarRating
                         name={_id}
@@ -216,7 +214,8 @@ const SingleProduct = ({ product, onStarClick, star }) => {
         </Row>
         <Tabs type="card">
           <TabPane tab="More" key="1">
-            Call us at 7977789547 if you have any Queries regarding this product
+            Call us at +91 7977789547 if you have any Queries regarding this
+            product
           </TabPane>
           <TabPane tab="Description" key="2">
             {description && description}
