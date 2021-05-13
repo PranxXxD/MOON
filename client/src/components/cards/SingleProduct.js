@@ -30,6 +30,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
     category,
   } = product;
   const [tooltip, setTooltip] = useState("Click to add");
+  const [cartStatus, setCartStatus] = useState(false);
 
   //redux
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -56,6 +57,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 
       //show tooltip
       setTooltip("Added");
+      setCartStatus(true);
 
       //add to redux state
       dispatch({
@@ -67,6 +69,30 @@ const SingleProduct = ({ product, onStarClick, star }) => {
       dispatch({
         type: "SET_VISIBLE",
         payload: true,
+      });
+    }
+  };
+
+  const handleRemove = () => {
+    // console.log(p._id, "to remove");
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.map((product, i) => {
+        if (product._id === _id) {
+          cart.splice(i, 1);
+        }
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      setCartStatus(false);
+
+      //dispatch
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
       });
     }
   };
@@ -153,47 +179,31 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                   />
                 </div>
                 <div className="item-actions">
-                  {/* {itemsInCart.includes(product._id) ? ( */}
-                  <Button
-                    variant="primary"
-                    //   disabled={
-                    //     product.inventory <= 0 &&
-                    //     !shopFormErrors["quantity"]
-                    //   }
-                    text="Remove From Bag"
-                    className="bag-btn"
-                    icon={<BagIcon />}
-                    //   onClick={() => handleRemoveFromCart(product)}
-                  />
-                  {/* ) : ( */}
-                  <Button
-                    variant="primary"
-                    //   disabled={
-                    //     product.quantity <= 0 && !shopFormErrors["quantity"]
-                    //   }
-                    text="Add To Bag"
-                    className="bag-btn"
-                    icon={<BagIcon />}
-                    //   onClick={() => handleAddToCart(product)}
-                  />
-                  {/* )} */}
+                  {cartStatus ? (
+                    <Button
+                      variant="primary"
+                      disabled={quantity == 0}
+                      text="Remove From Bag"
+                      className="bag-btn"
+                      icon={<BagIcon />}
+                      onClick={() => handleRemove(_id)}
+                    />
+                  ) : (
+                    <Button
+                      variant="primary"
+                      disabled={quantity == 0}
+                      text="Add To Bag"
+                      className="bag-btn"
+                      icon={<BagIcon />}
+                      onClick={handleAddToCart}
+                    />
+                  )}
                 </div>
               </div>
             </div>
           </Col>
         </Row>
-        {/* <ProductReviews
-              reviewFormData={reviewFormData}
-              reviewFormErrors={reviewFormErrors}
-              reviews={reviews}
-              reviewsSummary={reviewsSummary}
-              reviewChange={reviewChange}
-              addReview={addProductReview}
-            /> */}
       </>
-      {/* ) : (
-          <NotFound message="no product found." />
-        )} */}
     </div>
   );
 };
