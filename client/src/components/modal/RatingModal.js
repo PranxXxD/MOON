@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { StarOutlined } from "@ant-design/icons";
 import { useHistory, useParams } from "react-router-dom";
+import Button from "../Button";
+import { ReviewIcon } from "../Icon";
 
 const RatingModal = ({ children }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -26,8 +28,11 @@ const RatingModal = ({ children }) => {
   return (
     <>
       <div onClick={handleModal}>
-        <StarOutlined className="text-danger" /> <br />{" "}
-        {user ? "Leave Rating" : "Login to Leave Rating"}
+        <Button
+          variant="primary"
+          text={user ? "Leave Rating" : "Login To Review"}
+          icon={<ReviewIcon />}
+        />
       </div>
       <Modal
         title="Leave Your Rating"

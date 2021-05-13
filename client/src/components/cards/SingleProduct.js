@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Card, Tabs, Tooltip } from "antd";
+import { Card, Tabs } from "antd";
 import { Link } from "react-router-dom";
-import { HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import laptop from "../../images/laptop.jpg";
 // import ProductListItems from "./ProductListItems";
@@ -198,11 +197,31 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                       onClick={handleAddToCart}
                     />
                   )}
+                  <div className="mt-2">
+                    <RatingModal>
+                      <StarRating
+                        name={_id}
+                        numberOfStars={5}
+                        rating={star}
+                        changeRating={onStarClick}
+                        isSelectable={true}
+                        starRatedColor="red"
+                      />
+                    </RatingModal>
+                  </div>
                 </div>
               </div>
             </div>
           </Col>
         </Row>
+        <Tabs type="card">
+          <TabPane tab="More" key="1">
+            Call us at 7977789547 if you have any Queries regarding this product
+          </TabPane>
+          <TabPane tab="Description" key="2">
+            {description && description}
+          </TabPane>
+        </Tabs>
       </>
     </div>
   );
