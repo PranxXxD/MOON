@@ -96,8 +96,8 @@ const ProductCardInCheckout = ({ p }) => {
         </td>
         <td>{p.title}</td>
         <td>₹{p.price}</td>
-        <td>{p.brand}</td>
-        <td>
+        {/* <td>{p.brand}</td> */}
+        {/* <td>
           <select
             onChange={handleColorChange}
             name="color"
@@ -116,7 +116,7 @@ const ProductCardInCheckout = ({ p }) => {
                 </option>
               ))}
           </select>
-        </td>
+        </td> */}
         <td>
           <input
             type="number"

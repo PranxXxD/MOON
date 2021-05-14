@@ -88,11 +88,11 @@ const Header = () => {
                 ariaLabel="open the menu"
                 icon={<BarsIcon />}
               />
-              
               <Link to="/">
-              <Logo/>
+                {/* <Logo/> */}
                 {/* <h1 className="logo">MN</h1> */}
               </Link>
+              MN
             </div>
           </Col>
           <Col
@@ -104,10 +104,7 @@ const Header = () => {
           >
             <div className="header-links">
               <Button ariaLabel="open the menu" icon={<BarsIcon />} />
-              <CartIcon
-                cartItems={cart.length}
-                onClick={handleAddToCart}
-              />
+              <CartIcon cartItems={cart.length} onClick={handleAddToCart} />
             </div>
           </Col>
           <Col
