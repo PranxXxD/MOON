@@ -182,10 +182,12 @@
 }
 
 .in-stock {
+  z-index: 1000;
   color: $primary-color;
 }
 
 .out-of-stock {
+  z-index: 1000;
   color: $theme-bright-red;
 }
 
