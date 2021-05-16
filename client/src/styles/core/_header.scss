@@ -1,7 +1,9 @@
 // header styles
+
 .header-info {
   padding: 10px 0px;
-  background-color: $theme-light-black;
+  // background-color: $theme-light-black;
+  background-color: #072E1F;
 
   .fa,
   span {
@@ -20,7 +22,7 @@
   z-index: 999;
   top: 0;
 
-  .logo {
+  .logoname {
     font-size: $font-size-heading-medium !important;
   }
 }

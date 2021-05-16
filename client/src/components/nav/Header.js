@@ -89,10 +89,10 @@ const Header = () => {
                 icon={<BarsIcon />}
               />
               <Link to="/">
-                {/* <Logo/> */}
-                {/* <h1 className="logo">MN</h1> */}
+                <Logo/>
+                <h1 className="logoname">MN</h1>
               </Link>
-              MN
+          
             </div>
           </Col>
           <Col
