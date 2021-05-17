@@ -9,7 +9,6 @@ import {
 } from "../../../functions/coupon";
 import "react-datepicker/dist/react-datepicker.css";
 import { DeleteOutlined } from "@ant-design/icons";
-import AdminNav from "../../../components/nav/AdminNav";
 import Button from "../../../components/Button";
 
 const CreateCouponPage = () => {
@@ -60,9 +59,6 @@ const CreateCouponPage = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
         <div className="col-md-10">
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
@@ -106,7 +102,12 @@ const CreateCouponPage = () => {
               />
             </div>
 
-            <Button variant="primary" className="btn" text="Save" />
+            <Button
+              onClick={handleSubmit}
+              variant="primary"
+              className="btn"
+              text="Save"
+            />
           </form>
 
           <br />

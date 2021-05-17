@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AdminNav from "../../../components/nav/AdminNav";
 import { getProductsByCount } from "../../../functions/product";
 import AdminProductCard from "../../../components/cards/AdminProductCard";
 import { removeProduct } from "../../../functions/product";
@@ -48,9 +47,6 @@ const AllProducts = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
         <div className="col">
           <h4 style={{ marginLeft: "550px" }}>All Products</h4>
           <div className="row">

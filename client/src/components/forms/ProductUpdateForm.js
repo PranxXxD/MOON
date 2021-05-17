@@ -1,6 +1,5 @@
 import React from "react";
 import { Select } from "antd";
-import Button from "../Button";
 
 const { Option } = Select;
 
@@ -12,9 +11,8 @@ const ProductUpdateForm = ({
   handleCategoryChange,
   categories,
   subOptions,
-  setSubOptions,
-  setArrayOfSubs,
   arrayOfSubs,
+  setArrayOfSubs,
   selectedCategory,
 }) => {
   // destructure
@@ -160,7 +158,7 @@ const ProductUpdateForm = ({
       </div>
 
       <br />
-      <Button variant="primary" className="btn" text="Save" />
+      <button className="btn btn-outline-info">Save</button>
     </form>
   );
 };

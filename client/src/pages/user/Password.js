@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import UserNav from "../../components/nav/UserNav";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 
@@ -40,7 +39,10 @@ const Password = () => {
           value={password}
         />
         <br />
-        <button className="btn btn-raised" disabled={!password || password.length < 6 || loading}>
+        <button
+          className="btn btn-raised"
+          disabled={!password || password.length < 6 || loading}
+        >
           Submit
         </button>
       </div>
@@ -48,10 +50,7 @@ const Password = () => {
   );
   return (
     <div className="container-fluid">
-      <div className="row" style={{height:"403px"}}>
-        <div className="col-md-2">
-          <UserNav />
-        </div>
+      <div className="row" style={{ height: "403px" }}>
         <div className="col-md-6 p-2">
           {loading ? (
             <h1 className="text-danger">Loading...</h1>

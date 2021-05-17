@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createSub, getSubs, removeSub } from "../../../functions/sub";
@@ -32,11 +31,11 @@ const SubCreate = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(name);
+    console.log(name);
     setLoading(true);
     createSub({ name, parent: category }, user.token)
       .then((res) => {
-        // console.log(res)
+        console.log(res)
         setLoading(false);
         setName("");
         toast.success(`"${res.data.name}" is created`);
@@ -74,9 +73,6 @@ const SubCreate = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
         <div className="col">
           {loading ? (
             <h4 className="text-danger">Loading..</h4>

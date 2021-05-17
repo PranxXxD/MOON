@@ -133,24 +133,65 @@ const Header = () => {
                       {user ? user.email.split("@")[0] : "Welcome"}
                       <span className="fa fa-chevron-down dropdown-caret"></span>
                     </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem
-                        onClick={() => history.push("/user/history")}
-                      >
-                        Dashboard
-                      </DropdownItem>
-                      <DropdownItem
-                        onClick={() => history.push("/user/wishlist")}
-                      >
-                        Wishlist
-                      </DropdownItem>
-                      <DropdownItem
-                        onClick={() => history.push("/user/password")}
-                      >
-                        Settings
-                      </DropdownItem>
-                      <DropdownItem onClick={logout}>Sign Out</DropdownItem>
-                    </DropdownMenu>
+                    {user.role == "admin" ? (
+                      <DropdownMenu right>
+                        <DropdownItem
+                          onClick={() => history.push("/admin/history")}
+                        >
+                          Dashboard
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/admin/product")}
+                        >
+                          Product
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/admin/products")}
+                        >
+                          Products
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/admin/category")}
+                        >
+                          category
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/admin/sub")}
+                        >
+                          sub
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/admin/coupon")}
+                        >
+                          coupon
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/user/password")}
+                        >
+                          Settings
+                        </DropdownItem>
+                        <DropdownItem onClick={logout}>Sign Out</DropdownItem>
+                      </DropdownMenu>
+                    ) : (
+                      <DropdownMenu right>
+                        <DropdownItem
+                          onClick={() => history.push("/user/history")}
+                        >
+                          Dashboard
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/user/wishlist")}
+                        >
+                          Wishlist
+                        </DropdownItem>
+                        <DropdownItem
+                          onClick={() => history.push("/user/password")}
+                        >
+                          Settings
+                        </DropdownItem>
+                        <DropdownItem onClick={logout}>Sign Out</DropdownItem>
+                      </DropdownMenu>
+                    )}
                   </UncontrolledDropdown>
                 ) : (
                   <UncontrolledDropdown nav inNavbar>

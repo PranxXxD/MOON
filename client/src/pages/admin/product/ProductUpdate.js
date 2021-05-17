@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { getProduct, updateProduct } from "../../../functions/product";
@@ -39,19 +38,17 @@ const ProductUpdate = ({ match, history }) => {
   useEffect(() => {
     loadProduct();
     loadCategories();
-  });
+  }, []);
 
   const loadProduct = () => {
     getProduct(slug).then((p) => {
-      console.log("single product", p);
+      // console.log("single product", p);
       // 1 load single proudct
       setValues({ ...values, ...p.data });
       // 2 load single product category subs
       getCategorySubs(p.data.category._id).then((res) => {
-        console.log("cate data", res.data);
         setSubOptions(res.data); // on first load, show default subs
       });
-      // .catch((err) => console.log(err));
       // 3 prepare array of sub ids to show as default sub values in antd Select
       let arr = [];
       p.data.subs.map((s) => {
@@ -71,7 +68,7 @@ const ProductUpdate = ({ match, history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     values.subs = arrayOfSubs;
     values.category = selectedCategory ? selectedCategory : values.category;
 
@@ -83,6 +80,8 @@ const ProductUpdate = ({ match, history }) => {
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
+        toast.error(err.response.data.err);
       });
   };
 
@@ -97,33 +96,34 @@ const ProductUpdate = ({ match, history }) => {
     setValues({ ...values, subs: [] });
 
     setSelectedCategory(e.target.value);
+
     getCategorySubs(e.target.value).then((res) => {
       console.log("SUB OPTIONS ON CATGORY CLICK", res);
       setSubOptions(res.data);
     });
 
-    //if user clicks back to the same category
-    //show its sub categories in default
+    console.log("EXISTING CATEGORY values.category", values.category);
+
+    // if user clicks back to the original category
+    // show its sub categories in default
     if (values.category._id === e.target.value) {
       loadProduct();
     }
-
-    //clear old sub categories
+    // clear old sub category ids
     setArrayOfSubs([]);
   };
 
   return (
-    <div className="container-fluid" >
-      <div className="row"  >
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-
+    <div className="container-fluid">
+      <div className="row">
         <div className="col-md-10">
-          <h4>Product update</h4>
+          {loading ? (
+            <LoadingOutlined className="text-danger h1" />
+          ) : (
+            <h4>Product update</h4>
+          )}
 
           {/* {JSON.stringify(values)} */}
-          {loading ? <LoadingOutlined className="text-danger h2" /> : ""}
 
           <div className="p-3">
             <FileUpload
@@ -132,7 +132,7 @@ const ProductUpdate = ({ match, history }) => {
               setLoading={setLoading}
             />
           </div>
-          <br />
+
           <ProductUpdateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
@@ -141,7 +141,6 @@ const ProductUpdate = ({ match, history }) => {
             handleCategoryChange={handleCategoryChange}
             categories={categories}
             subOptions={subOptions}
-            setSubOptions={setSubOptions}
             arrayOfSubs={arrayOfSubs}
             setArrayOfSubs={setArrayOfSubs}
             selectedCategory={selectedCategory}

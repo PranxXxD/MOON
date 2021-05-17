@@ -14,7 +14,12 @@ const CategoryForms = ({ handleSubmit, name, setName }) => (
         required
       />
       <br />
-      <Button variant="primary" className="btn" text="Save" />
+      <Button
+        onClick={handleSubmit}
+        variant="primary"
+        className="btn"
+        text="Save"
+      />
     </div>
   </form>
 );
