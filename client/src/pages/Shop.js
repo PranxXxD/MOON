@@ -54,7 +54,7 @@ const Shop = () => {
     getCategories().then((res) => setCategories(res.data));
     // fetch sub categories
     getSubs().then((res) => setSubs(res.data));
-  },[]);
+  }, []);
 
   const fetchProducts = (arg) => {
     fetchProductsByFilter(arg).then((res) => {
@@ -176,7 +176,7 @@ const Shop = () => {
         name={b}
         checked={b === brand}
         onChange={handleBrand}
-        className="pb-1 pl-4 pr-4"
+        className="pb-1 pl-4 pr-8"
       >
         {b}
       </Radio>
@@ -215,7 +215,7 @@ const Shop = () => {
           <h4>Search/Filter</h4>
           <hr />
 
-          <Menu defaultOpenKeys={["1", "2", "3", "4", "5", "6"]} mode="inline">
+          <Menu defaultOpenKeys={[""]} mode="inline">
             {/* price */}
             <SubMenu
               key="1"
@@ -246,7 +246,7 @@ const Shop = () => {
                 </span>
               }
             >
-              <div style={{ marginTop: "-10px" }}>{showCategories()}</div>
+              <div style={{ marginTop: "5px" }}>{showCategories()}</div>
             </SubMenu>
 
             {/* stars */}
@@ -258,7 +258,7 @@ const Shop = () => {
                 </span>
               }
             >
-              <div style={{ marginTop: "-10px" }}>{showStars()}</div>
+              <div>{showStars()}</div>
             </SubMenu>
 
             {/* sub category */}
@@ -270,9 +270,7 @@ const Shop = () => {
                 </span>
               }
             >
-              <div style={{ marginTop: "-10px" }} className="pl-4 pr-4">
-                {showSubs()}
-              </div>
+              <div className="pl-4 pr-4">{showSubs()}</div>
             </SubMenu>
 
             {/* Brands */}
@@ -284,9 +282,7 @@ const Shop = () => {
                 </span>
               }
             >
-              <div style={{ marginTop: "-10px" }} className="pr-5">
-                {showBrands()}
-              </div>
+              <div className="pr-5">{showBrands()}</div>
             </SubMenu>
 
             {/* Colors */}
@@ -298,9 +294,7 @@ const Shop = () => {
                 </span>
               }
             >
-              <div style={{ marginTop: "-10px" }} className="pr-5">
-                {showColors()}
-              </div>
+              <div className="pr-5">{showColors()}</div>
             </SubMenu>
           </Menu>
         </div>
