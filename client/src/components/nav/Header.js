@@ -88,11 +88,10 @@ const Header = () => {
                 ariaLabel="open the menu"
                 icon={<BarsIcon />}
               />
-              <Link to="/">
-                <Logo/>
-                <h1 className="logoname">MN</h1>
+              <Link to="/" className="logo">
+                <Logo />
+                {/* <h1 className="logoname">MN</h1> */}
               </Link>
-          
             </div>
           </Col>
           <Col
@@ -139,6 +138,16 @@ const Header = () => {
                         onClick={() => history.push("/user/history")}
                       >
                         Dashboard
+                      </DropdownItem>
+                      <DropdownItem
+                        onClick={() => history.push("/user/wishlist")}
+                      >
+                        Wishlist
+                      </DropdownItem>
+                      <DropdownItem
+                        onClick={() => history.push("/user/password")}
+                      >
+                        Settings
                       </DropdownItem>
                       <DropdownItem onClick={logout}>Sign Out</DropdownItem>
                     </DropdownMenu>
