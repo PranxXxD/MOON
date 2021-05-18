@@ -212,89 +212,97 @@ const Shop = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-3 pt-2">
-          <h4>Search/Filter</h4>
+          <h4>Filter By</h4>
           <hr />
 
           <Menu defaultOpenKeys={[""]} mode="inline">
-            {/* price */}
             <SubMenu
-              key="1"
               title={
                 <span className="h6">
-                  <DollarOutlined /> Price
+                  <DownSquareOutlined /> Filters
                 </span>
               }
             >
-              <div>
-                <Slider
-                  className="ml-4 mr-4"
-                  tipFormatter={(v) => `₹${v}`}
-                  range
-                  value={price}
-                  onChange={handleSlider}
-                  max="999"
-                />
-              </div>
-            </SubMenu>
+              {/* price */}
+              <SubMenu
+                key="1"
+                title={
+                  <span className="h6">
+                    <DollarOutlined /> Price
+                  </span>
+                }
+              >
+                <div>
+                  <Slider
+                    className="ml-4 mr-4"
+                    tipFormatter={(v) => `₹${v}`}
+                    range
+                    value={price}
+                    onChange={handleSlider}
+                    max="999"
+                  />
+                </div>
+              </SubMenu>
 
-            {/* category */}
-            <SubMenu
-              key="2"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Categories
-                </span>
-              }
-            >
-              <div style={{ marginTop: "5px" }}>{showCategories()}</div>
-            </SubMenu>
+              {/* category */}
+              <SubMenu
+                key="2"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Categories
+                  </span>
+                }
+              >
+                <div style={{ marginTop: "5px" }}>{showCategories()}</div>
+              </SubMenu>
 
-            {/* stars */}
-            <SubMenu
-              key="3"
-              title={
-                <span className="h6">
-                  <StarOutlined /> Rating
-                </span>
-              }
-            >
-              <div>{showStars()}</div>
-            </SubMenu>
+              {/* stars */}
+              <SubMenu
+                key="3"
+                title={
+                  <span className="h6">
+                    <StarOutlined /> Rating
+                  </span>
+                }
+              >
+                <div>{showStars()}</div>
+              </SubMenu>
 
-            {/* sub category */}
-            <SubMenu
-              key="4"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Sub Categories
-                </span>
-              }
-            >
-              <div className="pl-4 pr-4">{showSubs()}</div>
-            </SubMenu>
+              {/* sub category */}
+              <SubMenu
+                key="4"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Sub Categories
+                  </span>
+                }
+              >
+                <div className="pl-4 pr-4">{showSubs()}</div>
+              </SubMenu>
 
-            {/* Brands */}
-            <SubMenu
-              key="5"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Brands
-                </span>
-              }
-            >
-              <div className="pr-5">{showBrands()}</div>
-            </SubMenu>
+              {/* Brands */}
+              <SubMenu
+                key="5"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Brands
+                  </span>
+                }
+              >
+                <div className="pr-5">{showBrands()}</div>
+              </SubMenu>
 
-            {/* Colors */}
-            <SubMenu
-              key="6"
-              title={
-                <span className="h6">
-                  <DownSquareOutlined /> Colors
-                </span>
-              }
-            >
-              <div className="pr-5">{showColors()}</div>
+              {/* Colors */}
+              <SubMenu
+                key="6"
+                title={
+                  <span className="h6">
+                    <DownSquareOutlined /> Colors
+                  </span>
+                }
+              >
+                <div className="pr-5">{showColors()}</div>
+              </SubMenu>
             </SubMenu>
           </Menu>
         </div>
