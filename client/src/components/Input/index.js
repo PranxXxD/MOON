@@ -25,13 +25,13 @@ const Input = (props) => {
     inlineElement,
   } = props;
 
-  const _onChange = (e) => {
-    if (e.target.name == "image") {
-      onInputChange(e.target.name, e.target.files[0]);
-    } else {
-      onInputChange(e.target.name, e.target.value);
-    }
-  };
+  // const _onChange = (e) => {
+  //   if (e.target.name == "image") {
+  //     onInputChange(e.target.name, e.target.files[0]);
+  //   } else {
+  //     onInputChange(e.target.name, e.target.value);
+  //   }
+  // };
 
   if (type === "textarea") {
     const styles = `input-box${error ? " invalid" : ""}`;
@@ -41,9 +41,9 @@ const Input = (props) => {
         {label && <label>{label}</label>}
         <textarea
           type={"textarea"}
-          onChange={(e) => {
-            _onChange(e);
-          }}
+          // onChange={(e) => {
+          //   _onChange(e);
+          // }}
           rows={rows}
           name={name}
           value={value}
@@ -122,9 +122,9 @@ const Input = (props) => {
             className={"input-text"}
             autoComplete="on"
             type={type}
-            onChange={(e) => {
-              _onChange(e);
-            }}
+            // onChange={(e) => {
+            //   _onChange(e);
+            // }}
             disabled={disabled}
             name={name}
             value={value}
