@@ -91,7 +91,7 @@ const Checkout = ({ history }) => {
     <>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
       <Button
-      variant="primary"
+        variant="primary"
         className="btn btn-primary mt-2"
         onClick={saveAddressToDb}
         text="Save Address"
@@ -123,7 +123,7 @@ const Checkout = ({ history }) => {
         }}
       />
       <Button
-      variant="primary"
+        variant="primary"
         onClick={applyDiscountCoupon}
         className="btn mt-2"
         text="Apply"
@@ -169,7 +169,7 @@ const Checkout = ({ history }) => {
         <div className="row">
           <div className="col-md-6">
             <Button
-            variant="primary"
+              variant="primary"
               className="btn"
               disabled={!addressSaved || !products.length}
               onClick={() => history.push("/payment")}
@@ -179,7 +179,7 @@ const Checkout = ({ history }) => {
 
           <div className="col-md-6">
             <Button
-            variant="primary"
+              variant="primary"
               disabled={!products.length}
               onClick={emptyCart}
               className="btn"

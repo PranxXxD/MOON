@@ -2,7 +2,7 @@
   // font-size: $font-size-heading-medium !important;
   background-image: url("./MoonLogo1.png");
   position: fixed;
-  left: 98px;
+  left: 25px;
   top: 44px;
   width: 70px;
   object-fit: contain;
@@ -11,7 +11,7 @@
   cursor: pointer;
 
   @media screen and (max-width: 768px) {
-    left: 10px;
+    left: 2px;
     cursor: pointer;
   }
 }

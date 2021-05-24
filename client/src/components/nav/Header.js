@@ -83,14 +83,8 @@ const Header = () => {
             lg={{ size: 3, order: 1 }}
           >
             <div className="brand">
-              <Button
-                className="d-none d-md-block"
-                ariaLabel="open the menu"
-                icon={<BarsIcon />}
-              />
               <Link to="/" className="logo">
                 <Logo />
-                {/* <h1 className="logoname">MN</h1> */}
               </Link>
             </div>
           </Col>
@@ -103,6 +97,10 @@ const Header = () => {
           >
             <div className="header-links">
               <Button ariaLabel="open the menu" icon={<BarsIcon />} />
+              <Link to="/" className="logo">
+                <Logo />
+              </Link>
+              <Search />
               <CartIcon cartItems={cart.length} onClick={handleAddToCart} />
             </div>
           </Col>
@@ -118,7 +116,7 @@ const Header = () => {
                 cartItems={cart.length}
                 onClick={handleAddToCart}
               />
-              <span className="float-right p-1 ml-1 mr-1">
+              <span className="search float-right p-1 ml-1 mr-1">
                 <Search />
               </span>
               <Nav navbar>

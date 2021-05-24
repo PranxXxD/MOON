@@ -79,8 +79,7 @@ const Cart = ({ history }) => {
               className="btn"
               text="Proceed to Checkout"
               disabled={!cart.length}
-            >
-            </Button>
+            ></Button>
           ) : (
             <Button className="btn">
               <Link
