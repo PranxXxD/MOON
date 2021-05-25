@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
 import { userCart } from "../functions/user";
 import Button from "../components/Button";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -25,22 +33,42 @@ const Cart = ({ history }) => {
       .catch((err) => console.log("save data error", err));
   };
 
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 350,
+    },
+  });
+  const classes = useStyles();
+
   const showCartItems = () => (
-    <table className="table table-bordered">
-      <thead className="thead-light">
-        {/* <tr>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr> */}
-      </thead>
-      {cart.map((p) => (
-        <ProductCardInCheckout key={p._id} p={p} />
-      ))}
-    </table>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Product</StyledTableCell>
+            <StyledTableCell align="center">Name</StyledTableCell>
+            <StyledTableCell align="center">Price;</StyledTableCell>
+            <StyledTableCell align="center">Color</StyledTableCell>
+            <StyledTableCell align="center">Quantity</StyledTableCell>
+            <StyledTableCell align="center">Shipping</StyledTableCell>
+            <StyledTableCell align="center">Remove</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        {cart.map((p) => (
+          <ProductCardInCheckout key={p._id} p={p} />
+        ))}
+      </Table>
+    </TableContainer>
   );
 
   return (

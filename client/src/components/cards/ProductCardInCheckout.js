@@ -3,11 +3,15 @@ import ModalImage from "react-modal-image";
 import laptop from "../../images/laptop.jpg";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  CloseOutlined,
-} from "@ant-design/icons";
+import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import Select from "@material-ui/core/Select";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import CancelIcon from "@material-ui/icons/Cancel";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
@@ -83,26 +87,61 @@ const ProductCardInCheckout = ({ p }) => {
       });
     }
   };
+  const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
+
+  function createData(name, calories, fat, carbs, protein) {
+    return { name, calories, fat, carbs, protein };
+  }
+
+  const rows = [
+    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
+    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
+    createData("Eclair", 262, 16.0, 24, 6.0),
+    createData("Cupcake", 305, 3.7, 67, 4.3),
+    createData("Gingerbread", 356, 16.0, 49, 3.9),
+  ];
+
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 350,
+    },
+  });
+  const classes = useStyles();
 
   return (
-    <tbody>
-      <tr>
-        <td style={{ width: "200px", height: "auto" }}>
+    <TableBody>
+      <StyledTableRow>
+        <StyledTableCell
+          style={{ width: "200px", height: "auto" }}
+          component="th"
+          scope="row"
+        >
           {p.images.length ? (
             <ModalImage small={p.images[0].url} large={p.images[0].url} />
           ) : (
             <ModalImage small={laptop} large={laptop} />
           )}
-        </td>
-        <td>{p.title}</td>
-        <td>₹{p.price}</td>
-        {/* <td>{p.brand}</td> */}
-        <td>
-          <select
-            onChange={handleColorChange}
-            name="color"
-            className="form-control"
-          >
+        </StyledTableCell>
+        <StyledTableCell align="center">{p.title}</StyledTableCell>
+        <StyledTableCell align="center">₹{p.price}</StyledTableCell>
+        <StyledTableCell align="center">
+          <Select native value={p.color} onChange={handleColorChange}>
             {p.color ? (
               <option value={p.color}>{p.color}</option>
             ) : (
@@ -115,31 +154,35 @@ const ProductCardInCheckout = ({ p }) => {
                   {c}
                 </option>
               ))}
-          </select>
-        </td>
-        <td>
-          <input
-            type="number"
-            className="form-control"
-            value={p.count}
-            onChange={handleQuantityChange}
-          ></input>
-        </td>
-        <td className="text-center">
+          </Select>
+        </StyledTableCell>
+        <StyledTableCell align="center" size="small" padding="none">
+          <Select native value={p.count} onChange={handleQuantityChange}>
+            <option aria-label="None" value="" />
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+            <option value={6}>6</option>
+          </Select>
+        </StyledTableCell>
+        <StyledTableCell align="center">
           {p.shipping === "Yes" ? (
-            <CheckCircleOutlined className="text-success" />
+            <CheckBoxIcon fontSize="large" className="text-success" />
           ) : (
-            <CloseCircleOutlined className="text-danger" />
+            <CancelIcon fontSize="large" className="text-danger" />
           )}
-        </td>
-        <td className="text-center">
-          <CloseOutlined
+        </StyledTableCell>
+        <StyledTableCell align="center">
+          <DeleteForeverIcon
+            fontSize="large"
             className="text-danger pointer"
             onClick={() => handleRemove(p._id)}
           />
-        </td>
-      </tr>
-    </tbody>
+        </StyledTableCell>
+      </StyledTableRow>
+    </TableBody>
   );
 };
 
