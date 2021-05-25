@@ -28,14 +28,14 @@ const Cart = ({ history }) => {
   const showCartItems = () => (
     <table className="table table-bordered">
       <thead className="thead-light">
-        <tr>
-          <th scope="col">Product</th>
-          <th scope="col">Name</th>
-          <th scope="col">Price</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Shipping</th>
-          <th scope="col">Remove</th>
-        </tr>
+        {/* <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr> */}
       </thead>
       {cart.map((p) => (
         <ProductCardInCheckout key={p._id} p={p} />

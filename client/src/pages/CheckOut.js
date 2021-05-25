@@ -89,12 +89,19 @@ const Checkout = ({ history }) => {
 
   const showAddress = () => (
     <>
-      <ReactQuill theme="snow" value={address} onChange={setAddress} />
+      <textarea
+        value={address}
+        rows="4"
+        placeholder="Enter your complete address..."
+        onChange={(e) => {
+          setAddress(e.target.value);
+        }}
+      />
       <Button
+        text="Save"
         variant="primary"
-        className="btn btn-primary mt-2"
+        className="btn mt-2"
         onClick={saveAddressToDb}
-        text="Save Address"
       />
     </>
   );
@@ -132,10 +139,8 @@ const Checkout = ({ history }) => {
 
   return (
     <div className="row">
-      <div className="col-md-6">
+      <div className="col-md-6 pl-5">
         <h4>Delivery Address</h4>
-        <br />
-        <br />
         {showAddress()}
         <hr />
       </div>
