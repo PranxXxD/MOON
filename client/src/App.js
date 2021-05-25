@@ -23,7 +23,6 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import SideDrawer from "./components/drawer/SideDrawer";
-import Footer from "./components/footer";
 import RegisterComplete from "./pages/auth/RegisterComplete";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import History from "./pages/user/History";
@@ -47,6 +46,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
 import Payment from "./pages/Payment";
+import Footer from "./components/footer";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -85,6 +85,7 @@ const App = () => {
 
   return (
     <>
+      <div className="page" />
       <Header />
       <SideDrawer />
       <ToastContainer />

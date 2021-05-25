@@ -45,8 +45,8 @@ const Cart = ({ history }) => {
 
   return (
     <div className="container-fluid pt-2">
-      <div className="row" style={{ height: "500px" }}>
-        <div className="col-md-8">
+      <div className="row">
+        <div className="col-md-8 d-inline-block">
           <h4 className="h_4">Cart / {cart.length}</h4>
           {!cart.length ? (
             <p className="h_4">

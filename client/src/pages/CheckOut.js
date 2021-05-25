@@ -99,16 +99,15 @@ const Checkout = ({ history }) => {
     </>
   );
 
-  const showProductSummary = () => {
+  const showProductSummary = () =>
     products.map((p, i) => (
       <div key={i}>
         <p>
-          {p.product.title} ({p.color}) x {p.count} = ₹
+          {p.product.title} ({p.color}) x {p.count} ={" "}
           {p.product.price * p.count}
         </p>
       </div>
     ));
-  };
 
   const showApplyCoupon = () => (
     <>
@@ -144,29 +143,25 @@ const Checkout = ({ history }) => {
       <div className="col-md-6">
         <h4>Order Summary</h4>
         <hr />
-        <p>Products: {products.length}</p>
+        <p> Total Products: {products.length}</p>
         <hr />
+        <p>List of products:</p>
         {showProductSummary()}
-        <p>List of products</p>
         <hr />
         <p>Cart Total: ₹{total}</p>
-        <div>
-          {showApplyCoupon()}
-          <br />
-          {discountError && <p className="text-danger p-2">{discountError}</p>}
-          <br />
-        </div>
-
         {totalAfterDiscount > 0 && (
           <>
-            <p className="bg-success p-2">
-              <strong>Discount Applied:</strong> <br />
+            <p className="text-success">
+              <strong>Discount Applied!!</strong> <br />
               Total Payable: ₹{totalAfterDiscount}
             </p>
           </>
         )}
+        {discountError && <p className="text-danger">{discountError}</p>}
 
-        <div className="row">
+        <div>{showApplyCoupon()}</div>
+
+        <div className="row my-5">
           <div className="col-md-6">
             <Button
               variant="primary"

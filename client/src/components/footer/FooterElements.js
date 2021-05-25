@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 
 export const FooterContainer = styled.div`
   background-color: #101522;
-  display: flex;
-  // display: inline-block;
-  // align-content: flex-end;
-  // width: 100%;
-  // margin-top: auto;
+  // display:flex;
+  // align-items: flex-end;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  height: 300px;
+  // flex-shrink: 0;
 `;
 export const FooterWrap = styled.div`
   padding: 80px 70px;
