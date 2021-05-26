@@ -35,7 +35,7 @@ const Login = ({ history }) => {
       if (res.data.role === "admin") {
         history.push("/admin/dashboard");
       } else {
-        history.push("/user/history");
+        history.push("/");
       }
     }
   };
@@ -104,7 +104,7 @@ const Login = ({ history }) => {
   };
 
   const LoginForm = () => (
-    <form onSubmit={handleSubmit} >
+    <form onSubmit={handleSubmit}>
       <div>
         <input
           type="email"
