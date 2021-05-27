@@ -8,12 +8,13 @@ import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
-  title:"",
-  description:"",
-  price:"",
+  title: "",
+  description: "",
+  price: "",
   categories: [],
   category: "",
   subs: [],
+  weight: "",
   shipping: "",
   quantity: "",
   images: [

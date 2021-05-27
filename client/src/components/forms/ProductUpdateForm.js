@@ -29,6 +29,7 @@ const ProductUpdateForm = ({
     brands,
     color,
     brand,
+    weight,
   } = values;
 
   return (
@@ -86,6 +87,17 @@ const ProductUpdateForm = ({
           name="quantity"
           className="form-control"
           value={quantity}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Weight</label>
+        <input
+          type="number"
+          name="weight"
+          className="form-control"
+          value={weight}
           onChange={handleChange}
         />
       </div>

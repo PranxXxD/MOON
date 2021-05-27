@@ -15,6 +15,7 @@ const initialState = {
   subs: [],
   shipping: "",
   quantity: "",
+  weight: "",
   images: [],
   colors: ["Black", "Brown", "Silver", "White", "Blue"],
   brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
