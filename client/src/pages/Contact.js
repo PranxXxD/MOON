@@ -39,12 +39,15 @@ const Contact = () => {
               name={"name"}
               placeholder={"Your Full Name"}
               value={name}
+              required
+              autoFocus
               onChange={(e) => setName(e.target.value)}
             />
           </Col>
           <Col xs="6" md="3">
             <label>Phone</label>
             <input
+              required
               type={"text"}
               name={"phone"}
               placeholder={"Your Phone Number"}
@@ -55,7 +58,9 @@ const Contact = () => {
           <Col xs="12" md="6">
             <label>Email</label>
             <input
+              required
               type={"text"}
+              required
               name={"email"}
               placeholder={"Your Email Address"}
               value={email}
@@ -65,6 +70,7 @@ const Contact = () => {
           <Col xs="12" md="12" className="mt-5">
             <label>Message</label>
             <textarea
+              required
               type={"textarea"}
               name={"message"}
               rows="3"
