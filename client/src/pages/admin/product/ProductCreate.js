@@ -6,6 +6,7 @@ import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Row, Col } from "reactstrap";
 
 const initialState = {
   title: "",
@@ -88,26 +89,23 @@ const ProductCreate = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-10">
-          {loading ? (
-            <LoadingOutlined className="text-danger h1" />
-          ) : (
-            <h4>Product create</h4>
-          )}
-          <hr />
-
-          {/* {JSON.stringify(values.images)} */}
-
-          <div className="p-3">
+    <div className="contact">
+      {loading ? (
+        <LoadingOutlined className="text-danger h1" />
+      ) : (
+        <h4>Product create</h4>
+      )}
+      <hr />
+      <Row>
+        {/* {JSON.stringify(values.images)} */}
+        <Col xs="12" md="12">
             <FileUpload
               values={values}
               setValues={setValues}
               setLoading={setLoading}
             />
-          </div>
-
+        </Col>
+        <Col xs="12" md="12">
           <ProductCreateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
@@ -117,8 +115,8 @@ const ProductCreate = () => {
             subOptions={subOptions}
             showSub={showSub}
           />
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 };
