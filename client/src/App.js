@@ -46,7 +46,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
 import Payment from "./pages/Payment";
-import contact from "./components/contact";
+import Contact from "./pages/Contact";
 import Footer from "./components/footer";
 
 import { auth } from "./firebase";
@@ -121,7 +121,7 @@ const App = () => {
         <Route exact path="/sub/:slug" component={SubHome} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/contact" component={contact} />
+        <Route exact path="/contact" component={Contact} />
         <UserRoute exact path="/checkout" component={Checkout} />
         <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
         <UserRoute exact path="/payment" component={Payment} />
