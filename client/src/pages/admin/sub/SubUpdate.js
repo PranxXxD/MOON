@@ -50,9 +50,9 @@ const SubUpdate = ({ match, history }) => {
   return (
     <div className="contact">
       {loading ? (
-        <h4 className="text-danger">Loading..</h4>
+        <h2 className="text-danger">Loading..</h2>
       ) : (
-        <h4>Update Sub Category</h4>
+        <h2>Update Sub Category</h2>
       )}
       <hr />
 

@@ -93,9 +93,9 @@ const CategoryCreate = ({ history }) => {
   return (
     <div className="contact">
       {loading ? (
-        <h4 className="text-danger">Loading..</h4>
+        <h2 className="text-danger">Loading..</h2>
       ) : (
-        <h4>Create category</h4>
+        <h2>Create category</h2>
       )}
       <hr />
       <Row>

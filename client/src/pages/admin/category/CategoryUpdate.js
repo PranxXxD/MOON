@@ -40,9 +40,9 @@ const CategoryUpdate = ({ history, match }) => {
   return (
     <div className="contact">
       {loading ? (
-        <h4 className="text-danger">Loading..</h4>
+        <h2 className="text-danger">Loading..</h2>
       ) : (
-        <h4>Update category</h4>
+        <h2>Update category</h2>
       )}
       <Row>
         <Col xs="12" md="6">
