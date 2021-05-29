@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { getCategory, updateCategory } from "../../../functions/category";
-import CategoryForm from "../../../components/forms/CategoryForm";
+import { Row, Col } from "reactstrap";
+import Button from "../../../components/Button";
 
 const CategoryUpdate = ({ history, match }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -12,7 +13,7 @@ const CategoryUpdate = ({ history, match }) => {
 
   useEffect(() => {
     loadCategory();
-  });
+  }, []);
 
   const loadCategory = () =>
     getCategory(match.params.slug).then((c) => setName(c.data.name));
@@ -37,23 +38,32 @@ const CategoryUpdate = ({ history, match }) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col">
-          {loading ? (
-            <h4 className="text-danger">Loading..</h4>
-          ) : (
-            <h4>Update category</h4>
-          )}
-          <CategoryForm
-            handleSubmit={handleSubmit}
-            name={name}
-            setName={setName}
-          />
-          ;
-          <hr />
-        </div>
-      </div>
+    <div className="contact">
+      {loading ? (
+        <h4 className="text-danger">Loading..</h4>
+      ) : (
+        <h4>Update category</h4>
+      )}
+      <hr />
+      <Row>
+          <Col xs="12" md="6">
+            <label>Name</label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              autoFocus
+              required
+            />
+            <Button
+              onClick={handleSubmit}
+              variant="primary"
+              className="btn mt-3"
+              text="Update"
+            />
+          </Col>
+      </Row>
     </div>
   );
 };

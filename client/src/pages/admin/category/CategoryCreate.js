@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   createCategory,
   getCategories,
   removeCategory,
 } from "../../../functions/category";
-import { Link } from "react-router-dom";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
-import Button from "../../../components/Button";
+import { Row, Col } from "reactstrap";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import DeleteIcon from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
 
-const CategoryCreate = () => {
+const CategoryCreate = ({ history }) => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [dense, setDense] = useState(false);
+  const [secondary, setSecondary] = useState(false);
 
   const [keyword, setKeyword] = useState("");
 
@@ -67,47 +75,74 @@ const CategoryCreate = () => {
     }
   };
 
-  const mystyle = {
-    height: "400px",
-    width: "900px",
-  };
-
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+      maxWidth: 752,
+    },
+    demo: {
+      backgroundColor: theme.palette.background.paper,
+    },
+    title: {
+      margin: theme.spacing(4, 0, 2),
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col_1" style={mystyle}>
-          {loading ? (
-            <h4 className="text-danger">Loading..</h4>
-          ) : (
-            <h4>Create category</h4>
-          )}
+    <div className="contact">
+      {loading ? (
+        <h4 className="text-danger">Loading..</h4>
+      ) : (
+        <h4>Create category</h4>
+      )}
+      <hr />
+      <Row>
+        <Col xs="12" md="12">
           <CategoryForm
             handleSubmit={handleSubmit}
             name={name}
             setName={setName}
           />
           <hr />
+        </Col>
+        <Col xs="12" md="6">
           <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-          {categories.filter(searched(keyword)).map((c) => (
-            <div className="alert alert-secondary" key={c._id}>
-              {c.name}
-              <span
-                onClick={() => handleRemove(c.slug)}
-                className="btn btn-sm mt-0 float-right"
-              >
-                <DeleteOutlined className="text-danger" />
-              </span>
-              <Link to={`/admin/category/${c.slug}`}>
-                <span className="btn btn-sm mt-0 float-right">
-                  <EditOutlined className="text-warning" />
-                </span>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
+        </Col>
+        <Col xs="12" md="3">
+          <div className={classes.root}>
+            {categories.filter(searched(keyword)).map((c) => (
+              <List dense="true" key={c._id}>
+                <ListItem>
+                  <ListItemText
+                    primary={c.name}
+                    secondary={secondary ? "Secondary text" : null}
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => history.push(`/admin/category/${c.slug}`)}
+                    >
+                      <EditIcon color="primary" />
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => handleRemove(c.slug)}
+                    >
+                      <DeleteIcon color="secondary" />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            ))}
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };
