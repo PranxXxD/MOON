@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
+import { Row, Col } from "reactstrap";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -32,34 +36,39 @@ const Password = () => {
         <input
           type="password"
           onChange={(e) => setPassword(e.target.value)}
-          className="form-control mt-2"
+          className="form-control"
           placeholder="enter new password"
           autoFocus
           disabled={loading}
           value={password}
         />
         <br />
-        <button
-          className="btn btn-raised"
+        <Button
+          color="secondary"
+          type="submit"
+          size="large"
+          variant="contained"
+          endIcon={<SendIcon />}
           disabled={!password || password.length < 6 || loading}
         >
-          Submit
-        </button>
+          Update
+        </Button>
       </div>
     </form>
   );
   return (
-    <div className="container-fluid">
-      <div className="row" style={{ height: "403px" }}>
-        <div className="col-md-6 p-2">
-          {loading ? (
-            <h1 className="text-danger">Loading...</h1>
-          ) : (
-            <h1>Password Update</h1>
-          )}
+    <div className="contact">
+      {loading ? (
+        <h1 className="text-danger">Loading...</h1>
+      ) : (
+        <h1>Password Update</h1>
+      )}
+      <hr />
+      <Row>
+        <Col xs="12" md="6">
           {passwordUpdateForm()}
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 };
