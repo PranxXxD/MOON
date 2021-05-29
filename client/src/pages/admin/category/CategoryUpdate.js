@@ -44,25 +44,24 @@ const CategoryUpdate = ({ history, match }) => {
       ) : (
         <h4>Update category</h4>
       )}
-      <hr />
       <Row>
-          <Col xs="12" md="6">
-            <label>Name</label>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              autoFocus
-              required
-            />
-            <Button
-              onClick={handleSubmit}
-              variant="primary"
-              className="btn mt-3"
-              text="Update"
-            />
-          </Col>
+        <Col xs="12" md="6">
+          <label>Name</label>
+          <input
+            type="text"
+            className="form-control"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            autoFocus
+            required
+          />
+          <Button
+            onClick={handleSubmit}
+            variant="primary"
+            className="btn mt-3"
+            text="Update"
+          />
+        </Col>
       </Row>
     </div>
   );

@@ -24,8 +24,6 @@ const CategoryCreate = ({ history }) => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [dense, setDense] = useState(false);
-  const [secondary, setSecondary] = useState(false);
 
   const [keyword, setKeyword] = useState("");
 
@@ -101,26 +99,21 @@ const CategoryCreate = ({ history }) => {
       )}
       <hr />
       <Row>
-        <Col xs="12" md="12">
+        <Col xs="12" md="6">
           <CategoryForm
             handleSubmit={handleSubmit}
             name={name}
             setName={setName}
           />
-          <hr />
         </Col>
         <Col xs="12" md="6">
+          <label>Search</label>
           <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-        </Col>
-        <Col xs="12" md="3">
           <div className={classes.root}>
             {categories.filter(searched(keyword)).map((c) => (
               <List dense="true" key={c._id}>
                 <ListItem>
-                  <ListItemText
-                    primary={c.name}
-                    secondary={secondary ? "Secondary text" : null}
-                  />
+                  <ListItemText primary={c.name} />
                   <ListItemSecondaryAction>
                     <IconButton
                       edge="end"

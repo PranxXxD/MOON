@@ -6,7 +6,7 @@ const CategoryForms = ({ handleSubmit, name, setName }) => (
   <form onSubmit={handleSubmit}>
     <div className="form-group">
       <Row>
-        <Col xs="12" md="6">
+        <Col xs="12" md="12">
           <label>Name</label>
           <input
             type="text"
@@ -16,10 +16,11 @@ const CategoryForms = ({ handleSubmit, name, setName }) => (
             autoFocus
             required
           />
+          <hr />
           <Button
             onClick={handleSubmit}
             variant="primary"
-            className="btn mt-3"
+            className="btn"
             text="Create"
           />
         </Col>
