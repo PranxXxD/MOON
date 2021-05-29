@@ -10,6 +10,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import Button from "../../../components/Button";
+import { Row, Col } from "reactstrap";
 
 const CreateCouponPage = () => {
   const [name, setName] = useState("");
@@ -57,16 +58,12 @@ const CreateCouponPage = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-10">
-          {loading ? (
-            <h4 className="text-danger">Loading...</h4>
-          ) : (
-            <h4>Coupon</h4>
-          )}
-
-          <form onSubmit={handleSubmit}>
+    <div className="contact">
+      {loading ? <h2 className="text-danger">Loading...</h2> : <h2>Coupon</h2>}
+      <hr />
+      <form onSubmit={handleSubmit}>
+        <Row>
+          <Col xs="12" md="6">
             <div className="form-group">
               <label className="text-muted">Name</label>
               <input
@@ -101,47 +98,47 @@ const CreateCouponPage = () => {
                 required
               />
             </div>
+          </Col>
+        </Row>
+        <hr />
+        <Button
+          onClick={handleSubmit}
+          variant="primary"
+          className="btn"
+          text="Save"
+        />
+      </form>
 
-            <Button
-              onClick={handleSubmit}
-              variant="primary"
-              className="btn"
-              text="Save"
-            />
-          </form>
+      <br />
 
-          <br />
+      <h4>{coupons.length} Coupons</h4>
 
-          <h4>{coupons.length} Coupons</h4>
+      <table className="table table-bordered">
+        <thead className="thead-light">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Expiry</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
 
-          <table className="table table-bordered">
-            <thead className="thead-light">
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Expiry</th>
-                <th scope="col">Discount</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {coupons.map((c) => (
-                <tr key={c._id}>
-                  <td>{c.name}</td>
-                  <td>{new Date(c.expiry).toLocaleDateString()}</td>
-                  <td>{c.discount}%</td>
-                  <td>
-                    <DeleteOutlined
-                      onClick={() => handleRemove(c._id)}
-                      className="text-danger pointer"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+        <tbody>
+          {coupons.map((c) => (
+            <tr key={c._id}>
+              <td>{c.name}</td>
+              <td>{new Date(c.expiry).toLocaleDateString()}</td>
+              <td>{c.discount}%</td>
+              <td>
+                <DeleteOutlined
+                  onClick={() => handleRemove(c._id)}
+                  className="text-danger pointer"
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
