@@ -41,6 +41,7 @@
 
   .block-title {
     padding-bottom: 10px;
+    margin-left: 35px;
   }
 
   .footer-link {
@@ -113,7 +114,11 @@
  * Copyright
  */
 
-.footer-copyright {
+.footer-copyright{
   text-align: center;
   padding: 16px 0px;
+}
+
+.footer-copyright span{
+  margin-left: 35px ;
 }
