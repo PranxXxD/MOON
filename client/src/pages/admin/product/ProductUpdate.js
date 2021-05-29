@@ -6,6 +6,7 @@ import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
+import { Row, Col } from "reactstrap";
 
 const initialState = {
   title: "",
@@ -15,6 +16,7 @@ const initialState = {
   subs: [],
   shipping: "",
   quantity: "",
+  weight: "",
   images: [],
   colors: ["Black", "Brown", "Silver", "White", "Blue"],
   brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
@@ -114,25 +116,24 @@ const ProductUpdate = ({ match, history }) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-10">
-          {loading ? (
-            <LoadingOutlined className="text-danger h1" />
-          ) : (
-            <h4>Product update</h4>
-          )}
+    <div className="contact">
+      {loading ? (
+        <LoadingOutlined className="text-danger h1" />
+      ) : (
+        <h4>Product update</h4>
+      )}
+      <hr />
 
-          {/* {JSON.stringify(values)} */}
-
-          <div className="p-3">
-            <FileUpload
-              values={values}
-              setValues={setValues}
-              setLoading={setLoading}
-            />
-          </div>
-
+      {/* {JSON.stringify(values)} */}
+      <Row>
+        <Col xs="12" md="12">
+          <FileUpload
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+          />
+        </Col>
+        <Col xs="12" md="12">
           <ProductUpdateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
@@ -145,9 +146,8 @@ const ProductUpdate = ({ match, history }) => {
             setArrayOfSubs={setArrayOfSubs}
             selectedCategory={selectedCategory}
           />
-          <hr />
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 };

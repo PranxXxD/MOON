@@ -46,7 +46,7 @@ const Input = (props) => {
           // }}
           rows={rows}
           name={name}
-          value={value}
+          // value={value}
           placeholder={placeholder}
           className={"textarea-text"}
         />
@@ -77,7 +77,7 @@ const Input = (props) => {
           // }}
           disabled={disabled}
           name={name}
-          value={value}
+          // value={value}
           placeholder={placeholder}
           className={"input-number"}
         />
@@ -102,9 +102,9 @@ const Input = (props) => {
           halfIcon={<i className="fa fa-star-half-alt" />}
           filledIcon={<i className="fa fa-star" />}
           value={value}
-          onChange={(value) => {
-            onInputChange(name, value);
-          }}
+          // onChange={(value) => {
+          //   onInputChange(name, value);
+          // }}
         />
         <span className="invalid-message">{error && error[0]}</span>
       </div>
@@ -127,7 +127,7 @@ const Input = (props) => {
             // }}
             disabled={disabled}
             name={name}
-            value={value}
+            // value={value}
             placeholder={placeholder}
           />
           {inlineElement}
@@ -136,13 +136,6 @@ const Input = (props) => {
       </div>
     );
   }
-};
-
-Input.defaultProps = {
-  step: 1,
-  decimals: true,
-  rows: "4",
-  inlineElement: null,
 };
 
 export default Input;

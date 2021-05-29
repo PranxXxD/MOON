@@ -28,6 +28,12 @@ const productSchema = new mongoose.Schema(
       trim: true,
       maxlength: 32,
     },
+    weight: {
+      type: Number,
+      required: true,
+      trim: true,
+      maxlength: 32,
+    },
     category: {
       type: ObjectId,
       ref: "Category",
