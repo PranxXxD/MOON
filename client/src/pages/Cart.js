@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
@@ -14,14 +14,46 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const Cart = ({ history }) => {
+  const [shipping, setShipping] = useState(0);
+  // const [total, setTotal] = useState(0);
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
+  // const useEffect = () => {
+  //   getShipping();
+  // };
   const getTotal = () => {
     return cart.reduce((currentVal, nextVal) => {
       return currentVal + nextVal.count * nextVal.price;
     }, 0);
   };
+
+  const getWeight = () => {
+    return cart.reduce((currentVal, nextVal) => {
+      return currentVal + nextVal.count * nextVal.weight;
+    }, 0);
+  };
+
+  const getShipping = (x) => {
+    if (x() <= 500) {
+      console.log("69", x());
+      return 69;
+    } else if (x() > 500 && x() <= 1000) {
+      console.log("99", x());
+      return 99;
+    } else if (x() > 1000 && x() <= 1500) {
+      console.log("149", x());
+      return 149;
+    } else if (x() > 1500 && x() <= 2000) {
+      console.log("169", x());
+      return 169;
+    } else {
+      console.log("199", x());
+      return 199;
+    }
+  };
+
+  //
 
   const saveOrderToDb = () => {
     // console.log("cart", JSON.stringify(cart, null, 4));
@@ -96,9 +128,10 @@ const Cart = ({ history }) => {
             </div>
           ))}
           <hr />
-          <h6>
-            Total: <strong>₹{getTotal()}</strong>
-          </h6>
+          <p>Order Total : ₹{getTotal()}</p>
+          <p>Shipping Charges: ₹{getShipping(getWeight)}</p>
+          <hr />
+          <h4>Total: ₹{getTotal() + getShipping(getWeight)}</h4>
           <hr />
           {user ? (
             <Button
