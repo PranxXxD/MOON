@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
 import { userCart } from "../functions/user";
 import Button from "../components/Button";
 import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
@@ -15,13 +14,9 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const Cart = ({ history }) => {
   const [shipping, setShipping] = useState(0);
-  // const [total, setTotal] = useState(0);
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
 
-  // const useEffect = () => {
-  //   getShipping();
-  // };
   const getTotal = () => {
     return cart.reduce((currentVal, nextVal) => {
       return currentVal + nextVal.count * nextVal.price;
