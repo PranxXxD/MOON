@@ -2,6 +2,8 @@ import React from "react";
 import { Select } from "antd";
 import { Row, Col } from "reactstrap";
 import Button from "../Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const { Option } = Select;
 
@@ -16,6 +18,7 @@ const ProductUpdateForm = ({
   arrayOfSubs,
   setArrayOfSubs,
   selectedCategory,
+  handleWrap,
 }) => {
   // destructure
   const {
@@ -25,6 +28,7 @@ const ProductUpdateForm = ({
     category,
     subs,
     shipping,
+    wrapping,
     quantity,
     images,
     colors,
@@ -37,7 +41,7 @@ const ProductUpdateForm = ({
   return (
     <form onSubmit={handleSubmit}>
       <Row>
-        <Col xs="12" md="6">
+        <Col xs="12" md="3">
           <div className="form-group">
             <label>Title</label>
             <input
@@ -62,7 +66,7 @@ const ProductUpdateForm = ({
             />
           </div>
         </Col>
-        <Col xs="12" md="6">
+        <Col xs="12" md="3">
           <div className="form-group">
             <label>Price</label>
             <input
@@ -89,7 +93,6 @@ const ProductUpdateForm = ({
           </div>
         </Col>
         <Col xs="6" md="3">
-          {" "}
           <div className="form-group">
             <label>Quantity</label>
             <input
@@ -167,7 +170,6 @@ const ProductUpdateForm = ({
           </div>
         </Col>
         <Col xs="6" md="3">
-          {" "}
           <div>
             <label>Sub Categories</label>
             <Select
@@ -184,6 +186,20 @@ const ProductUpdateForm = ({
                   </Option>
                 ))}
             </Select>
+          </div>
+        </Col>
+        <Col xs="6" md="3">
+          <div className="form-group mt-3">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={wrapping ? true : false}
+                  onChange={handleWrap}
+                  name="wrapping"
+                />
+              }
+              label="Wrapping?"
+            />
           </div>
         </Col>
       </Row>

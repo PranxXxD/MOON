@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
 import { userCart } from "../functions/user";
 import Button from "../components/Button";
 import { Row, Col } from "reactstrap";
+import { ImGift } from "react-icons/im";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
-  const [wrap, setWrap] = useState({
-    gift: false,
-  });
 
   const getTotal = () => {
     return cart.reduce((currentVal, nextVal) => {
+      if (nextVal.wrapping) {
+        return currentVal + nextVal.count * nextVal.price + 20;
+      }
       return currentVal + nextVal.count * nextVal.price;
     }, 0);
   };
@@ -55,21 +56,12 @@ const Cart = ({ history }) => {
       .catch((err) => console.log("save data error", err));
   };
 
-  const handleChange = (e) => {
-    setWrap({ ...wrap, [e.target.name]: e.target.checked });
-  };
-
   const showCartItems = () => (
     <div className="cart mt-4">
       <div className="cart-body">
         <div className="cart-list">
           {cart.map((p) => (
-            <ProductCardInCheckout
-              wrap={wrap.gift}
-              handleChange={handleChange}
-              key={p._id}
-              p={p}
-            />
+            <ProductCardInCheckout key={p._id} p={p} />
           ))}
         </div>
       </div>
@@ -99,12 +91,14 @@ const Cart = ({ history }) => {
                     {cart.map((c, i) => (
                       <div key={i}>
                         <p className="item-label">
-                          {c.title} x {c.count}
+                          {c.title} x {c.count}{" "}
+                          {c.wrapping && <ImGift fontSize="medium" />}
                         </p>
                       </div>
                     ))}
                     <hr />
                     <p className="item-label">Order Total : ₹{getTotal()}</p>
+                    <p className="item-label">Shipping :{getWeight()}g</p>
                     <p className="item-label">
                       Convience fee: ₹{getShipping(getWeight)}
                     </p>

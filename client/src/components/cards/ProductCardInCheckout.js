@@ -8,9 +8,14 @@ import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
-const ProductCardInCheckout = ({ p, wrap, handleChange }) => {
+const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
+  const [state, setState] = useState({
+    wrapping: false,
+  });
 
   let dispatch = useDispatch();
 
@@ -51,6 +56,27 @@ const ProductCardInCheckout = ({ p, wrap, handleChange }) => {
       cart.map((product, i) => {
         if (product._id === p._id) {
           cart[i].count = count;
+        }
+      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      //dispatch
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
+  const handleWrappingChange = (e) => {
+    let cart = [];
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      cart.map((product, i) => {
+        if (product._id === p._id) {
+          cart[i].wrapping = e.target.checked;
         }
       });
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -146,12 +172,14 @@ const ProductCardInCheckout = ({ p, wrap, handleChange }) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={wrap}
-                    onChange={handleChange}
-                    name="gift"
+                    icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
+                    checkedIcon={<CheckBoxIcon fontSize="large" />}
+                    checked={p.wrapping}
+                    onChange={handleWrappingChange}
+                    name="wrapping"
                   />
                 }
-                label="Wrap your Gift?"
+                label="Gift Wrap?"
               />
             </Col>
             <Col xs="3" md="2">

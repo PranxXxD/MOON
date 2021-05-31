@@ -15,6 +15,7 @@ const initialState = {
   category: "",
   subs: [],
   shipping: "",
+  wrapping: false,
   quantity: "",
   weight: "",
   images: [],
@@ -92,6 +93,11 @@ const ProductUpdate = ({ match, history }) => {
     // console.log(e.target.name, " ----- ", e.target.value);
   };
 
+  const handleWrap = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.checked });
+    // console.log(e.target.name, " ----- ", e.target.value);
+  };
+
   const handleCategoryChange = (e) => {
     e.preventDefault();
     console.log("CLICKED CATEGORY", e.target.value);
@@ -145,6 +151,7 @@ const ProductUpdate = ({ match, history }) => {
             arrayOfSubs={arrayOfSubs}
             setArrayOfSubs={setArrayOfSubs}
             selectedCategory={selectedCategory}
+            handleWrap={handleWrap}
           />
         </Col>
       </Row>

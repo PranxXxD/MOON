@@ -17,6 +17,7 @@ const initialState = {
   subs: [],
   weight: "",
   shipping: "",
+  wrapping: false,
   quantity: "",
   images: [
     // {
@@ -77,6 +78,10 @@ const ProductCreate = () => {
     console.log(e.target.name, " ----- ", e.target.value);
   };
 
+  const handleWrap = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.checked });
+  };
+
   const handleCategoryChange = (e) => {
     e.preventDefault();
     console.log("CLICKED CATEGORY", e.target.value);
@@ -99,11 +104,11 @@ const ProductCreate = () => {
       <Row>
         {/* {JSON.stringify(values.images)} */}
         <Col xs="12" md="12">
-            <FileUpload
-              values={values}
-              setValues={setValues}
-              setLoading={setLoading}
-            />
+          <FileUpload
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+          />
         </Col>
         <Col xs="12" md="12">
           <ProductCreateForm
@@ -114,6 +119,7 @@ const ProductCreate = () => {
             handleCategoryChange={handleCategoryChange}
             subOptions={subOptions}
             showSub={showSub}
+            handleWrap={handleWrap}
           />
         </Col>
       </Row>

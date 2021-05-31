@@ -2,6 +2,8 @@ import React from "react";
 import { Select } from "antd";
 import { Row, Col } from "reactstrap";
 import Button from "../Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const { Option } = Select;
 
@@ -13,6 +15,7 @@ const ProductCreateForm = ({
   handleCategoryChange,
   subOptions,
   showSub,
+  handleWrap
 }) => {
   // destructure
   const {
@@ -30,12 +33,13 @@ const ProductCreateForm = ({
     color,
     brand,
     weight,
+    wrapping,
   } = values;
 
   return (
     <form onSubmit={handleSubmit}>
       <Row>
-        <Col xs="12" md="6">
+        <Col xs="12" md="3">
           <div className="form-group">
             <label>Title</label>
             <input
@@ -182,6 +186,20 @@ const ProductCreateForm = ({
               </Select>
             </div>
           )}
+        </Col>
+        <Col xs="6" md="3">
+          <div className="form-group mt-3">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={wrapping ? true : false}
+                  onChange={handleWrap}
+                  name="wrapping"
+                />
+              }
+              label="Wrapping?"
+            />
+          </div>
         </Col>
       </Row>
 
