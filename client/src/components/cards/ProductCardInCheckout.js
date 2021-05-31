@@ -13,9 +13,6 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
 const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
-  const [state, setState] = useState({
-    wrapping: false,
-  });
 
   let dispatch = useDispatch();
 
