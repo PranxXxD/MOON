@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
@@ -6,22 +6,14 @@ import { userCart } from "../functions/user";
 import Button from "../components/Button";
 import { Row, Col } from "reactstrap";
 import { ImGift } from "react-icons/im";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import { useDispatch } from "react-redux";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
-  const [wrapping, setWrapping] = useState(false);
-
-  let dispatch = useDispatch();
 
   const getTotal = () => {
     return cart.reduce((currentVal, nextVal) => {
       if (nextVal.wrapping) {
-        return currentVal + nextVal.count * nextVal.price + 25;
+        return currentVal + nextVal.count * nextVal.price + 20;
       }
       return currentVal + nextVal.count * nextVal.price;
     }, 0);
@@ -35,22 +27,24 @@ const Cart = ({ history }) => {
 
   const getShipping = (x) => {
     if (x() <= 500) {
-      // console.log("69", x());
+      console.log("69", x());
       return 69;
     } else if (x() > 500 && x() <= 1000) {
-      // console.log("99", x());
+      console.log("99", x());
       return 99;
     } else if (x() > 1000 && x() <= 1500) {
-      // console.log("149", x());
+      console.log("149", x());
       return 149;
     } else if (x() > 1500 && x() <= 2000) {
-      // console.log("169", x());
+      console.log("169", x());
       return 169;
     } else {
-      // console.log("199", x());
+      console.log("199", x());
       return 199;
     }
   };
+
+  //
 
   const saveOrderToDb = () => {
     // console.log("cart", JSON.stringify(cart, null, 4));
@@ -108,21 +102,6 @@ const Cart = ({ history }) => {
                     <p className="item-label">
                       Convience fee: ₹{getShipping(getWeight)}
                     </p>
-                    <div>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-                            checkedIcon={<CheckBoxIcon fontSize="large" />}
-                            checked={wrapping}
-                            onChange={(e) => setWrapping(e.target.checked)}
-                            name="wrapping"
-                          />
-                        }
-                        label="Gift Wrap?"
-                      />
-                    </div>
-
                     <hr />
                     <p className="item-name one-line-ellipsis">
                       Total: ₹{getTotal() + getShipping(getWeight)}
