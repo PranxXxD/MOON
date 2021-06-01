@@ -72,7 +72,10 @@ const Cart = ({ history }) => {
         <Col xs="12" sm="12" md="6">
           {!cart.length ? (
             <p className="h_4">
-              No products in cart. <Link to="/shop">Continue Shopping</Link>
+              No products in cart.{" "}
+              <Link to="/shop">
+                <u>Continue Shopping</u>
+              </Link>
             </p>
           ) : (
             showCartItems()
@@ -89,14 +92,24 @@ const Cart = ({ history }) => {
                     {cart.map((c, i) => (
                       <div key={i}>
                         <p className="item-label">
-                          {c.title} x {c.count}{" "}
+                          {c.title} x {c.count}
                           {wrap && <ImGift fontSize="medium" />}
                         </p>
                       </div>
                     ))}
                     <hr />
-                    <p className="item-label">Order Total : ₹{getTotal()}</p>
-                    <p className="item-label">Shipping :{getWeight()}g</p>
+                    <Row>
+                      <Col>
+                        <p className="item-label">Order Total:</p>
+                        <p className="item-label">Convience fee:</p>
+                      </Col>
+                      <Col>
+                        <p className="item-label text-right">₹{getTotal()}</p>
+                        <p className="item-label text-right">
+                          ₹{getShipping(getWeight)}
+                        </p>
+                      </Col>
+                    </Row>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -104,15 +117,11 @@ const Cart = ({ history }) => {
                           checkedIcon={<CheckBoxIcon fontSize="medium" />}
                           checked={wrap}
                           onChange={(e) => setWrap(e.target.checked)}
-                          // name="wrapping"
                         />
                       }
                       label="Gift Wrap?"
                     />
-                    {wrap ? <p>true</p> : <p>false</p>}
-                    <p className="item-label">
-                      Convience fee: ₹{getShipping(getWeight)}
-                    </p>
+
                     <hr />
                     {wrap ? (
                       <p className="item-name one-line-ellipsis">

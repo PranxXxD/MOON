@@ -63,27 +63,6 @@ const ProductCardInCheckout = ({ p }) => {
     }
   };
 
-  // const handleWrappingChange = (e) => {
-  //   let cart = [];
-  //   if (typeof window !== "undefined") {
-  //     if (localStorage.getItem("cart")) {
-  //       cart = JSON.parse(localStorage.getItem("cart"));
-  //     }
-  //     cart.map((product, i) => {
-  //       if (product._id === p._id) {
-  //         cart[i].wrapping = e.target.checked;
-  //       }
-  //     });
-  //     localStorage.setItem("cart", JSON.stringify(cart));
-
-  //     //dispatch
-  //     dispatch({
-  //       type: "ADD_TO_CART",
-  //       payload: cart,
-  //     });
-  //   }
-  // };
-
   const handleRemove = () => {
     // console.log(p._id, "to remove");
     let cart = [];
@@ -122,13 +101,14 @@ const ProductCardInCheckout = ({ p }) => {
                   className="item-link one-line-ellipsis"
                 >
                   <h1 className="item-name one-line-ellipsis">{p.title}</h1>
-                  <p className="item-name one-line-ellipsis">
-                    ₹{p.price * p.count}
-                  </p>
                 </Link>
               </div>
             </Col>
-            <Col xs="3" md="3" className="text-top"></Col>
+            <Col xs="4" md="3" className="text-right">
+              <p className="item-name one-line-ellipsis">
+                ₹{p.price * p.count}
+              </p>
+            </Col>
           </Row>
           <Row className="mb-2 align-items-center">
             <Col xs="9"></Col>
@@ -163,20 +143,6 @@ const ProductCardInCheckout = ({ p }) => {
                   ))}
               </Select>
             </Col>
-            {/* <Col xs="3" md="5">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    icon={<CheckBoxOutlineBlankIcon fontSize="large" />}
-                    checkedIcon={<CheckBoxIcon fontSize="large" />}
-                    checked={p.wrapping}
-                    onChange={handleWrappingChange}
-                    name="wrapping"
-                  />
-                }
-                label="Gift Wrap?"
-              />
-            </Col> */}
             <Col xs="3" md="2">
               <DeleteForeverIcon
                 fontSize="large"
