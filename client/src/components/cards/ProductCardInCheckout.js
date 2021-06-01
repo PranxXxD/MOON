@@ -13,10 +13,6 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
 const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
-  const [state, setState] = useState({
-    wrapping: false,
-  });
-
   let dispatch = useDispatch();
 
   const handleColorChange = (e) => {
@@ -59,7 +55,6 @@ const ProductCardInCheckout = ({ p }) => {
         }
       });
       localStorage.setItem("cart", JSON.stringify(cart));
-
       //dispatch
       dispatch({
         type: "ADD_TO_CART",
@@ -68,26 +63,26 @@ const ProductCardInCheckout = ({ p }) => {
     }
   };
 
-  const handleWrappingChange = (e) => {
-    let cart = [];
-    if (typeof window !== "undefined") {
-      if (localStorage.getItem("cart")) {
-        cart = JSON.parse(localStorage.getItem("cart"));
-      }
-      cart.map((product, i) => {
-        if (product._id === p._id) {
-          cart[i].wrapping = e.target.checked;
-        }
-      });
-      localStorage.setItem("cart", JSON.stringify(cart));
+  // const handleWrappingChange = (e) => {
+  //   let cart = [];
+  //   if (typeof window !== "undefined") {
+  //     if (localStorage.getItem("cart")) {
+  //       cart = JSON.parse(localStorage.getItem("cart"));
+  //     }
+  //     cart.map((product, i) => {
+  //       if (product._id === p._id) {
+  //         cart[i].wrapping = e.target.checked;
+  //       }
+  //     });
+  //     localStorage.setItem("cart", JSON.stringify(cart));
 
-      //dispatch
-      dispatch({
-        type: "ADD_TO_CART",
-        payload: cart,
-      });
-    }
-  };
+  //     //dispatch
+  //     dispatch({
+  //       type: "ADD_TO_CART",
+  //       payload: cart,
+  //     });
+  //   }
+  // };
 
   const handleRemove = () => {
     // console.log(p._id, "to remove");
@@ -168,7 +163,7 @@ const ProductCardInCheckout = ({ p }) => {
                   ))}
               </Select>
             </Col>
-            <Col xs="3" md="5">
+            {/* <Col xs="3" md="5">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -181,7 +176,7 @@ const ProductCardInCheckout = ({ p }) => {
                 }
                 label="Gift Wrap?"
               />
-            </Col>
+            </Col> */}
             <Col xs="3" md="2">
               <DeleteForeverIcon
                 fontSize="large"

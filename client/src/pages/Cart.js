@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
-import { userCart } from "../functions/user";
+import { userCart, getUserCart } from "../functions/user";
 import Button from "../components/Button";
 import { Row, Col } from "reactstrap";
 import { ImGift } from "react-icons/im";
+import { useDispatch } from "react-redux";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
+  const [wrap, setWrap] = useState(false);
+
+  let dispatch = useDispatch();
 
   const getTotal = () => {
     return cart.reduce((currentVal, nextVal) => {
-      if (nextVal.wrapping) {
-        return currentVal + nextVal.count * nextVal.price + 20;
-      }
       return currentVal + nextVal.count * nextVal.price;
     }, 0);
   };
@@ -27,28 +32,21 @@ const Cart = ({ history }) => {
 
   const getShipping = (x) => {
     if (x() <= 500) {
-      console.log("69", x());
       return 69;
     } else if (x() > 500 && x() <= 1000) {
-      console.log("99", x());
       return 99;
     } else if (x() > 1000 && x() <= 1500) {
-      console.log("149", x());
       return 149;
     } else if (x() > 1500 && x() <= 2000) {
-      console.log("169", x());
       return 169;
     } else {
-      console.log("199", x());
       return 199;
     }
   };
 
-  //
-
   const saveOrderToDb = () => {
     // console.log("cart", JSON.stringify(cart, null, 4));
-    userCart(cart, user.token)
+    userCart(cart, wrap, user.token)
       .then((res) => {
         console.log("Cart post response", res);
         if (res.data.ok) history.push("/checkout");
@@ -92,20 +90,40 @@ const Cart = ({ history }) => {
                       <div key={i}>
                         <p className="item-label">
                           {c.title} x {c.count}{" "}
-                          {c.wrapping && <ImGift fontSize="medium" />}
+                          {wrap && <ImGift fontSize="medium" />}
                         </p>
                       </div>
                     ))}
                     <hr />
                     <p className="item-label">Order Total : ₹{getTotal()}</p>
                     <p className="item-label">Shipping :{getWeight()}g</p>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          icon={<CheckBoxOutlineBlankIcon fontSize="medium" />}
+                          checkedIcon={<CheckBoxIcon fontSize="medium" />}
+                          checked={wrap}
+                          onChange={(e) => setWrap(e.target.checked)}
+                          // name="wrapping"
+                        />
+                      }
+                      label="Gift Wrap?"
+                    />
+                    {wrap ? <p>true</p> : <p>false</p>}
                     <p className="item-label">
                       Convience fee: ₹{getShipping(getWeight)}
                     </p>
                     <hr />
-                    <p className="item-name one-line-ellipsis">
-                      Total: ₹{getTotal() + getShipping(getWeight)}
-                    </p>
+                    {wrap ? (
+                      <p className="item-name one-line-ellipsis">
+                        Total: ₹{getTotal() + getShipping(getWeight) + 30}
+                      </p>
+                    ) : (
+                      <p className="item-name one-line-ellipsis">
+                        Total: ₹{getTotal() + getShipping(getWeight)}
+                      </p>
+                    )}
+
                     {user ? (
                       <Button
                         variant="primary"

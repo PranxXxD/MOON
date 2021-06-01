@@ -15,6 +15,14 @@ const cartSchema = new mongoose.Schema(
         price: Number,
       },
     ],
+    wrap: { type: Boolean, default: false },
+    //   {
+    //     wrapping: {
+    //       type: Boolean,
+    //       default: false,
+    //     },
+    //   },
+    // ],
     cartTotal: Number,
     totalAfterDiscount: Number,
     orderedBy: { type: ObjectId, ref: "User" },

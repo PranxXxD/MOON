@@ -5,7 +5,7 @@ const Coupon = require("../models/coupon");
 
 exports.userCart = async (req, res) => {
   // console.log(req.body); // {cart: []}
-  const { cart } = req.body;
+  const { cart, wrap } = req.body;
 
   let products = [];
 
@@ -35,17 +35,43 @@ exports.userCart = async (req, res) => {
     products.push(object);
   }
 
-  // console.log('products', products)
-
   let cartTotal = 0;
-  for (let i = 0; i < products.length; i++) {
-    cartTotal = cartTotal + products[i].price * products[i].count;
+  let total = 0;
+  let shipping = 0;
+
+  for (let i = 0; i < cart.length; i++) {
+    shipping = shipping + cart[i].weight * cart[i].count;
   }
 
-  // console.log("cartTotal", cartTotal);
+  const getShipping = () => {
+    if (shipping == 0) {
+      return 0;
+    } else if (shipping > 0 && shipping <= 500) {
+      return 69;
+    } else if (shipping > 500 && shipping <= 1000) {
+      return 99;
+    } else if (shipping > 1000 && shipping <= 1500) {
+      return 149;
+    } else if (shipping > 1500 && shipping <= 2000) {
+      return 169;
+    } else {
+      return 199;
+    }
+  };
+
+  for (let i = 0; i < products.length; i++) {
+    total = total + products[i].price * cart[i].count;
+  }
+
+  if (wrap) {
+    cartTotal = total + getShipping() + 30;
+  } else {
+    cartTotal = total + getShipping();
+  }
 
   let newCart = await new Cart({
     products,
+    wrap,
     cartTotal,
     orderedBy: user._id,
   }).save();
@@ -61,8 +87,8 @@ exports.getUserCart = async (req, res) => {
     .populate("products.product", "_id title price totalAfterDiscount")
     .exec();
 
-  const { products, cartTotal, totalAfterDiscount } = cart;
-  res.json({ products, cartTotal, totalAfterDiscount });
+  const { products, cartTotal, wrap, totalAfterDiscount } = cart;
+  res.json({ products, cartTotal, wrap, totalAfterDiscount });
 };
 
 exports.emptyCart = async (req, res) => {

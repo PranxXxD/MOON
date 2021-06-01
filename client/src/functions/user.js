@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const userCart = async (cart, authtoken) =>
+export const userCart = async (cart, wrap, authtoken) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/cart`,
-    { cart },
+    { cart, wrap },
     {
       headers: {
         authtoken,
@@ -36,7 +36,7 @@ export const saveUserAddress = async (authtoken, address) =>
     }
   );
 
-  export const applyCoupon = async (authtoken, coupon) =>
+export const applyCoupon = async (authtoken, coupon) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/cart/coupon`,
     { coupon },
@@ -46,4 +46,3 @@ export const saveUserAddress = async (authtoken, address) =>
       },
     }
   );
-
