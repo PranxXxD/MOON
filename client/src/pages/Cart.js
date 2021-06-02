@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCardInCheckout";
-import { userCart, getUserCart } from "../functions/user";
-import Button from "../components/Button";
+import { userCart, getUserCart, applyCoupon } from "../functions/user";
+// import Button from "../components/Button";
 import { Row, Col } from "reactstrap";
 import { ImGift } from "react-icons/im";
 import { useDispatch } from "react-redux";
@@ -15,12 +15,22 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
   const [wrap, setWrap] = useState(false);
+  const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [on, setOn] = useState(false);
+
+  const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
+  const [discountError, setDiscountError] = useState("");
 
   let dispatch = useDispatch();
 
@@ -55,9 +65,33 @@ const Cart = ({ history }) => {
     userCart(cart, wrap, user.token)
       .then((res) => {
         console.log("Cart post response", res);
-        if (res.data.ok) history.push("/checkout");
+        // if (res.data.ok) history.push("/checkout");
       })
       .catch((err) => console.log("save data error", err));
+  };
+
+  const applyDiscountCoupon = () => {
+    console.log("send coupon to backend", coupon);
+    applyCoupon(user.token, coupon).then((res) => {
+      console.log("RES ON COUPON APPLIED", res.data);
+      if (res.data) {
+        setTotalAfterDiscount(res.data);
+        // update redux coupon applied true/false
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: true,
+        });
+      }
+      // error
+      if (res.data.err) {
+        setDiscountError(res.data.err);
+        // update redux coupon applied true/false
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
+      }
+    });
   };
 
   const showCartItems = () => (
@@ -71,6 +105,16 @@ const Cart = ({ history }) => {
       </div>
     </div>
   );
+
+  const handleClose = () => {
+    applyDiscountCoupon();
+    setOn(false);
+  };
+
+  const handleOpen = () => {
+    saveOrderToDb();
+    setOn(true);
+  };
 
   return (
     <div className="contact">
@@ -87,7 +131,7 @@ const Cart = ({ history }) => {
             showCartItems()
           )}
         </Col>
-        <Col xs="12" sm="12" md="3">
+        <Col xs="12" sm="12" md="4">
           <Col xs="12" sm="12" xs="12">
             <div className="cart mt-4">
               <div className="cart-body">
@@ -111,10 +155,12 @@ const Cart = ({ history }) => {
                           Convience fee:
                           <InfoOutlinedIcon
                             fontSize="small"
+                            className="pointer"
                             value={open}
                             onClick={(e) => setOpen(true)}
                           />
                         </p>
+                        <p className="item-label">Coupon Discount:</p>
                         <Dialog
                           onClose={(e) => setOpen(false)}
                           aria-labelledby="simple-dialog-title"
@@ -138,6 +184,35 @@ const Cart = ({ history }) => {
                         <p className="item-label text-right">
                           ₹{getShipping(getWeight)}
                         </p>
+                        {totalAfterDiscount > 0 ? (
+                          <p className="item-label text-right text-success">
+                            ₹{totalAfterDiscount}
+                            <HighlightOffIcon
+                              fontSize="small"
+                              value={on}
+                              className="text-danger pointer ml-1"
+                              onClick={(e) => setTotalAfterDiscount(0)}
+                            />
+                          </p>
+                        ) : user ? (
+                          <button
+                            onClick={handleOpen}
+                            className="item-label float-right text-success"
+                          >
+                            Apply Coupon?
+                          </button>
+                        ) : (
+                          <Link
+                            to={{
+                              pathname: "/login",
+                              state: { from: "cart" },
+                            }}
+                          >
+                            <button className="item-label float-right text-success">
+                              Apply Coupon?
+                            </button>
+                          </Link>
+                        )}
                       </Col>
                     </Row>
                     <FormControlLabel
@@ -151,7 +226,6 @@ const Cart = ({ history }) => {
                       }
                       label="Gift Wrap?"
                     />
-
                     <hr />
                     {wrap ? (
                       <p className="item-name one-line-ellipsis">
@@ -162,15 +236,56 @@ const Cart = ({ history }) => {
                         Total: ₹{getTotal() + getShipping(getWeight)}
                       </p>
                     )}
-
-                    {user ? (
-                      <Button
-                        variant="primary"
-                        text="Checkout"
-                        onClick={saveOrderToDb}
-                        className="w-100 mt-2"
-                        disabled={!cart.length}
-                      />
+                    {totalAfterDiscount > 0 && (
+                      <>
+                        <h4 className="text-success">
+                          <strong>Discount Applied!!</strong> <br />
+                          Total Payable: ₹{totalAfterDiscount}
+                        </h4>
+                      </>
+                    )}
+                    {discountError && (
+                      <p className="text-danger">{discountError}</p>
+                    )}
+                    <Dialog
+                      onClose={(e) => setOn(false)}
+                      aria-labelledby="simple-dialog-title"
+                      open={on}
+                    >
+                      <DialogTitle id="simple-dialog-title">
+                        Apply Coupon
+                      </DialogTitle>
+                      <DialogContent>
+                        <TextField
+                          autoFocus
+                          margin="dense"
+                          id="name"
+                          label="Coupon Code"
+                          fullWidth
+                          onChange={(e) => {
+                            setCoupon(e.target.value);
+                            setDiscountError("");
+                          }}
+                        />
+                        <DialogActions>
+                          <Button onClick={(e) => setOn(false)} color="primary">
+                            Cancel
+                          </Button>
+                          <Button onClick={handleClose} color="primary">
+                            Apply
+                          </Button>
+                        </DialogActions>
+                      </DialogContent>
+                    </Dialog>
+                    {/* {user ? (
+                      <button
+                        // variant="primary"
+                        onClick={handleOpen}
+                        className="btn mt-2"
+                        text="Apply"
+                      >
+                        Apply
+                      </button>
                     ) : (
                       <Link
                         to={{
@@ -179,10 +294,32 @@ const Cart = ({ history }) => {
                         }}
                       >
                         <Button
-                          className="w-100"
-                          text="Login to Checkout mt-2"
+                          className="w-100 mt-2"
+                          text="Login to Apply"
                           variant="primary"
                         />
+                      </Link>
+                    )} */}
+
+                    {user ? (
+                      <button
+                        // variant="primary"
+                        onClick={(e) => history.push("/checkout")}
+                        className=" btn btn-primary btn-raised w-100 mt-2"
+                        disabled={!cart.length}
+                      >
+                        Checkout
+                      </button>
+                    ) : (
+                      <Link
+                        to={{
+                          pathname: "/login",
+                          state: { from: "cart" },
+                        }}
+                      >
+                        <button className=" btn btn-primary btn-raised w-100 mt-2">
+                          Checkout
+                        </button>
                       </Link>
                     )}
                   </div>

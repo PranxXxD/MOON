@@ -7,16 +7,25 @@ import {
   applyCoupon,
 } from "../functions/user";
 import { toast } from "react-toastify";
-import ReactQuill from "react-quill";
+import { Row, Col } from "reactstrap";
+
 import "react-quill/dist/quill.snow.css";
 import Button from "../components/Button";
 
 const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState({
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    pinCode: "",
+  });
   const [addressSaved, setAddressSaved] = useState(false);
   const [coupon, setCoupon] = useState("");
+
   //discount price
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
   const [discountError, setDiscountError] = useState("");
@@ -87,107 +96,127 @@ const Checkout = ({ history }) => {
     });
   };
 
+  const handleChange = (e) => {
+    setAddress({ ...address, [e.target.name]: e.target.value });
+  };
+
   const showAddress = () => (
     <>
-      <textarea
-        value={address}
-        rows="4"
-        placeholder="Enter your complete address..."
-        onChange={(e) => {
-          setAddress(e.target.value);
-        }}
-      />
-      <Button
-        text="Save"
-        variant="primary"
-        className="btn mt-2"
-        onClick={saveAddressToDb}
-      />
-    </>
-  );
-
-  const showProductSummary = () =>
-    products.map((p, i) => (
-      <div key={i}>
-        <p>
-          {p.product.title} ({p.color}) x {p.count} ={" "}
-          {p.product.price * p.count}
-        </p>
+      <div className="add-address">
+        <form>
+          <Row>
+            <Col xs="12" md="6">
+              <div className="form-group">
+                <label>Address: Street, House No / Apartment No</label>
+                <input
+                  type={"text"}
+                  name={"address"}
+                  className="form-control"
+                  value={address.address}
+                  onChange={handleChange}
+                />
+              </div>
+            </Col>
+            <Col xs="12" md="3">
+              <div className="form-group">
+                <label>Phone</label>
+                <input
+                  type={"number"}
+                  name={"phone"}
+                  className="form-control"
+                  value={address.phone}
+                  onChange={handleChange}
+                />
+              </div>
+            </Col>
+            <Col xs="12" md="3">
+              <div className="form-group">
+                <label>City</label>
+                <input
+                  type={"text"}
+                  name={"city"}
+                  className="form-control"
+                  value={address.city}
+                  onChange={handleChange}
+                />
+              </div>
+            </Col>
+            <Col xs="12" lg="3">
+              <div className="form-group">
+                <label>State</label>
+                <input
+                  type={"text"}
+                  name={"state"}
+                  className="form-control"
+                  value={address.state}
+                  onChange={handleChange}
+                />
+              </div>
+            </Col>
+            <Col xs="12" lg="3">
+              <div className="form-group">
+                <label>Country</label>
+                <input
+                  type={"text"}
+                  name={"country"}
+                  className="form-control"
+                  value={address.country}
+                  onChange={handleChange}
+                />
+              </div>
+            </Col>
+            <Col xs="12" lg="3">
+              <div className="form-group">
+                <label>PinCode</label>
+                <input
+                  type={"text"}
+                  name={"pinCode"}
+                  className="form-control"
+                  value={address.pinCode}
+                  onChange={handleChange}
+                />
+              </div>
+            </Col>
+          </Row>
+          <div className="add-address-actions">
+            <Button onClick={saveAddressToDb} text="Add Address" />
+          </div>
+        </form>
       </div>
-    ));
-
-  const showApplyCoupon = () => (
-    <>
-      <input
-        className="form-control"
-        type="text"
-        value={coupon}
-        placeholder="ENTER COUPON"
-        onChange={(e) => {
-          setCoupon(e.target.value);
-          setDiscountError("");
-        }}
-      />
-      <Button
-        variant="primary"
-        onClick={applyDiscountCoupon}
-        className="btn mt-2"
-        text="Apply"
-      ></Button>
     </>
   );
 
   return (
-    <div className="row">
-      <div className="col-md-6 pl-5">
-        <h4>Delivery Address</h4>
-        {showAddress()}
-        <hr />
-      </div>
+    <div className="contact">
+      <Row>
+        <Col xs="12" md="9">
+          <h4>Delivery Address</h4>
+          {showAddress()}
+          <hr />
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="12" md="5">
+          {discountError && <p className="text-danger">{discountError}</p>}
 
-      <div className="col-md-6">
-        <h4>Order Summary</h4>
-        <hr />
-        <p> Total Products: {products.length}</p>
-        <hr />
-        <p>List of products:</p>
-        {showProductSummary()}
-        <hr />
-        <p>Cart Total: ₹{total}</p>
-        {totalAfterDiscount > 0 && (
-          <>
-            <p className="text-success">
-              <strong>Discount Applied!!</strong> <br />
-              Total Payable: ₹{totalAfterDiscount}
-            </p>
-          </>
-        )}
-        {discountError && <p className="text-danger">{discountError}</p>}
-
-        <div>{showApplyCoupon()}</div>
-
-        <div className="row my-5">
-          <div className="col-md-6">
-            <Button
-              variant="primary"
-              className="btn"
-              disabled={!addressSaved || !products.length}
-              onClick={() => history.push("/payment")}
-              text="Place Order"
-            />
-          </div>
-
-          <div className="col-md-6">
-            <Button
-              variant="primary"
-              disabled={!products.length}
-              onClick={emptyCart}
-              className="btn"
-              text="Empty Cart"
-            />
-          </div>
-        </div>
-      </div>
+          <Button
+            variant="primary"
+            className="btn m-2"
+            disabled={!addressSaved || !products.length}
+            onClick={() => history.push("/payment")}
+            text="Place Order"
+          />
+          <Button
+            variant="primary"
+            className="btn m-2"
+            disabled={!products.length}
+            onClick={emptyCart}
+            className="btn"
+            text="Empty Cart"
+          />
+        </Col>
+        <Col xs="12" md="12"></Col>
+      </Row>
     </div>
   );
 };

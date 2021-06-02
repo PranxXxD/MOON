@@ -100,11 +100,14 @@ exports.emptyCart = async (req, res) => {
 };
 
 exports.saveAddress = async (req, res) => {
+  const { phone, flat, city, state, country, pinCode } = req.body.address;
+
   const userAddress = await User.findOneAndUpdate(
     { email: req.user.email },
-    { address: req.body.address }
+    { phone, flat, city, state, country, pinCode }
   ).exec();
 
+  console.log("user address ----> ", userAddress);
   res.json({ ok: true });
 };
 
