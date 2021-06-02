@@ -11,10 +11,16 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
   const [wrap, setWrap] = useState(false);
+  const [open, setOpen] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -101,7 +107,31 @@ const Cart = ({ history }) => {
                     <Row>
                       <Col>
                         <p className="item-label">Order Total:</p>
-                        <p className="item-label">Convience fee:</p>
+                        <p className="item-label">
+                          Convience fee:
+                          <InfoOutlinedIcon
+                            fontSize="small"
+                            value={open}
+                            onClick={(e) => setOpen(true)}
+                          />
+                        </p>
+                        <Dialog
+                          onClose={(e) => setOpen(false)}
+                          aria-labelledby="simple-dialog-title"
+                          open={open}
+                        >
+                          <DialogTitle id="simple-dialog-title">
+                            Convience fee:
+                          </DialogTitle>
+                          <DialogContent>
+                            <DialogContentText>
+                              Convience fee is charged on behalf of the delivery
+                              charges which might vary based on the delivery
+                              location and weight of the products. For further
+                              information, Please contact Customer Support.
+                            </DialogContentText>
+                          </DialogContent>
+                        </Dialog>
                       </Col>
                       <Col>
                         <p className="item-label text-right">₹{getTotal()}</p>
