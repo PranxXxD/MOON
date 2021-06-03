@@ -20,6 +20,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
@@ -147,7 +148,7 @@ const Cart = ({ history }) => {
           )}
         </Col>
         <Col xs="12" sm="12" md="4">
-          <Col xs="12" sm="12" xs="12">
+          <Col xs="12" sm="12">
             <div className="cart mt-4">
               <div className="cart-body">
                 <div className="item-details">
@@ -180,8 +181,15 @@ const Cart = ({ history }) => {
                     <Row>
                       <Col>
                         <p className="item-label">Order Total:</p>
+                      </Col>
+                      <Col>
+                        <p className="item-label text-right">₹{getTotal()}</p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
                         <p className="item-label">
-                          Convience fee:
+                          Convenience fee:
                           <InfoOutlinedIcon
                             fontSize="small"
                             className="pointer"
@@ -189,6 +197,23 @@ const Cart = ({ history }) => {
                             onClick={(e) => setOpen(true)}
                           />
                         </p>
+                      </Col>
+                      <Col>
+                        <p className="item-label text-right">
+                          ₹{getShipping(getWeight)}
+                        </p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
+                        <p className="item-label">Gift Wrapping:</p>
+                      </Col>
+                      <Col>
+                        <p className="item-label text-right">₹30</p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col>
                         <p className="item-label">Coupon Discount:</p>
                         <Dialog
                           onClose={(e) => setOpen(false)}
@@ -209,13 +234,9 @@ const Cart = ({ history }) => {
                         </Dialog>
                       </Col>
                       <Col>
-                        <p className="item-label text-right">₹{getTotal()}</p>
-                        <p className="item-label text-right">
-                          ₹{getShipping(getWeight)}
-                        </p>
                         {totalAfterDiscount > 0 ? (
                           <p className="item-label text-right text-success">
-                            ₹{couponDiscount}
+                            -₹{couponDiscount}
                             <HighlightOffIcon
                               fontSize="small"
                               value={on}
@@ -250,7 +271,7 @@ const Cart = ({ history }) => {
                         <>
                           <Col>
                             <p className="item-name one-line-ellipsis">
-                              Total:
+                              Total Amount:
                             </p>
                           </Col>
                           <Col>
@@ -280,15 +301,6 @@ const Cart = ({ history }) => {
                         </>
                       )}
                     </Row>
-
-                    {totalAfterDiscount > 0 && (
-                      <>
-                        <h4 className="text-success">
-                          <strong>Discount Applied!!</strong> <br />
-                          Total Payable: ₹{totalAfterDiscount}
-                        </h4>
-                      </>
-                    )}
                     {discountError && (
                       <p className="text-danger">{discountError}</p>
                     )}
@@ -322,15 +334,18 @@ const Cart = ({ history }) => {
                         </DialogActions>
                       </DialogContent>
                     </Dialog>
-                    {/* {user ? (
-                      <button
-                        // variant="primary"
-                        onClick={handleOpen}
-                        className="btn mt-2"
-                        text="Apply"
+                    {user ? (
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        onClick={(e) => history.push("/checkout")}
+                        className="w-100 mt-2"
+                        endIcon={<ShoppingCartIcon />}
+                        disabled={!cart.length}
                       >
-                        Apply
-                      </button>
+                        Place Order
+                      </Button>
                     ) : (
                       <Link
                         to={{
@@ -339,32 +354,15 @@ const Cart = ({ history }) => {
                         }}
                       >
                         <Button
+                          variant="contained"
+                          color="secondary"
+                          size="large"
                           className="w-100 mt-2"
-                          text="Login to Apply"
-                          variant="primary"
-                        />
-                      </Link>
-                    )} */}
-
-                    {user ? (
-                      <button
-                        // variant="primary"
-                        onClick={(e) => history.push("/checkout")}
-                        className=" btn btn-primary btn-raised w-100 mt-2"
-                        disabled={!cart.length}
-                      >
-                        Checkout
-                      </button>
-                    ) : (
-                      <Link
-                        to={{
-                          pathname: "/login",
-                          state: { from: "cart" },
-                        }}
-                      >
-                        <button className=" btn btn-primary btn-raised w-100 mt-2">
-                          Checkout
-                        </button>
+                          endIcon={<ShoppingCartIcon />}
+                          disabled={!cart.length}
+                        >
+                          Place Order
+                        </Button>
                       </Link>
                     )}
                   </div>

@@ -204,7 +204,7 @@ const Checkout = ({ history }) => {
             className="btn m-2"
             disabled={!addressSaved || !products.length}
             onClick={() => history.push("/payment")}
-            text="Place Order"
+            text="Continue"
           />
           <Button
             variant="primary"
@@ -215,7 +215,6 @@ const Checkout = ({ history }) => {
             text="Empty Cart"
           />
         </Col>
-        <Col xs="12" md="12"></Col>
       </Row>
     </div>
   );
