@@ -6,12 +6,8 @@ import Select from "@material-ui/core/Select";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
-const ProductCardInCheckout = ({ p }) => {
+const ProductCardInCheckout = ({ p, setTotalAfterDiscount }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   let dispatch = useDispatch();
 
@@ -38,7 +34,7 @@ const ProductCardInCheckout = ({ p }) => {
 
   const handleQuantityChange = (e) => {
     let count = e.target.value < 1 ? 1 : e.target.value;
-
+    setTotalAfterDiscount(0);
     if (count > p.quantity) {
       toast.error(`Maximum Available quantity : ${p.quantity}`);
       return;

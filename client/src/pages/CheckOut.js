@@ -16,8 +16,8 @@ const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState({
-    phone: "",
     address: "",
+    phone: "",
     city: "",
     state: "",
     country: "",
@@ -121,7 +121,7 @@ const Checkout = ({ history }) => {
               <div className="form-group">
                 <label>Phone</label>
                 <input
-                  type={"number"}
+                  type="number"
                   name={"phone"}
                   className="form-control"
                   value={address.phone}
@@ -169,7 +169,7 @@ const Checkout = ({ history }) => {
               <div className="form-group">
                 <label>PinCode</label>
                 <input
-                  type={"text"}
+                  type="number"
                   name={"pinCode"}
                   className="form-control"
                   value={address.pinCode}

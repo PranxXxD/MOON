@@ -24,7 +24,6 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
   const [wrap, setWrap] = useState(false);
-  const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
   const [coupon, setCoupon] = useState("");
   const [on, setOn] = useState(false);
@@ -47,7 +46,9 @@ const Cart = ({ history }) => {
   };
 
   const getShipping = (x) => {
-    if (x() <= 500) {
+    if (x() == 0) {
+      return 0;
+    } else if (x() > 0 && x() <= 500) {
       return 69;
     } else if (x() > 500 && x() <= 1000) {
       return 99;
@@ -99,7 +100,11 @@ const Cart = ({ history }) => {
       <div className="cart-body">
         <div className="cart-list">
           {cart.map((p) => (
-            <ProductCardInCheckout key={p._id} p={p} />
+            <ProductCardInCheckout
+              setTotalAfterDiscount={setTotalAfterDiscount}
+              key={p._id}
+              p={p}
+            />
           ))}
         </div>
       </div>
@@ -115,6 +120,16 @@ const Cart = ({ history }) => {
     saveOrderToDb();
     setOn(true);
   };
+
+  const couponDiscount = (
+    getTotal() +
+    getShipping(getWeight) -
+    totalAfterDiscount
+  ).toFixed(2);
+
+  const finalTotal = (getTotal() + getShipping(getWeight)).toFixed(2);
+
+  const wrapTotal = (getTotal() + getShipping(getWeight) + 30).toFixed(2);
 
   return (
     <div className="contact">
@@ -147,6 +162,20 @@ const Cart = ({ history }) => {
                         </p>
                       </div>
                     ))}
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          icon={<CheckBoxOutlineBlankIcon fontSize="medium" />}
+                          checkedIcon={<CheckBoxIcon fontSize="medium" />}
+                          checked={wrap}
+                          onChange={(e) => {
+                            setWrap(e.target.checked);
+                            setTotalAfterDiscount(0);
+                          }}
+                        />
+                      }
+                      label="Gift Wrap your cart at ₹30?"
+                    />
                     <hr />
                     <Row>
                       <Col>
@@ -186,7 +215,7 @@ const Cart = ({ history }) => {
                         </p>
                         {totalAfterDiscount > 0 ? (
                           <p className="item-label text-right text-success">
-                            ₹{totalAfterDiscount}
+                            ₹{couponDiscount}
                             <HighlightOffIcon
                               fontSize="small"
                               value={on}
@@ -215,27 +244,43 @@ const Cart = ({ history }) => {
                         )}
                       </Col>
                     </Row>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          icon={<CheckBoxOutlineBlankIcon fontSize="medium" />}
-                          checkedIcon={<CheckBoxIcon fontSize="medium" />}
-                          checked={wrap}
-                          onChange={(e) => setWrap(e.target.checked)}
-                        />
-                      }
-                      label="Gift Wrap?"
-                    />
                     <hr />
-                    {wrap ? (
-                      <p className="item-name one-line-ellipsis">
-                        Total: ₹{getTotal() + getShipping(getWeight) + 30}
-                      </p>
-                    ) : (
-                      <p className="item-name one-line-ellipsis">
-                        Total: ₹{getTotal() + getShipping(getWeight)}
-                      </p>
-                    )}
+                    <Row>
+                      {wrap ? (
+                        <>
+                          <Col>
+                            <p className="item-name one-line-ellipsis">
+                              Total:
+                            </p>
+                          </Col>
+                          <Col>
+                            <p className="item-name one-line-ellipsis text-right">
+                              ₹
+                              {totalAfterDiscount > 0
+                                ? totalAfterDiscount
+                                : wrapTotal}
+                            </p>
+                          </Col>
+                        </>
+                      ) : (
+                        <>
+                          <Col>
+                            <p className="item-name one-line-ellipsis">
+                              Total:
+                            </p>
+                          </Col>
+                          <Col>
+                            <p className="item-name one-line-ellipsis text-right">
+                              ₹
+                              {totalAfterDiscount > 0
+                                ? totalAfterDiscount
+                                : finalTotal}
+                            </p>
+                          </Col>
+                        </>
+                      )}
+                    </Row>
+
                     {totalAfterDiscount > 0 && (
                       <>
                         <h4 className="text-success">
