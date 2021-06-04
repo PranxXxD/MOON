@@ -214,14 +214,17 @@ const Cart = ({ history }) => {
                         </p>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col>
-                        <p className="item-label">Gift Wrapping:</p>
-                      </Col>
-                      <Col>
-                        <p className="item-label text-right">₹30</p>
-                      </Col>
-                    </Row>
+                    {wrap && (
+                      <Row>
+                        <Col>
+                          <p className="item-label">Gift Wrapping:</p>
+                        </Col>
+                        <Col>
+                          <p className="item-label text-right">₹30</p>
+                        </Col>
+                      </Row>
+                    )}
+
                     <Row>
                       <Col>
                         <p className="item-label">Coupon Discount:</p>
