@@ -72,6 +72,16 @@ const Cart = ({ history }) => {
       .catch((err) => console.log("save data error", err));
   };
 
+  const sendOrderToDb = () => {
+    // console.log("cart", JSON.stringify(cart, null, 4));
+    userCart(cart, wrap, user.token)
+      .then((res) => {
+        console.log("Cart post response", res);
+        if (res.data.ok) history.push("/checkout");
+      })
+      .catch((err) => console.log("save data error", err));
+  };
+
   const applyDiscountCoupon = () => {
     console.log("send coupon to backend", coupon);
     applyCoupon(user.token, coupon).then((res) => {
@@ -334,7 +344,19 @@ const Cart = ({ history }) => {
                         </DialogActions>
                       </DialogContent>
                     </Dialog>
-                    {user ? (
+                    {user && totalAfterDiscount == 0 ? (
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        onClick={sendOrderToDb}
+                        className="w-100 mt-2"
+                        endIcon={<ShoppingCartIcon />}
+                        disabled={!cart.length}
+                      >
+                        Place Order
+                      </Button>
+                    ) : totalAfterDiscount > 0 ? (
                       <Button
                         variant="contained"
                         color="secondary"
