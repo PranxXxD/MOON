@@ -158,7 +158,6 @@ const Cart = ({ history }) => {
           )}
         </Col>
         <Col xs="12" sm="12" md="4">
-          <Col xs="12" sm="12">
             <div className="cart mt-4">
               <div className="cart-body">
                 <div className="item-details">
@@ -394,7 +393,6 @@ const Cart = ({ history }) => {
                 </div>
               </div>
             </div>
-          </Col>
         </Col>
       </Row>
     </div>
