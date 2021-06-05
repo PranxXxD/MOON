@@ -31,6 +31,10 @@ exports.userCart = async (req, res) => {
       .select("price")
       .exec();
     object.price = productFromDb.price;
+    let imageFromDb = await Product.findById(cart[i]._id)
+      .select("images")
+      .exec();
+    object.images = imageFromDb.images;
 
     products.push(object);
   }
