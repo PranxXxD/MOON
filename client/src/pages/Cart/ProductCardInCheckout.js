@@ -88,10 +88,16 @@ const ProductCardInCheckout = ({ p, setTotalAfterDiscount }) => {
           <Row className="mb-1 align-items-center">
             <Col xs="12" md="9">
               <div className="d-flex align-items-center">
-                <img
-                  className="item-image"
-                  src={`${p.images[0] ? p.images[0].url : laptop}`}
-                />
+                <Link
+                  to={`/product/${p.slug}`}
+                  className="item-link one-line-ellipsis"
+                >
+                  <img
+                    className="item-image"
+                    src={`${p.images[0] ? p.images[0].url : laptop}`}
+                  />
+                </Link>
+
                 <Link
                   to={`/product/${p.slug}`}
                   className="item-link one-line-ellipsis"

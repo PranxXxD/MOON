@@ -33,19 +33,23 @@ const SideDrawer = ({ children }) => {
                     <Row className="mb-2 align-items-center">
                       <Col xs="9">
                         <div className="d-flex align-items-center">
-                          <img
-                            className="item-image"
-                            src={`${p.images[0] ? p.images[0].url : laptop}`}
-                          />
-
                           <Link
                             to={`/product/${p.slug}`}
                             className="item-link one-line-ellipsis"
-                            // onClick={handleProductClick}
-                          ></Link>
-                          <h1 className="item-name one-line-ellipsis">
-                            {p.title}
-                          </h1>
+                          >
+                            <img
+                              className="item-image"
+                              src={`${p.images[0] ? p.images[0].url : laptop}`}
+                            />
+                          </Link>
+                          <Link
+                            to={`/product/${p.slug}`}
+                            className="item-link one-line-ellipsis"
+                          >
+                            <h1 className="item-name one-line-ellipsis">
+                              {p.title}
+                            </h1>
+                          </Link>
                         </div>
                       </Col>
                     </Row>
