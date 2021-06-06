@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { auth, googleAuthProvider } from "../../firebase";
 import { toast } from "react-toastify";
-import { Button } from "antd";
-import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { Spin } from "antd";
 import { Link } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
+import { GoogleIcon } from "../../components/Icon";
+import { Row, Col } from "reactstrap";
+import LoadingIndicator from "../../components/LoadingIndicator";
+import Button from "../../components/Button";
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState("bharathchippa49@gmail.com");
-  const [password, setPassword] = useState("Bharath11");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
@@ -103,69 +104,79 @@ const Login = ({ history }) => {
       });
   };
 
-  const LoginForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <input
-          type="email"
-          className="form-control"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          autoFocus
-          placeholder="enter email"
-        />
-        <br />
-        <input
-          type="password"
-          className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          autoFocus
-          placeholder="enter password"
-        />
-      </div>
-      <br />
-      <Button
-        type="primary"
-        className="mb-2"
-        onClick={handleSubmit}
-        block
-        shape="round"
-        icon={<MailOutlined />}
-        size="medium"
-        disabled={!email || password.length < 6}
-      >
-        Login with Email/Password
-      </Button>
-    </form>
-  );
-
   return (
-    <div className="container p-5">
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <h4>Login</h4>
-          {LoginForm()}
-          <Button
-            type="danger"
-            className="mb-2"
-            onClick={googleLogin}
-            block
-            shape="round"
-            icon={<GoogleOutlined />}
-            size="medium"
-          >
-            Login with Google
-          </Button>
-          <Link to="forgot/password" className="float-right text-danger">
-            Forgot Password
-          </Link>
-          {loading ? (
-            <Spin className="d-flex justify-content-sm-center" size="large" />
-          ) : (
-            <span />
-          )}
-        </div>
+    <div className="contact">
+      <div className="login-form">
+        {loading && <LoadingIndicator />}
+        <h2>Login</h2>
+        <hr />
+        <form onSubmit={handleSubmit} noValidate>
+          <Row>
+            <Col
+              xs={{ size: 12, order: 2 }}
+              md={{ size: "6", order: 1 }}
+              className="col-no-padding"
+            >
+              <Col xs="12" md="12">
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type={"text"}
+                    label={"Email Address"}
+                    name={"email"}
+                    className="form-control"
+                    placeholder={"Please Enter Your Email"}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </Col>
+              <Col xs="12" md="12">
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    type={"password"}
+                    className="form-control"
+                    placeholder="password length must be atleast 6"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </Col>
+              <Row>
+                <Col xs="12" md="12">
+                  <Link
+                    className="redirect-link forgot-password-link"
+                    to={"/forgot/password"}
+                  >
+                    <p className="text-right mr-3"> Forgot Password?</p>
+                  </Link>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={{ size: 12, order: 1 }} md={{ size: "6", order: 2 }}>
+              <div className="signup-provider mb-3">
+                <a onClick={googleLogin} className="google-btn">
+                  <GoogleIcon />
+                  <span className="btn-text">Login with Google</span>
+                </a>
+              </div>
+            </Col>
+          </Row>
+          <hr />
+          <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+            <div className="d-flex justify-content-between align-items-center mb-3 mb-md-0">
+              <Button
+                variant="primary"
+                text="Login"
+                disabled={!email || password.length < 6}
+              />
+              <Link className="redirect-link ml-md-3" to={"/register"}>
+                Create an account?
+              </Link>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   );
