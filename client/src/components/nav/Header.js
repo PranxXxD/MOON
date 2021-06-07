@@ -128,7 +128,7 @@ const Header = () => {
                 {user ? (
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle nav>
-                      {user ? user.email.split("@")[0] : "Welcome"}
+                      {user ? "Account" : "Welcome"}
                       <span className="fa fa-chevron-down dropdown-caret"></span>
                     </DropdownToggle>
                     {user.role == "admin" ? (

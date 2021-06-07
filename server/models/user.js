@@ -2,11 +2,13 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    name: String,
+    fname: String,
+    lname: String,
+    password: String,
     email: {
       type: String,
-      required: true,
-      index: true,
+      // required: true,
+      // index: true,
     },
     role: {
       type: String,
@@ -15,6 +17,9 @@ const userSchema = new mongoose.Schema(
     cart: {
       type: Array,
       default: [],
+    },
+    phone_number: {
+      type: String,
     },
     phone: {
       type: String,

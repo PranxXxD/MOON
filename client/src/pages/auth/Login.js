@@ -8,11 +8,13 @@ import { GoogleIcon } from "../../components/Icon";
 import { Row, Col } from "reactstrap";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Button from "../../components/Button";
+import firebase from "../../firebase";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
+  const [verify, setVerify] = useState(false);
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -41,67 +43,87 @@ const Login = ({ history }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // console.table(email, password);
+  const setUpReCaptcha = () => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "sign-in-button",
+      {
+        size: "invisible",
+        callback: (response) => {
+          console.log("captcha resolved");
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          handlePhoneSubmit();
+        },
+      }
+    );
+  };
+
+  const handlePhoneSubmit = async (e) => {
+    setUpReCaptcha();
+
+    if (phone.length < 10) {
+      toast.error("Phone Number must be 10 digits long!");
+      return;
+    }
+    const phoneNumber = "+91" + phone;
+    const appVerifier = window.recaptchaVerifier;
+
     try {
-      const result = await auth.signInWithEmailAndPassword(email, password);
-      // console.log(result);
-      const { user } = result;
+      const result = await firebase
+        .auth()
+        .signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then((res) => {
+          console.log("Success");
+          let code = window.prompt("Enter OTP");
+          if (code === null) {
+            return;
+          }
+
+          res.confirm(code).then((result) => {
+            console.log("job done ------->", result);
+            setVerify(true);
+            toast.success("Phone Number Verified");
+          });
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+
+    } catch (err) {
+      console.log("error ------->", err);
+      toast.error(err);
+    }
+  };
+  const handleSubmit = async (e) => {
+    // setLoading(true);
+    e.preventDefault();
+
+    if (verify) {
+      // get user token
+      let user = auth.currentUser;
+      console.log("currrent userrsrr", user);
       const idTokenResult = await user.getIdTokenResult();
+
+      //redux store
+      console.log("user", user, "idTokenResult----->", idTokenResult);
 
       createOrUpdateUser(idTokenResult.token)
         .then((res) => {
+          console.log("DONE", res);
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
-              name: res.data.name,
-              email: res.data.email,
+              phone: res.data.phone_number,
               token: idTokenResult.token,
               role: res.data.role,
               _id: res.data._id,
             },
           });
-          roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
 
-      // history.push("/");
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message);
-      setLoading(false);
+      //redirect
+      history.push("/");
     }
-  };
-
-  const googleLogin = async () => {
-    auth
-      .signInWithPopup(googleAuthProvider)
-      .then(async (result) => {
-        const { user } = result;
-        const idTokenResult = await user.getIdTokenResult();
-        createOrUpdateUser(idTokenResult.token)
-          .then((res) => {
-            dispatch({
-              type: "LOGGED_IN_USER",
-              payload: {
-                name: res.data.name,
-                email: res.data.email,
-                token: idTokenResult.token,
-                role: res.data.role,
-                _id: res.data._id,
-              },
-            });
-            roleBasedRedirect(res);
-          })
-          .catch((err) => console.log(err));
-        // history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error(err.message);
-      });
   };
 
   return (
@@ -111,70 +133,55 @@ const Login = ({ history }) => {
         <h2>Login</h2>
         <hr />
         <form onSubmit={handleSubmit} noValidate>
+          <div id="sign-in-button"></div>
           <Row>
-            <Col
-              xs={{ size: 12, order: 2 }}
-              md={{ size: "6", order: 1 }}
-              className="col-no-padding"
-            >
-              <Col xs="12" md="12">
-                <div className="form-group">
-                  <label>Email</label>
-                  <input
-                    type={"text"}
-                    label={"Email Address"}
-                    name={"email"}
-                    className="form-control"
-                    placeholder={"Please Enter Your Email"}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-              </Col>
-              <Col xs="12" md="12">
-                <div className="form-group">
-                  <label>Password</label>
-                  <input
-                    type={"password"}
-                    className="form-control"
-                    placeholder="password length must be atleast 6"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-              </Col>
-              <Row>
-                <Col xs="12" md="12">
-                  <Link
-                    className="redirect-link forgot-password-link"
-                    to={"/forgot/password"}
-                  >
-                    <p className="text-right mr-3"> Forgot Password?</p>
-                  </Link>
-                </Col>
-              </Row>
-            </Col>
-            <Col xs={{ size: 12, order: 1 }} md={{ size: "6", order: 2 }}>
-              <div className="signup-provider mb-3">
-                <a onClick={googleLogin} className="google-btn">
-                  <GoogleIcon />
-                  <span className="btn-text">Login with Google</span>
-                </a>
+            <Col xs="12" md="3">
+              <div className="form-group">
+                {verify ? (
+                  <label className="text-success">Phone Number</label>
+                ) : (
+                  <label>Phone Number</label>
+                )}
+                <input
+                  type="text"
+                  name="phone"
+                  className="form-control"
+                  placeholder="enter registered phone number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </div>
+
+              {verify ? (
+                <p className="item-label text-right text-success">
+                  Verified
+                  <VerifiedUserIcon fontSize="small" className="text-success" />
+                </p>
+              ) : (
+                <button
+                  onClick={handlePhoneSubmit}
+                  className="item-label float-right text-success"
+                >
+                  Get OTP?
+                </button>
+              )}
             </Col>
           </Row>
           <hr />
           <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
-            <div className="d-flex justify-content-between align-items-center mb-3 mb-md-0">
+            {verify ? (
+              <Button type="submit" variant="primary" text="Sign Up" />
+            ) : (
               <Button
+                type="submit"
                 variant="primary"
-                text="Login"
-                disabled={!email || password.length < 6}
+                text="Verify number to Login"
+                disabled
               />
-              <Link className="redirect-link ml-md-3" to={"/register"}>
-                Create an account?
-              </Link>
-            </div>
+            )}
+            <Link className="redirect-link ml-md-3 mt-3" to={"/register"}>
+              Create an account?
+            </Link>
           </div>
         </form>
       </div>
