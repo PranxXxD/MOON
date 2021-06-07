@@ -82,7 +82,7 @@ const Checkout = ({ history }) => {
               <div className="form-group">
                 <label>Phone</label>
                 <input
-                  type="number"
+                  type="text"
                   name={"phone"}
                   className="form-control"
                   value={address.phone}
@@ -145,7 +145,7 @@ const Checkout = ({ history }) => {
             </Col>
           </Row>
           <div className="add-address-actions">
-            <Button type="submit" onClick={saveAddressToDb} text="Add Address" />
+            <Button onClick={saveAddressToDb} text="Add Address" />
           </div>
         </form>
       </div>

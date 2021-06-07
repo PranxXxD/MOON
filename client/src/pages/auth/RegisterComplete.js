@@ -41,7 +41,7 @@ const RegisterComplete = ({ history }) => {
         email,
         window.location.href
       );
-      //   console.log("Result->", result);
+        console.log("Result->", result);
       if (result.user.emailVerified) {
         //remove user email from local storage
         window.localStorage.removeItem("emailForRegistration");
