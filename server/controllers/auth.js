@@ -4,11 +4,7 @@ exports.createOrUpdateUser = async (req, res) => {
   const { phone_number } = req.user;
   const { fname, lname, email, password } = req.body.details;
 
-  const user = await User.findOneAndUpdate(
-    { phone_number, email },
-    { password },
-    { new: true }
-  );
+  const user = await User.findOne({ phone_number: phone_number }).exec();
 
   if (user) {
     res.json(user);

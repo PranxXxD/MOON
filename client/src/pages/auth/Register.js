@@ -61,9 +61,13 @@ const Register = ({ history }) => {
             setVerify(true);
             toast.success("Phone Number Verified");
           });
+        })
+        .catch((err) => {
+          toast.error(err);
         });
     } catch (err) {
       console.log("error ------->", err);
+      toast.error(err);
     }
   };
 
