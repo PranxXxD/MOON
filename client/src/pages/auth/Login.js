@@ -61,8 +61,8 @@ const Login = ({ history }) => {
     e.preventDefault();
     setUpReCaptcha();
 
-    if (phone.length < 10) {
-      toast.error("Phone Number must be 10 digits long!");
+    if (phone.length !== 10) {
+      toast.error("Phone Number must be 10 digits!");
       return;
     }
 

@@ -163,11 +163,6 @@ const Header = () => {
                         >
                           coupon
                         </DropdownItem>
-                        <DropdownItem
-                          onClick={() => history.push("/user/password")}
-                        >
-                          Settings
-                        </DropdownItem>
                         <DropdownItem onClick={logout}>Sign Out</DropdownItem>
                       </DropdownMenu>
                     ) : (
