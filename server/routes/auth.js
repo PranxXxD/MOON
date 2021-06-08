@@ -5,11 +5,15 @@ const router = express.Router();
 const { authCheck, adminCheck } = require("../middlewares/auth");
 
 //controllers
-const { createOrUpdateUser, currentUser } = require("../controllers/auth");
+const {
+  createOrUpdateUser,
+  currentUser,
+  validateUser,
+} = require("../controllers/auth");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
+router.post("/validate-user", authCheck, validateUser);
 router.post("/current-user", authCheck, currentUser); //for user
-router.post("/current-admin", authCheck, adminCheck, currentUser); //for admin 
-
+router.post("/current-admin", authCheck, adminCheck, currentUser); //for admin
 
 module.exports = router;

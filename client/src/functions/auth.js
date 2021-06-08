@@ -12,6 +12,18 @@ export const createOrUpdateUser = async (details, authtoken) => {
   );
 };
 
+export const validateUser = async (authtoken) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/validate-user`,
+    {},
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+};
+
 export const currentUser = async (authtoken) => {
   return await axios.post(
     `${process.env.REACT_APP_API}/current-user`,

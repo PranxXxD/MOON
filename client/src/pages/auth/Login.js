@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { auth, googleAuthProvider } from "../../firebase";
+import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createOrUpdateUser } from "../../functions/auth";
-import { GoogleIcon } from "../../components/Icon";
+import { validateUser } from "../../functions/auth";
 import { Row, Col } from "reactstrap";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Button from "../../components/Button";
@@ -15,6 +14,7 @@ const Login = ({ history }) => {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
   const [verify, setVerify] = useState(false);
+  const [userError, setUserError] = useState("");
 
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -57,7 +57,8 @@ const Login = ({ history }) => {
     );
   };
 
-  const handlePhoneSubmit = async (e) => {
+  const handlePhoneSubmit = (e) => {
+    e.preventDefault();
     setUpReCaptcha();
 
     if (phone.length < 10) {
@@ -68,7 +69,7 @@ const Login = ({ history }) => {
     const appVerifier = window.recaptchaVerifier;
 
     try {
-      const result = await firebase
+      firebase
         .auth()
         .signInWithPhoneNumber(phoneNumber, appVerifier)
         .then((res) => {
@@ -80,14 +81,13 @@ const Login = ({ history }) => {
 
           res.confirm(code).then((result) => {
             console.log("job done ------->", result);
-            setVerify(true);
             toast.success("Phone Number Verified");
+            setVerify(true);
           });
         })
         .catch((err) => {
           toast.error(err);
         });
-
     } catch (err) {
       console.log("error ------->", err);
       toast.error(err);
@@ -106,9 +106,14 @@ const Login = ({ history }) => {
       //redux store
       console.log("user", user, "idTokenResult----->", idTokenResult);
 
-      createOrUpdateUser(idTokenResult.token)
+      validateUser(idTokenResult.token)
         .then((res) => {
           console.log("DONE", res);
+          if (res.data.err) {
+            toast.error("Please signup", res.data.err);
+            setUserError(res.data.err);
+            return;
+          }
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
@@ -118,11 +123,11 @@ const Login = ({ history }) => {
               _id: res.data._id,
             },
           });
+
+          //redirect
+          history.push("/");
         })
         .catch((err) => console.log(err));
-
-      //redirect
-      history.push("/");
     }
   };
 
@@ -132,7 +137,7 @@ const Login = ({ history }) => {
         {loading && <LoadingIndicator />}
         <h2>Login</h2>
         <hr />
-        <form onSubmit={handleSubmit} noValidate>
+        <form>
           <div id="sign-in-button"></div>
           <Row>
             <Col xs="12" md="3">
@@ -151,6 +156,9 @@ const Login = ({ history }) => {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
+              {userError && (
+                <p className="text-danger">{userError}, Please Register </p>
+              )}
 
               {verify ? (
                 <p className="item-label text-right text-success">
@@ -168,9 +176,14 @@ const Login = ({ history }) => {
             </Col>
           </Row>
           <hr />
-          <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between">
+          <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-start">
             {verify ? (
-              <Button type="submit" variant="primary" text="Sign Up" />
+              <Button
+                type="submit"
+                onClick={handleSubmit}
+                variant="primary"
+                text="Log in"
+              />
             ) : (
               <Button
                 type="submit"
@@ -179,7 +192,7 @@ const Login = ({ history }) => {
                 disabled
               />
             )}
-            <Link className="redirect-link ml-md-3 mt-3" to={"/register"}>
+            <Link className="redirect-link ml-md-3 mt-2" to={"/register"}>
               Create an account?
             </Link>
           </div>

@@ -22,8 +22,23 @@ exports.createOrUpdateUser = async (req, res) => {
   }
 };
 
+exports.validateUser = async (req, res) => {
+  const { phone_number } = req.user;
+
+  const user = await User.findOne({ phone_number: phone_number }).exec();
+
+  if (user === null) {
+    return res.json({
+      err: "User not Signed up",
+    });
+  }
+
+  res.json(user);
+  console.log("USER VALID", user);
+};
+
 exports.currentUser = async (req, res) => {
-  User.findOne({ email: req.user.email }).exec((err, user) => {
+  User.findOne({ phone_number: req.user.phone_number }).exec((err, user) => {
     if (err) throw new Error(err);
     res.json(user);
   });
