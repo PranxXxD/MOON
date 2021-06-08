@@ -12,6 +12,12 @@ export const createOrUpdateUser = async (details, authtoken) => {
   );
 };
 
+export const checkUser = async (phoneNumber) => {
+  return await axios.post(`${process.env.REACT_APP_API}/check-user`, {
+    phoneNumber,
+  });
+};
+
 export const validateUser = async (authtoken) => {
   return await axios.post(
     `${process.env.REACT_APP_API}/validate-user`,

@@ -3,7 +3,7 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { validateUser } from "../../functions/auth";
+import { validateUser, checkUser } from "../../functions/auth";
 import { Row, Col } from "reactstrap";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import Button from "../../components/Button";
@@ -65,28 +65,38 @@ const Login = ({ history }) => {
       toast.error("Phone Number must be 10 digits long!");
       return;
     }
+
     const phoneNumber = "+91" + phone;
     const appVerifier = window.recaptchaVerifier;
 
     try {
-      firebase
-        .auth()
-        .signInWithPhoneNumber(phoneNumber, appVerifier)
+      checkUser({ phoneNumber })
         .then((res) => {
-          console.log("Success");
-          let code = window.prompt("Enter OTP");
-          if (code === null) {
+          console.log("USER CHECKED", res);
+          if (res.data.err) {
+            toast.error("Please signup", res.data.err);
+            setUserError(res.data.err);
             return;
           }
-
-          res.confirm(code).then((result) => {
-            console.log("job done ------->", result);
-            toast.success("Phone Number Verified");
-            setVerify(true);
-          });
+          setUserError("");
+          firebase
+            .auth()
+            .signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then((res) => {
+              console.log("Success");
+              let code = window.prompt("Enter OTP");
+              if (code === null) {
+                return;
+              }
+              res.confirm(code).then((result) => {
+                console.log("job done ------->", result);
+                toast.success("Phone Number Verified");
+                setVerify(true);
+              });
+            });
         })
         .catch((err) => {
-          toast.error(err);
+          console.log(err);
         });
     } catch (err) {
       console.log("error ------->", err);

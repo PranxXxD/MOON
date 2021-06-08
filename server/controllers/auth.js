@@ -22,6 +22,21 @@ exports.createOrUpdateUser = async (req, res) => {
   }
 };
 
+exports.checkUser = async (req, res) => {
+  const { phoneNumber } = req.body.phoneNumber;
+
+  const user = await User.findOne({ phone_number: phoneNumber }).exec();
+
+  if (user === null) {
+    return res.json({
+      err: "User not Signed up",
+    });
+  } else {
+    res.json(user);
+    console.log("USER VALID", user);
+  }
+};
+
 exports.validateUser = async (req, res) => {
   const { phone_number } = req.user;
 
@@ -34,7 +49,7 @@ exports.validateUser = async (req, res) => {
   }
 
   res.json(user);
-  console.log("USER VALID", user);
+  console.log("USER LOGIN", user);
 };
 
 exports.currentUser = async (req, res) => {
