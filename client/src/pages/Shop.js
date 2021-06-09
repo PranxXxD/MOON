@@ -27,22 +27,7 @@ const Shop = () => {
   const [star, setStar] = useState([]);
   const [subs, setSubs] = useState([]);
   const [sub, setSub] = useState([]);
-  const [brands, setBrands] = useState([
-    "Apple",
-    "Samsung",
-    "Microsoft",
-    "Lenovo",
-    "ASUS",
-  ]);
-  const [brand, setBrand] = useState("");
-  const [colors, setColors] = useState([
-    "Black",
-    "Brown",
-    "Silver",
-    "White",
-    "Blue",
-  ]);
-  const [color, setColor] = useState("");
+  
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -64,7 +49,7 @@ const Shop = () => {
 
   // 1. load products by default on page load
   const loadAllProducts = () => {
-    getProductsByCount(12).then((p) => {
+    getProductsByCount().then((p) => {
       setProducts(p.data);
       setLoading(false);
     });
@@ -94,14 +79,13 @@ const Shop = () => {
     }, 300);
   };
 
-  // 4. load products based on category
   // show categories in a list of checkbox
   const showCategories = () =>
     categories.map((c) => (
       <div key={c._id}>
         <Checkbox
           onChange={handleCheck}
-          className="pb-2 pl-4 pr-4"
+          className="p-2"
           value={c._id}
           name="category"
           checked={categoryIds.includes(c._id)}
@@ -140,92 +124,36 @@ const Shop = () => {
   };
 
   const showStars = () => (
-    <div className="pl-4 pr-4 pb-2">
+    <div className="p-3" style={{ width: 160 }}>
       <Star starClick={handleStarClick} numberOfStars={5} />
       <Star starClick={handleStarClick} numberOfStars={4} />
       <Star starClick={handleStarClick} numberOfStars={3} />
-      <Star starClick={handleStarClick} numberOfStars={2} />
-      <Star starClick={handleStarClick} numberOfStars={1} />
     </div>
   );
 
-  //6. load products based on sub categories
-  const handleSub = (sub) => {
-    // console.log("sub", sub);
-    setSub(sub);
-    fetchProducts({ sub });
-  };
-
-  const showSubs = () =>
-    subs.map((s) => (
-      <div
-        key={s._id}
-        onClick={() => handleSub(s)}
-        className="p-1 m-1 badge badge-secondary"
-        style={{ cursor: "pointer" }}
-      >
-        {s.name}
-      </div>
-    ));
-
-  //7. show products based on Brands
-  const showBrands = () =>
-    brands.map((b) => (
-      <Radio
-        value={b}
-        name={b}
-        checked={b === brand}
-        onChange={handleBrand}
-        className="pb-1 pl-4 pr-8"
-      >
-        {b}
-      </Radio>
-    ));
-
-  const handleBrand = (e) => {
-    setBrand(e.target.value);
-    fetchProducts({ brand: e.target.value });
-  };
-
-  //8. Show products based on Colors
-  const showColors = () =>
-    colors.map((c) => (
-      <Radio
-        value={c}
-        name={c}
-        checked={c === color}
-        onChange={handleColor}
-        className="pb-1 pl-4 pr-4"
-      >
-        {c}
-      </Radio>
-    ));
-
-  const handleColor = (e) => {
-    setColor(e.target.value);
-    fetchProducts({ color: e.target.value });
-  };
-
-  //9. show products based on shipping but i am not doing it
-
   return (
-    <div className="container-fluid">
+    <div className="contact">
       <div className="row">
-        <div className="col-md-3 pt-2">
-          <h4>Filter By</h4>
-          <hr />
+        <div className="">
+          {loading ? (
+            <h4 className="text-danger">Loading...</h4>
+          ) : (
+            <h4 className="text-danger">Products</h4>
+          )}
 
-          <Menu defaultOpenKeys={[""]} mode="inline">
+          <Menu defaultOpenKeys={[""]} style={{ width: 200 }} mode="vertical">
             <SubMenu
+              key="0"
               title={
                 <span className="h6">
-                  <DownSquareOutlined /> Filters
+                  <DownSquareOutlined /> Filter By
                 </span>
               }
             >
               {/* price */}
               <SubMenu
                 key="1"
+                style={{ width: 200 }}
                 title={
                   <span className="h6">
                     <DollarOutlined /> Price
@@ -240,6 +168,7 @@ const Shop = () => {
                     value={price}
                     onChange={handleSlider}
                     max="999"
+                    style={{ width: 200 }}
                   />
                 </div>
               </SubMenu>
@@ -247,6 +176,7 @@ const Shop = () => {
               {/* category */}
               <SubMenu
                 key="2"
+                style={{ width: 200 }}
                 title={
                   <span className="h6">
                     <DownSquareOutlined /> Categories
@@ -259,6 +189,7 @@ const Shop = () => {
               {/* stars */}
               <SubMenu
                 key="3"
+                style={{ width: 200 }}
                 title={
                   <span className="h6">
                     <StarOutlined /> Rating
@@ -267,56 +198,12 @@ const Shop = () => {
               >
                 <div>{showStars()}</div>
               </SubMenu>
-
-              {/* sub category */}
-              <SubMenu
-                key="4"
-                title={
-                  <span className="h6">
-                    <DownSquareOutlined /> Sub Categories
-                  </span>
-                }
-              >
-                <div className="pl-4 pr-4">{showSubs()}</div>
-              </SubMenu>
-
-              {/* Brands */}
-              <SubMenu
-                key="5"
-                title={
-                  <span className="h6">
-                    <DownSquareOutlined /> Brands
-                  </span>
-                }
-              >
-                <div className="pr-5">{showBrands()}</div>
-              </SubMenu>
-
-              {/* Colors */}
-              <SubMenu
-                key="6"
-                title={
-                  <span className="h6">
-                    <DownSquareOutlined /> Colors
-                  </span>
-                }
-              >
-                <div className="pr-5">{showColors()}</div>
-              </SubMenu>
             </SubMenu>
           </Menu>
-        </div>
-
-        <div className="col-md-9 pt-2">
-          {loading ? (
-            <h4 className="text-danger">Loading...</h4>
-          ) : (
-            <h4 className="text-danger">Products</h4>
-          )}
           <hr />
 
           {products.length < 1 && <p>No products found</p>}
-
+          {products.length}
           <div className="row pb-5">
             {products.map((p) => (
               <div key={p._id} className="col-md-4 mt-3">

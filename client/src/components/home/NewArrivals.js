@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getProducts, getProductsCount } from "../../functions/product";
 import ProductCard from "../cards/ProductCard";
 import LoadingCard from "../cards/LoadingCard";
-import { Pagination } from "antd";
+import { makeStyles } from "@material-ui/core/styles";
+import Pagination from "@material-ui/lab/Pagination";
 
 const NewArrivals = () => {
   const [products, setProducts] = useState([]);
@@ -27,30 +28,41 @@ const NewArrivals = () => {
     });
   };
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      "& > *": {
+        marginTop: theme.spacing(2),
+      },
+    },
+  }));
+
+  const classes = useStyles();
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
   return (
     <>
-      <div className="container">
+      <div className="homee">
+        <h1 className="my-2 pl-0 pb-3 jumbotron headerr">New Arrivals</h1>
+
         {loading ? (
           <LoadingCard count={3} />
         ) : (
           <div className="row">
             {products.map((product) => (
-              <div key={product._id} className="col-md-3">
+              <div key={product._id} className="col-md-4">
                 <ProductCard product={product} />
               </div>
             ))}
           </div>
         )}
-      </div>
 
-      <div className="row">
-        <nav className="col-md-4 offset-md-4 text-center pt-5 p-3">
-          <Pagination
-            current={page}
-            total={(productsCount / 3) * 10}
-            onChange={(value) => setPage(value)}
-          />
-        </nav>
+        <div className="row">
+          <nav className="col-md-4 offset-md-4 text-center mt-4 pl-4">
+            <Pagination page={page} count={5} onChange={handleChange} />
+          </nav>
+        </div>
       </div>
     </>
   );
