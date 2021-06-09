@@ -53,11 +53,12 @@ const Product = ({ match }) => {
       </div>
 
       <div className="row">
-        <div className="col text-center pt-5 pb-5">
-          <hr />
-          <h4>Related Products</h4>
-          <hr />
-
+        <div className="col pt-5 pb-5 homee">
+          <div className="text-center">
+            <hr />
+            <h4>Related Products</h4>
+            <hr />
+          </div>
           <div className="row pb-5">
             {related.length ? (
               related.map((r) => (

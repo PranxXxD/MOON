@@ -99,7 +99,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
   };
 
   return (
-    <div className="product-shop">
+    <div className="product-shop homee">
       {/* {isLoading ? (
           <LoadingIndicator />
         ) : Object.keys(product).length > 0 ? ( */}

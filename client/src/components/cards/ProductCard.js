@@ -85,7 +85,7 @@ const ProductCard = ({ product }) => {
           </Tooltip>,
         ]}
       >
-        <Link to={`product/${slug}`}>
+        <Link to={`/product/${slug}`}>
           <div>
             <p className="price">₹{price}</p>
           </div>

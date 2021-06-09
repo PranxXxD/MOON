@@ -203,7 +203,6 @@ const Shop = () => {
           <hr />
 
           {products.length < 1 && <p>No products found</p>}
-          {products.length}
           <div className="row pb-5">
             {products.map((p) => (
               <div key={p._id} className="col-md-4 mt-3">
