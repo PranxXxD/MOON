@@ -38,6 +38,28 @@ const Checkout = ({ history }) => {
   }, []);
 
   const saveAddressToDb = () => {
+    if (
+      !address.address ||
+      !address.phone ||
+      !address.city ||
+      !address.state ||
+      !address.country ||
+      !address.pinCode
+    ) {
+      toast.error("All fields must be filled");
+      return;
+    }
+
+    if (address.phone.length !== 10) {
+      toast.error("Phone Number must be 10 digits!");
+      return;
+    }
+
+    if (address.pinCode.length !== 6) {
+      toast.error("PinCode must be 6 digits!");
+      return;
+    }
+
     console.log("address", address);
     saveUserAddress(user.token, address).then((res) => {
       if (res.data.ok) {
