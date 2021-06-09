@@ -9,7 +9,9 @@ exports.userCart = async (req, res) => {
 
   let products = [];
 
-  const user = await User.findOne({ email: req.user.email }).exec();
+  const user = await User.findOne({
+    phone_number: req.user.phone_number,
+  }).exec();
 
   // check if cart with logged in user id already exist
   let cartExistByThisUser = await Cart.findOne({ orderedBy: user._id }).exec();
@@ -85,7 +87,9 @@ exports.userCart = async (req, res) => {
 };
 
 exports.getUserCart = async (req, res) => {
-  const user = await User.findOne({ email: req.user.email }).exec();
+  const user = await User.findOne({
+    phone_number: req.user.phone_number,
+  }).exec();
 
   let cart = await Cart.findOne({ orderedBy: user._id })
     .populate("products.product", "_id title price totalAfterDiscount")
@@ -97,7 +101,9 @@ exports.getUserCart = async (req, res) => {
 
 exports.emptyCart = async (req, res) => {
   console.log("empty cart");
-  const user = await User.findOne({ email: req.user.email }).exec();
+  const user = await User.findOne({
+    phone_number: req.user.phone_number,
+  }).exec();
 
   const cart = await Cart.findOneAndRemove({ orderedBy: user._id }).exec();
   res.json(cart);
@@ -107,7 +113,7 @@ exports.saveAddress = async (req, res) => {
   const { address, phone, city, state, country, pinCode } = req.body.address;
 
   const userAddress = await User.findOneAndUpdate(
-    { email: req.user.email },
+    { phone_number: req.user.phone_number },
     { address, phone, city, state, country, pinCode }
   ).exec();
 
@@ -127,7 +133,9 @@ exports.applyCouponToUserCart = async (req, res) => {
   }
   console.log("VALID COUPON", validCoupon);
 
-  const user = await User.findOne({ email: req.user.email }).exec();
+  const user = await User.findOne({
+    phone_number: req.user.phone_number,
+  }).exec();
 
   let { products, cartTotal } = await Cart.findOne({
     orderedBy: user._id,

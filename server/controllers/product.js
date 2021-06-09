@@ -120,7 +120,9 @@ exports.productsCount = async (req, res) => {
 
 exports.productStar = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
-  const user = await User.findOne({ email: req.user.email }).exec();
+  const user = await User.findOne({
+    phone_number: req.user.phone_number,
+  }).exec();
   const { star } = req.body;
 
   // who is updating?
@@ -278,16 +280,8 @@ const handleBrand = async (req, res, brand) => {
 };
 
 exports.searchFilters = async (req, res) => {
-  const {
-    query,
-    price,
-    category,
-    stars,
-    sub,
-    shipping,
-    color,
-    brand,
-  } = req.body;
+  const { query, price, category, stars, sub, shipping, color, brand } =
+    req.body;
 
   if (query) {
     console.log("query", query);

@@ -21,10 +21,11 @@ const Register = ({ history }) => {
   const [loading, setLoading] = useState("");
 
   let dispatch = useDispatch();
+  const { user } = useSelector((state) => ({ ...state }));
 
-  // useEffect(() => {
-  //   if (user && user.token) history.push("/");
-  // }, [user, history]);
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user, history]);
 
   const setUpReCaptcha = () => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -63,7 +64,7 @@ const Register = ({ history }) => {
           });
         })
         .catch((err) => {
-          toast.error(err);
+          toast.error("Please reload the page and try again");
         });
     } catch (err) {
       console.log("error ------->", err);

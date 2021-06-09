@@ -18,15 +18,6 @@ const Login = ({ history }) => {
 
   const { user } = useSelector((state) => ({ ...state }));
 
-  useEffect(() => {
-    let intended = history.location.state;
-    if (intended) {
-      return;
-    } else {
-      if (user && user.token) history.push("/");
-    }
-  }, [user, history]);
-
   let dispatch = useDispatch();
 
   const roleBasedRedirect = (res) => {
@@ -89,10 +80,15 @@ const Login = ({ history }) => {
                 return;
               }
               res.confirm(code).then((result) => {
-                console.log("job done ------->", result);
+                // console.log("job done ------->", result);
                 toast.success("Phone Number Verified");
                 setVerify(true);
               });
+            })
+            .catch((err) => {
+              // console.log("OTP ERROR", err);
+              setUpReCaptcha();
+              toast.error("Please reload the page and try again");
             });
         })
         .catch((err) => {
@@ -135,7 +131,7 @@ const Login = ({ history }) => {
           });
 
           //redirect
-          history.push("/");
+          roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
     }
