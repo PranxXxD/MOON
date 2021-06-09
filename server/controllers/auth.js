@@ -7,8 +7,8 @@ exports.createOrUpdateUser = async (req, res) => {
   const user = await User.findOne({ phone_number: phone_number }).exec();
 
   if (user) {
-    res.json(user);
-    console.log("USER UPDATED", user);
+    console.log("PhoneNumber Taken", user);
+    return res.json({ err: "PhoneNumber already registered" });
   } else {
     const newUser = await new User({
       phone_number,
@@ -32,8 +32,8 @@ exports.checkUser = async (req, res) => {
       err: "User not Signed up",
     });
   } else {
-    res.json(user);
-    console.log("USER VALID", user);
+    res.json({ ok: "User Already registered" });
+    console.log("User Already registered");
   }
 };
 

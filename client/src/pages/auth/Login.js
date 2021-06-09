@@ -50,12 +50,13 @@ const Login = ({ history }) => {
 
   const handlePhoneSubmit = (e) => {
     e.preventDefault();
-    setUpReCaptcha();
 
     if (phone.length !== 10) {
       toast.error("Phone Number must be 10 digits!");
       return;
     }
+    setLoading(true);
+    setUpReCaptcha();
 
     const phoneNumber = "+91" + phone;
     const appVerifier = window.recaptchaVerifier;
@@ -63,10 +64,11 @@ const Login = ({ history }) => {
     try {
       checkUser({ phoneNumber })
         .then((res) => {
-          console.log("USER CHECKED", res);
+          // console.log("USER CHECKED", res);
           if (res.data.err) {
-            toast.error("Please signup", res.data.err);
+            toast.error("Please signup");
             setUserError(res.data.err);
+            setLoading(false);
             return;
           }
           setUserError("");
@@ -74,21 +76,30 @@ const Login = ({ history }) => {
             .auth()
             .signInWithPhoneNumber(phoneNumber, appVerifier)
             .then((res) => {
-              console.log("Success");
+              // console.log("Success");
+              setLoading(false);
               let code = window.prompt("Enter OTP");
               if (code === null) {
+                toast.error("Invalid OTP!! Please try again");
+                window.location.reload();
                 return;
               }
-              res.confirm(code).then((result) => {
-                // console.log("job done ------->", result);
-                toast.success("Phone Number Verified");
-                setVerify(true);
-              });
+              res
+                .confirm(code)
+                .then((result) => {
+                  // console.log("job done ------->", result);
+                  toast.success("Phone Number Verified");
+                  setVerify(true);
+                })
+                .catch((err) => {
+                  toast.error("Invalid OTP!! Please try again");
+                  window.location.reload();
+                });
             })
             .catch((err) => {
               // console.log("OTP ERROR", err);
-              setUpReCaptcha();
-              toast.error("Please reload the page and try again");
+              window.location.reload();
+              toast.error("Please try again");
             });
         })
         .catch((err) => {

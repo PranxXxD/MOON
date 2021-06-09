@@ -7,7 +7,7 @@ import firebase from "../../firebase";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createOrUpdateUser } from "../../functions/auth";
+import { createOrUpdateUser, checkUser } from "../../functions/auth";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 
@@ -19,6 +19,7 @@ const Register = ({ history }) => {
   const [phone, setPhone] = useState("");
   const [verify, setVerify] = useState(false);
   const [loading, setLoading] = useState("");
+  const [userError, setUserError] = useState("");
 
   let dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state }));
@@ -41,30 +42,62 @@ const Register = ({ history }) => {
     );
   };
 
-  const handlePhoneSubmit = async (e) => {
+  const handlePhoneSubmit = (e) => {
+    e.preventDefault();
+
+    if (phone.length !== 10) {
+      toast.error("Phone Number must be 10 digits!");
+      return;
+    }
+    setLoading(true);
     setUpReCaptcha();
+
     const phoneNumber = "+91" + phone;
     const appVerifier = window.recaptchaVerifier;
 
     try {
-      const result = await firebase
-        .auth()
-        .signInWithPhoneNumber(phoneNumber, appVerifier)
+      checkUser({ phoneNumber })
         .then((res) => {
-          console.log("Success");
-          let code = window.prompt("Enter OTP");
-          if (code === null) {
+          if (res.data.ok) {
+            toast.error("Please Login");
+            setUserError(res.data.ok);
+            setLoading(false);
             return;
           }
+          setUserError("");
+          firebase
+            .auth()
+            .signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then((res) => {
+              console.log("Success");
+              setLoading(false);
+              let code = window.prompt("Enter OTP");
+              if (code === null) {
+                return;
+              }
 
-          res.confirm(code).then((result) => {
-            console.log("job done ------->", result);
-            setVerify(true);
-            toast.success("Phone Number Verified");
-          });
+              res
+                .confirm(code)
+                .then((result) => {
+                  // console.log("job done ------->", result);
+                  setVerify(true);
+                  toast.success("Phone Number Verified");
+                  setLoading(false);
+                })
+                .catch((err) => {
+                  setLoading(false);
+                  toast.error("Invalid OTP!! Please try again");
+                  window.location.reload();
+                });
+            })
+            .catch((err) => {
+              toast.error("Please try again");
+              window.location.reload();
+              setLoading(false);
+            });
         })
         .catch((err) => {
-          toast.error("Please reload the page and try again");
+          console.log(err);
         });
     } catch (err) {
       console.log("error ------->", err);
@@ -73,9 +106,7 @@ const Register = ({ history }) => {
   };
 
   const handleSubmit = async (e) => {
-    // setLoading(true);
     e.preventDefault();
-
     //validation
     if (!email || !password || !fname || !lname) {
       toast.error("Required fields cannot be empty!");
@@ -87,10 +118,11 @@ const Register = ({ history }) => {
       return;
     }
 
-    if (phone.length < 10) {
-      toast.error("Phone Number must be 10 digits long!");
+    if (phone.length !== 10) {
+      toast.error("Phone Number must be 10 digits!");
       return;
     }
+    setLoading(true);
 
     if (verify) {
       // get user token
@@ -103,6 +135,11 @@ const Register = ({ history }) => {
 
       createOrUpdateUser({ fname, lname, email, password }, idTokenResult.token)
         .then((res) => {
+          if (res.data.err) {
+            toast.error("Please signup", res.data.err);
+            setUserError(res.data.err);
+            return;
+          }
           console.log("DONE", res);
           dispatch({
             type: "LOGGED_IN_USER",
@@ -117,7 +154,7 @@ const Register = ({ history }) => {
           });
         })
         .catch((err) => console.log(err));
-
+      setLoading(false);
       //redirect
       history.push("/");
     }
@@ -199,6 +236,10 @@ const Register = ({ history }) => {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
+              {userError && (
+                <p className="text-danger">{userError}, Please Login </p>
+              )}
+
               {verify ? (
                 <p className="item-label text-right text-success">
                   Verified

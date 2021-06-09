@@ -5,10 +5,13 @@ const userSchema = new mongoose.Schema(
     fname: String,
     lname: String,
     password: String,
+    phone_number: {
+      type: String,
+      required: true,
+      index: true,
+    },
     email: {
       type: String,
-      // required: true,
-      // index: true,
     },
     role: {
       type: String,
@@ -17,9 +20,6 @@ const userSchema = new mongoose.Schema(
     cart: {
       type: Array,
       default: [],
-    },
-    phone_number: {
-      type: String,
     },
     phone: {
       type: String,
