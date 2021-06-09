@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  getUserCart,
-  emptyUserCart,
-  saveUserAddress,
-  applyCoupon,
-} from "../../functions/user";
+import { useSelector } from "react-redux";
+import { getUserCart, saveUserAddress } from "../../functions/user";
 import { toast } from "react-toastify";
 import { Container, Row, Col } from "reactstrap";
-import Summary from "./Summary";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../components/Button";
 import laptop from "../../images/laptop.jpg";
-import { Link } from "react-router-dom";
 
 const Checkout = ({ history }) => {
   const [products, setProducts] = useState([]);

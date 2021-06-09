@@ -122,6 +122,13 @@ const Summary = ({ totalAfterDiscount, setTotalAfterDiscount }) => {
     totalAfterDiscount
   ).toFixed(2);
 
+  const couponWrapDiscount = (
+    getTotal() +
+    getShipping(getWeight) +
+    30 -
+    totalAfterDiscount
+  ).toFixed(2);
+
   const finalTotal = (getTotal() + getShipping(getWeight)).toFixed(2);
 
   const wrapTotal = (getTotal() + getShipping(getWeight) + 30).toFixed(2);
@@ -216,15 +223,27 @@ const Summary = ({ totalAfterDiscount, setTotalAfterDiscount }) => {
               </Col>
               <Col>
                 {totalAfterDiscount > 0 ? (
-                  <p className="item-label text-right text-success">
-                    -₹{couponDiscount}
-                    <HighlightOffIcon
-                      fontSize="small"
-                      value={on}
-                      className="text-danger pointer ml-1"
-                      onClick={(e) => setTotalAfterDiscount(0)}
-                    />
-                  </p>
+                  wrap ? (
+                    <p className="item-label text-right text-success">
+                      -₹{couponWrapDiscount}
+                      <HighlightOffIcon
+                        fontSize="small"
+                        value={on}
+                        className="text-danger pointer ml-1"
+                        onClick={(e) => setTotalAfterDiscount(0)}
+                      />
+                    </p>
+                  ) : (
+                    <p className="item-label text-right text-success">
+                      -₹{couponDiscount}
+                      <HighlightOffIcon
+                        fontSize="small"
+                        value={on}
+                        className="text-danger pointer ml-1"
+                        onClick={(e) => setTotalAfterDiscount(0)}
+                      />
+                    </p>
+                  )
                 ) : user ? (
                   <button
                     onClick={handleOpen}
