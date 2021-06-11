@@ -7,7 +7,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const ProductCardInCheckout = ({ p, setTotalAfterDiscount }) => {
+const ProductCardInCheckout = ({ p, setTotalAfterDiscount, handleCoupon }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   let dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const ProductCardInCheckout = ({ p, setTotalAfterDiscount }) => {
 
   const handleQuantityChange = (e) => {
     let count = e.target.value < 1 ? 1 : e.target.value;
-    setTotalAfterDiscount(0);
+    handleCoupon();
     if (count > p.quantity) {
       toast.error(`Maximum Available quantity : ${p.quantity}`);
       return;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import ProductCardInCheckout from "./ProductCardInCheckout";
 // import Button from "../components/Button";
 import { Row, Col } from "reactstrap";
@@ -9,6 +10,16 @@ import Summary from "./Summary";
 const Cart = ({ history }) => {
   const { user, cart } = useSelector((state) => ({ ...state }));
   const [totalAfterDiscount, setTotalAfterDiscount] = useState(0);
+
+  let dispatch = useDispatch();
+
+  const handleCoupon = () => {
+    setTotalAfterDiscount(0);
+    dispatch({
+      type: "COUPON_APPLIED",
+      payload: false,
+    });
+  };
 
   const showCartItems = () => (
     <div className="cart mt-4">
@@ -19,6 +30,7 @@ const Cart = ({ history }) => {
               setTotalAfterDiscount={setTotalAfterDiscount}
               key={p._id}
               p={p}
+              handleCoupon={handleCoupon}
             />
           ))}
         </div>
@@ -45,6 +57,7 @@ const Cart = ({ history }) => {
           <Summary
             totalAfterDiscount={totalAfterDiscount}
             setTotalAfterDiscount={setTotalAfterDiscount}
+            handleCoupon={handleCoupon}
           />
         </Col>
       </Row>

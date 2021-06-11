@@ -21,7 +21,11 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
-const Summary = ({ totalAfterDiscount, setTotalAfterDiscount }) => {
+const Summary = ({
+  totalAfterDiscount,
+  setTotalAfterDiscount,
+  handleCoupon,
+}) => {
   const [open, setOpen] = useState(false);
   const [on, setOn] = useState(false);
   const [wrap, setWrap] = useState(false);
@@ -74,6 +78,11 @@ const Summary = ({ totalAfterDiscount, setTotalAfterDiscount }) => {
 
   const sendOrderToDb = () => {
     // console.log("cart", JSON.stringify(cart, null, 4));
+    dispatch({
+      type: "COUPON_APPLIED",
+      payload: false,
+    });
+
     userCart(cart, wrap, user.token)
       .then((res) => {
         console.log("Cart post response", res);
@@ -156,7 +165,7 @@ const Summary = ({ totalAfterDiscount, setTotalAfterDiscount }) => {
                   checked={wrap}
                   onChange={(e) => {
                     setWrap(e.target.checked);
-                    setTotalAfterDiscount(0);
+                    handleCoupon();
                   }}
                 />
               }
