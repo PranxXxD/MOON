@@ -4,13 +4,15 @@ const Product = require("../models/product");
 const Cart = require("../models/cart");
 const User = require("../models/user");
 const Coupon = require("../models/coupon");
+const Formidable = require("formidable");
+const Order = require("../models/order");
 
 const razorpay = new Razorpay({
   key_id: "rzp_test_Uh2D7oTuy7FFum",
   key_secret: "i8ZLZtj9sE4F3yQXpuP7ARic",
 });
 
-exports.verify = (req, res) => {
+exports.verifyAndOrder = async (req, res) => {
   // do a validation
   const secret = "humaira";
 
@@ -22,19 +24,17 @@ exports.verify = (req, res) => {
   shasum.update(JSON.stringify(req.body));
   const digest = shasum.digest("hex");
 
-  console.log(digest, req.headers["x-razorpay-signature"]);
+  // console.log(digest, req.headers["x-razorpay-signature"]);
 
   if (digest === req.headers["x-razorpay-signature"]) {
     console.log("Request is Legit");
     // process it
-    require("fs").writeFileSync(
-      "payment1.json",
-      JSON.stringify(req.body, null, 4)
-    );
+    res.json({ ok: "Payment Succesfull" });
+    console.log("Payment Succesfull");
   } else {
-    // pass it
+    res.json({ err: "Payment Failed" });
+    console.log("Payment Failed");
   }
-  res.json({ status: "ok" });
 };
 
 exports.Create = async (req, res) => {
@@ -85,7 +85,3 @@ exports.Create = async (req, res) => {
     console.log(error);
   }
 };
-
-// app.listen(8000, () => {
-// 	console.log('Listening on 8000')
-// })

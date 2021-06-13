@@ -46,3 +46,16 @@ export const applyCoupon = async (authtoken, coupon) =>
       },
     }
   );
+
+  export const createOrder = async (payloadDetails, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/order`,
+    { payloadDetails },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+

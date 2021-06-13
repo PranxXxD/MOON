@@ -14,7 +14,10 @@ const orderSchema = new mongoose.Schema(
         color: String,
       },
     ],
-    paymentIntent: {},
+    wrap: { type: Boolean, default: false },
+    cartTotal: Number,
+    totalAfterDiscount: Number,
+    payloadDetails: {},
     orderStatus: {
       type: String,
       default: "Not Processed",
@@ -26,7 +29,7 @@ const orderSchema = new mongoose.Schema(
         "Completed",
       ],
     },
-    orderdBy: { type: ObjectId, ref: "User" },
+    orderedBy: { type: ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
