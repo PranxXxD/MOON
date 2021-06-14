@@ -249,7 +249,7 @@ const Summary = ({
                         fontSize="small"
                         value={on}
                         className="text-danger pointer ml-1"
-                        onClick={(e) => setTotalAfterDiscount(0)}
+                        onClick={handleCoupon}
                       />
                     </p>
                   )
