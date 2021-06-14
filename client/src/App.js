@@ -40,11 +40,11 @@ import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart/index";
-import Checkout from "./pages/Checkout/index";
 import CreateCouponPage from "./pages/admin/coupon/CreateCouponPage";
-import Payment from "./pages/Payment";
+import Payment from "./pages/Checkout";
 import Contact from "./pages/Contact";
 import Footer from "./components/footer";
+import OrderConfirm from "./pages/Checkout/OrderConfirm";
 
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -116,9 +116,9 @@ const App = () => {
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/contact" component={Contact} />
-        <UserRoute exact path="/checkout" component={Checkout} />
         <AdminRoute exact path="/admin/coupon" component={CreateCouponPage} />
         <UserRoute exact path="/payment" component={Payment} />
+        <UserRoute exact path="/order-confirm" component={OrderConfirm} />
       </Switch>
       <Footer />
     </>

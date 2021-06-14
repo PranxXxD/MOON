@@ -10,7 +10,3 @@ export const createPaymentIntent = (authtoken, coupon) =>
       },
     }
   );
-
-export const verifyAndOrder = () =>
-  axios.post(`${process.env.REACT_APP_API}/verification`, {});
-

@@ -86,7 +86,7 @@ const Summary = ({
     userCart(cart, wrap, user.token)
       .then((res) => {
         console.log("Cart post response", res);
-        if (res.data.ok) history.push("/checkout");
+        if (res.data.ok) history.push("/payment");
       })
       .catch((err) => console.log("save data error", err));
   };
@@ -347,7 +347,7 @@ const Summary = ({
                 variant="contained"
                 color="secondary"
                 size="large"
-                onClick={(e) => history.push("/checkout")}
+                onClick={(e) => history.push("/payment")}
                 className="w-100 mt-2"
                 endIcon={<ShoppingCartIcon />}
                 disabled={!cart.length}

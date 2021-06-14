@@ -87,6 +87,13 @@ exports.userCart = async (req, res) => {
   res.json({ ok: true });
 };
 
+exports.getUser = async (req, res) => {
+  let user = await User.findOne({ phone_number: req.user.phone_number }).exec();
+
+  const { fname, lname, email, phone_number } = user;
+  res.json({ fname, lname, email, phone_number });
+};
+
 exports.getUserCart = async (req, res) => {
   const user = await User.findOne({
     phone_number: req.user.phone_number,

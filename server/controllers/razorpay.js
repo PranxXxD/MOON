@@ -1,18 +1,15 @@
 const shortid = require("shortid");
 const Razorpay = require("razorpay");
-const Product = require("../models/product");
 const Cart = require("../models/cart");
 const User = require("../models/user");
-const Coupon = require("../models/coupon");
-const Formidable = require("formidable");
-const Order = require("../models/order");
+const bodyParser = require("body-parser");
 
 const razorpay = new Razorpay({
   key_id: "rzp_test_Uh2D7oTuy7FFum",
   key_secret: "i8ZLZtj9sE4F3yQXpuP7ARic",
 });
 
-exports.verifyAndOrder = async (req, res) => {
+exports.verify = async (req, res) => {
   // do a validation
   const secret = "humaira";
 
@@ -24,16 +21,16 @@ exports.verifyAndOrder = async (req, res) => {
   shasum.update(JSON.stringify(req.body));
   const digest = shasum.digest("hex");
 
-  // console.log(digest, req.headers["x-razorpay-signature"]);
+  console.log(digest, req.headers["x-razorpay-signature"]);
 
   if (digest === req.headers["x-razorpay-signature"]) {
     console.log("Request is Legit");
     // process it
-    res.json({ ok: "Payment Succesfull" });
-    console.log("Payment Succesfull");
+    res.json({ ok: "payment succesfull" });
   } else {
-    res.json({ err: "Payment Failed" });
-    console.log("Payment Failed");
+    // pass it
+    res.json({ err: "payment failed" });
+    console.log("Request is failed");
   }
 };
 

@@ -12,12 +12,9 @@ app.use(bodyParser.json());
 //middlewares
 const { authCheck } = require("../middlewares/auth");
 
-const {
-  Create,
-    verifyAndOrder,
-} = require("../controllers/razorpay");
+const { Create, verify } = require("../controllers/razorpay");
 
 router.post("/razorpay", authCheck, Create);
-router.post("/verification", verifyAndOrder);
+router.post("/verification", verify);
 
 module.exports = router;

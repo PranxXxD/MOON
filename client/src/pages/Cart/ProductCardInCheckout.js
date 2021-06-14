@@ -7,7 +7,7 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const ProductCardInCheckout = ({ p, setTotalAfterDiscount, handleCoupon }) => {
+const ProductCardInCheckout = ({ p, handleCoupon }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   let dispatch = useDispatch();
 

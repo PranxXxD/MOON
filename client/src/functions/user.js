@@ -18,6 +18,13 @@ export const getUserCart = async (authtoken) =>
     },
   });
 
+export const getUser = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/user`, {
+    headers: {
+      authtoken,
+    },
+  });
+
 export const emptyUserCart = async (authtoken) =>
   await axios.delete(`${process.env.REACT_APP_API}/user/cart`, {
     headers: {
@@ -47,7 +54,7 @@ export const applyCoupon = async (authtoken, coupon) =>
     }
   );
 
-  export const createOrder = async (payloadDetails, authtoken) =>
+export const createOrder = async (payloadDetails, authtoken) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/order`,
     { payloadDetails },
@@ -57,5 +64,3 @@ export const applyCoupon = async (authtoken, coupon) =>
       },
     }
   );
-
-
