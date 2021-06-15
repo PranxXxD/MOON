@@ -41,7 +41,8 @@ const OrderConfirm = ({ history }) => {
                   Thank you for your Order, {name}.
                 </Heading>
                 <Subtitle darkText={true}>
-                  Please Continue shopping, You can track your order in Orders.
+                  Please Continue shopping, You can track your order in
+                  dashboard.
                 </Subtitle>
                 <BtnWrap>
                   <Button

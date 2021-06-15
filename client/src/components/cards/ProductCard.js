@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Card, Tooltip } from "antd";
-import {
-  EyeOutlined,
-  ShoppingCartOutlined,
-  HeartOutlined,
-} from "@ant-design/icons";
 import laptop from "../../images/laptop.jpg";
 import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 import "./productcard.css";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import ErrorIcon from "@material-ui/icons/Error";
 
 const { Meta } = Card;
 
@@ -75,19 +73,30 @@ const ProductCard = ({ product }) => {
         }
         actions={[
           <Link to={``}>
-            <HeartOutlined className="text-danger" /> <br /> Add to Wishlist
+            <FavoriteBorderIcon className="text-danger" /> <br /> Add to
+            Wishlist
           </Link>,
-          <Tooltip title={tooltip}>
-            <a onClick={handleAddToCart}>
-              <ShoppingCartOutlined className="text-warning" /> <br /> Add to
-              Cart
-            </a>
-          </Tooltip>,
+          <>
+            {product.quantity < 1 ? (
+              <a>
+                <ErrorIcon className="text-warning" /> <br /> Out of Stock
+              </a>
+            ) : (
+              <Tooltip title={tooltip}>
+                <a onClick={handleAddToCart}>
+                  <AddShoppingCartIcon className="text-success" /> <br /> Add to
+                  Cart
+                </a>
+              </Tooltip>
+            )}
+          </>,
         ]}
       >
         <Link to={`/product/${slug}`}>
           <div>
-            <p className="price">₹{price}</p>
+            <p className="price" style={{ color: "black" }}>
+              ₹{price}
+            </p>
           </div>
           <Meta
             title={

@@ -70,15 +70,15 @@ label {
 }
 
 a {
-  color: $font-color !important;
-  text-decoration: none !important;
+  color: $font-color;
+  text-decoration: none;
   -moz-transition: color $layout-transition-speed ease-in-out;
   -webkit-transition: color $layout-transition-speed ease-in-out;
   -ms-transition: color $layout-transition-speed ease-in-out;
   transition: color $layout-transition-speed ease-in-out;
 
   &:hover {
-    color: $font-hover-color !important;
+    color: $font-hover-color;
     -moz-transition: color $layout-transition-speed ease-in-out;
     -webkit-transition: color $layout-transition-speed ease-in-out;
     -ms-transition: color $layout-transition-speed ease-in-out;
