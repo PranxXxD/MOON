@@ -97,7 +97,7 @@ const Checkout = ({ history, displayRazorpay }) => {
               <div className="form-group">
                 <label>Phone</label>
                 <input
-                  type="text"
+                  type="number"
                   name={"phone"}
                   className="form-control"
                   value={address.phone}
